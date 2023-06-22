@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild Source/main.js --bundle --outfile=build/main.js"
+    "build": "esbuild Source/main.js --bundle --outfile=build/main.js",
+    "dev": "esbuild Source/main.js --bundle --outfile=build/main.js --watch --servedir=build"
   },
   "keywords": [],
   "author": "",
