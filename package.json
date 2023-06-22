@@ -1,0 +1,15 @@
+{
+  "name": "mining-empire",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild Source/main.js --bundle --outfile=build/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.18.6"
+  }
+}
