@@ -2,6 +2,7 @@ import { Time } from "./Logic/Time";
 import { Game } from "./Logic/Game";
 import createGround from "./Map/surface";
 import createTrees from "./Map/treesCreate";
+import home from "./Map/home";
 let game = new Game(()=>{},Update, ()=>{},()=>{},()=>{});
 let p = document.querySelector("p");
 function Update(){
@@ -10,7 +11,7 @@ function Update(){
 
 createTrees(600, 300);
 createTrees(600, 900);
-createTrees(600, 1500);
+home(600, 1300);
 createTrees(600, 2100);
 createTrees(600, 2700);
 createGround();

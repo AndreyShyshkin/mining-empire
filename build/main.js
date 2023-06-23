@@ -171,6 +171,39 @@
   }
   var treesCreate_default = createTrees;
 
+  // Source/Map/home.js
+  var map3 = document.getElementById("playMap");
+  function home(cordinatY, cordinatX) {
+    let home2 = document.createElement("div");
+    home2.className = "home";
+    map3.appendChild(home2);
+    for (i = 1; i < 5; i++) {
+      const home3 = document.getElementById("playMap");
+      let homeLevel1 = document.createElement("div");
+      homeLevel1.className = "home-" + i + "-1";
+      homeLevel1.style.top = cordinatY - 200 + "px";
+      homeLevel1.style.left = cordinatX + 100 * i + "px";
+      home3.appendChild(homeLevel1);
+    }
+    for (i = 1; i < 5; i++) {
+      const home3 = document.getElementById("playMap");
+      let homeLevel2 = document.createElement("div");
+      homeLevel2.className = "home-" + i + "-2";
+      homeLevel2.style.top = cordinatY - 100 + "px";
+      homeLevel2.style.left = cordinatX + 100 * i + "px";
+      home3.appendChild(homeLevel2);
+    }
+    for (i = 1; i < 5; i++) {
+      const home3 = document.getElementById("playMap");
+      let homeLevel3 = document.createElement("div");
+      homeLevel3.className = "home-" + i + "-3";
+      homeLevel3.style.top = cordinatY + "px";
+      homeLevel3.style.left = cordinatX + 100 * i + "px";
+      home3.appendChild(homeLevel3);
+    }
+  }
+  var home_default = home;
+
   // Source/main.js
   var game = new Game(() => {
   }, Update, () => {
@@ -183,7 +216,7 @@
   }
   treesCreate_default(600, 300);
   treesCreate_default(600, 900);
-  treesCreate_default(600, 1500);
+  home_default(600, 1300);
   treesCreate_default(600, 2100);
   treesCreate_default(600, 2700);
   surface_default();

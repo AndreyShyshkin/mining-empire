@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body{
+    background-image: url("../images/background.png");
+}
+
 #playMap{
     width: 100%;
     height: 1000px;
@@ -132,6 +136,103 @@
     background-image: url("../images/tile_0059.png");
     width: 50px;
     height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+
+.home-1-1{
+    background-image: url("../images/tile_0048.png");
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.home-2-1{
+    background-image: url("../images/tile_0049.png");
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.home-3-1{
+    background-image: url("../images/tile_0050.png");
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.home-4-1{
+    background-image: url("../images/tile_0051.png");
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.home-1-2{
+    background-image: url("../images/tile_0060.png");
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.home-2-2{
+    background-image: url("../images/tile_0061.png");
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.home-3-2{
+    background-image: url("../images/tile_0062.png");
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.home-4-2{
+    background-image: url("../images/tile_0063.png");
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.home-1-3{
+    background-image: url("../images/tile_0072.png");
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.home-2-3{
+    background-image: url("../images/tile_0073.png");
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.home-3-3{
+    background-image: url("../images/tile_0074.png");
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.home-4-3{
+    background-image: url("../images/tile_0075.png");
+    width: 100px;
+    height: 100px;
     background-size: contain;
     background-repeat: no-repeat;
     position: absolute;
