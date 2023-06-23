@@ -28,3 +28,38 @@
 .dirt{
     background-image: url("../images/tile_0122.png");
 }
+
+.trees{
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    width: 500px;
+    height: 500px;
+}
+
+.treeFirst{
+    background-image: url("../images/tile_0137.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+
+.treeTrunk{
+    background-image: url("../images/tile_0116.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+
+.treeTrunkLast{
+    background-image: url("../images/tile_0097.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}

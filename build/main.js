@@ -55,26 +55,60 @@
     let a = 0;
     let groundHeight = 50;
     while ((a + 1) * groundHeight <= mapHeight) {
-      let i = 0;
+      let i2 = 0;
       let groundWidth = 50;
-      while ((i + 1) * groundWidth <= mapWidth) {
+      while ((i2 + 1) * groundWidth <= mapWidth) {
         let ground = document.createElement("div");
         ground.className = "ground";
         ground.style.top = 500 + a * groundHeight + "px";
         if (a > 0) {
           ground.classList.add("dirt");
         }
-        ground.style.left = i * groundWidth + "px";
+        ground.style.left = i2 * groundWidth + "px";
         let left = ground.style.left.replace("px", "");
         let top = ground.style.top.replace("px", "");
         ground.id = "x-" + left + "y-" + top;
         map.appendChild(ground);
-        i++;
+        i2++;
       }
       a++;
     }
   }
   var surface_default = createGround;
+
+  // Source/Map/treesCreate.js
+  var map2 = document.getElementById("playMap");
+  function createTrees() {
+    let trees = document.createElement("div");
+    trees.className = "trees";
+    let left = trees.style.left.replace("px", "");
+    let top = trees.style.top.replace("px", "");
+    trees.id = "x-" + left + "y-" + top;
+    map2.appendChild(trees);
+    buildTrees(trees);
+  }
+  function buildTrees(trees) {
+    let treeFirst = document.createElement("div");
+    treeFirst.className = "treeFirst";
+    treeFirst.style.top = "450px";
+    treeFirst.style.left = "300px";
+    trees.appendChild(treeFirst);
+    let hightTree = 0;
+    for (i = 0; i < 5; i++) {
+      let treeTrunk = document.createElement("div");
+      treeTrunk.className = "treeTrunk";
+      treeTrunk.style.top = 400 - hightTree + "px";
+      treeTrunk.style.left = "300px";
+      trees.appendChild(treeTrunk);
+      hightTree += 50;
+    }
+    let treeTrunkLast = document.createElement("div");
+    treeTrunkLast.className = "treeTrunkLast";
+    treeTrunkLast.style.top = 400 - hightTree + "px";
+    treeTrunkLast.style.left = "300px";
+    trees.appendChild(treeTrunkLast);
+  }
+  var treesCreate_default = createTrees;
 
   // Source/main.js
   var game = new Game(() => {
@@ -86,6 +120,7 @@
   function Update() {
     p.innerText = Time.DeltaTime;
   }
+  treesCreate_default();
   surface_default();
   game.Start();
 })();
