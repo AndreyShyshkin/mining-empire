@@ -18,23 +18,6 @@
     }
   };
 
-  // Source/Map/surface.js
-  var map = document.getElementById("playMap");
-  var mapWidth = map.offsetWidth * 2;
-  function createGround() {
-    let i = 0;
-    let groundWidth = 50;
-    while ((i + 1) * groundWidth <= mapWidth) {
-      let ground = document.createElement("div");
-      ground.className = "ground";
-      ground.style.top = "500px";
-      ground.style.left = i * groundWidth + "px";
-      map.appendChild(ground);
-      i++;
-    }
-  }
-  var surface_default = createGround;
-
   // Source/Logic/Game.js
   var Game = class {
     onStart;
@@ -51,7 +34,6 @@
       this.onClearPause = onClearPause;
     }
     Start() {
-      surface_default();
       this.onStart();
       Time.Init();
       window.requestAnimationFrame(this.Update.bind(this));
@@ -65,6 +47,35 @@
     }
   };
 
+  // Source/Map/surface.js
+  var map = document.getElementById("playMap");
+  var mapWidth = map.offsetWidth * 2;
+  var mapHeight = map.offsetHeight;
+  function createGround() {
+    let a = 0;
+    let groundHeight = 50;
+    while ((a + 1) * groundHeight <= mapHeight) {
+      let i = 0;
+      let groundWidth = 50;
+      while ((i + 1) * groundWidth <= mapWidth) {
+        let ground = document.createElement("div");
+        ground.className = "ground";
+        ground.style.top = 500 + a * groundHeight + "px";
+        if (a > 0) {
+          ground.classList.add("dirt");
+        }
+        ground.style.left = i * groundWidth + "px";
+        let left = ground.style.left.replace("px", "");
+        let top = ground.style.top.replace("px", "");
+        ground.id = "x-" + left + "y-" + top;
+        map.appendChild(ground);
+        i++;
+      }
+      a++;
+    }
+  }
+  var surface_default = createGround;
+
   // Source/main.js
   var game = new Game(() => {
   }, Update, () => {
@@ -75,5 +86,6 @@
   function Update() {
     p.innerText = Time.DeltaTime;
   }
+  surface_default();
   game.Start();
 })();
