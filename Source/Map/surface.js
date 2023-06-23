@@ -17,15 +17,32 @@ function createGround() {
       
       ground.style.top = 700 + a * groundHeight + "px";
       if(a > 0){
+        if(a > 3 && a < 10){
         let spawn = Math.floor(Math.random() * 100);
-        console.log(spawn)
         if(spawn < 5){
             ground.classList.add("iron")
-          }else if(spawn < 20){
+          }else if(spawn < 15){
             ground.classList.add("coal")
           }else{
             ground.classList.add("dirt")
             }
+        }else{
+            ground.classList.add("dirt")
+        }
+        if(a > 10 && a < 20){
+            let spawn = Math.floor(Math.random() * 100);
+            if(spawn < 5){
+                ground.classList.add("coal")
+              }else if(spawn < 15){
+                ground.classList.add("iron")
+              }else{
+                ground.classList.add("dirt")
+                }
+            }else{
+                ground.classList.add("dirt")
+            }
+
+        
         
       }
       ground.style.left = i * groundWidth + "px";
