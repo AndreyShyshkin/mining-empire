@@ -33,23 +33,9 @@ function buildTrees(trees, cotdinatX, cotdinatY){
       let treeTrunkLast = document.createElement("div");
       treeTrunkLast.className = "treeTrunkLast";
       treeTrunkLast.style.top = cotdinatX - hightTree + "px";
-      treeTrunkLast.style.left = "300px";
+      treeTrunkLast.style.left = cotdinatY + "px";
 
       trees.appendChild(treeTrunkLast);
-
-      let leave_left_bottom = document.createElement("div");
-      leave_left_bottom.className = "leave-left-bottom";
-      leave_left_bottom.style.top = cotdinatX - hightTree + "px";
-      leave_left_bottom.style.left = "250px";
-
-      trees.appendChild(leave_left_bottom);
-
-      let leave_right_bottom = document.createElement("div");
-      leave_right_bottom.className = "leave-right-bottom";
-      leave_right_bottom.style.top = cotdinatX - hightTree + "px";
-      leave_right_bottom.style.left = "350px";
-
-      trees.appendChild(leave_right_bottom);
 
       hightTree += 50;
 
