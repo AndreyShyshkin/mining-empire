@@ -1,4 +1,5 @@
 import { Time } from "./Time";
+import createGround from "../Map/surface";
 
 export class Game{
     onStart;
@@ -15,6 +16,7 @@ export class Game{
         this.onClearPause = onClearPause;
     }
     Start(){
+        createGround();
         this.onStart();
         Time.Init();
         window.requestAnimationFrame(this.Update.bind(this));
