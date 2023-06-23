@@ -1,6 +1,6 @@
 const map = document.getElementById("playMap");
 const mapWidth = 2000 * 2;
-const mapHeight = map.offsetHeight;
+const mapHeight = 5000;
 
 function createGround() {
   let a = 0;
@@ -17,7 +17,7 @@ function createGround() {
       
       ground.style.top = 700 + a * groundHeight + "px";
       if(a > 0){
-        if(a > 3 && a < 10){
+        if(a > 3 && a < 20){
         let spawn = Math.floor(Math.random() * 100);
         if(spawn < 5){
             ground.classList.add("iron")
@@ -29,7 +29,7 @@ function createGround() {
         }else{
             ground.classList.add("dirt")
         }
-        if(a > 10 && a < 20){
+        if(a > 20){
             let spawn = Math.floor(Math.random() * 100);
             if(spawn < 5){
                 ground.classList.add("coal")
