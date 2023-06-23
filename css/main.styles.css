@@ -5,11 +5,22 @@
 
 body{
     background-image: url("../images/background.png");
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 #playMap{
     width: 100%;
     height: 1000px;
+}
+
+#player{
+    width: 50px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    left: 200px;
+    top: 600px;
 }
 
 .ground{

@@ -227,6 +227,40 @@
   }
   var home_default = home;
 
+  // Source/player.js
+  function player() {
+    const moveRange = 20;
+    window.scrollTo(0, 0);
+    document.addEventListener("keydown", function(event) {
+      if (event.keyCode === 68) {
+        event.preventDefault();
+        movePlayer("left", moveRange);
+        window.scrollBy(moveRange, 0);
+      } else if (event.keyCode === 65) {
+        event.preventDefault();
+        movePlayer("left", -moveRange);
+        window.scrollBy(-moveRange, 0);
+      } else if (event.keyCode === 32 || event.keyCode === 87) {
+        event.preventDefault();
+        movePlayer("top", -moveRange);
+        window.scrollBy(0, -moveRange);
+      } else if (event.keyCode === 17 || event.keyCode === 83) {
+        event.preventDefault();
+        movePlayer("top", moveRange);
+        window.scrollBy(0, moveRange);
+      }
+    });
+  }
+  function movePlayer(property, value) {
+    let player2 = document.getElementById("player");
+    if (player2) {
+      let current = parseInt(player2.style[property]) || 0;
+      let newPosition = current + value;
+      player2.style[property] = newPosition + "px";
+    }
+  }
+  var player_default = player;
+
   // Source/main.js
   var game = new Game(() => {
   }, Update, () => {
@@ -243,5 +277,13 @@
   treesCreate_default(600, 2100);
   treesCreate_default(600, 2700);
   surface_default();
+  player_default();
+  window.onload = function() {
+    restartGame();
+  };
+  var restart = document.querySelector(".restart");
+  restart.onclick = function restartGame2() {
+    window.scrollTo(0, 0);
+  };
   game.Start();
 })();
