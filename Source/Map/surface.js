@@ -12,10 +12,21 @@ function createGround() {
 
     while ((i + 1) * groundWidth <= mapWidth) {
       let ground = document.createElement("div");
+      
       ground.className = "ground";
+      
       ground.style.top = 700 + a * groundHeight + "px";
       if(a > 0){
-        ground.classList.add("dirt")
+        let spawn = Math.floor(Math.random() * 100);
+        console.log(spawn)
+        if(spawn < 5){
+            ground.classList.add("iron")
+          }else if(spawn < 20){
+            ground.classList.add("coal")
+          }else{
+            ground.classList.add("dirt")
+            }
+        
       }
       ground.style.left = i * groundWidth + "px";
 

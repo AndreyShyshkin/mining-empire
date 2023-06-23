@@ -33,6 +33,14 @@ body{
     background-image: url("../images/tile_0122.png");
 }
 
+.coal{
+    background-image: url("../images/coal.png");
+}
+
+.iron{
+    background-image: url("../images/iron.png");
+}
+
 .trees{
     background-repeat: no-repeat;
     background-size: contain;
