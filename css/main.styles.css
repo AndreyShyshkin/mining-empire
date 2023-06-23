@@ -63,3 +63,76 @@
     background-repeat: no-repeat;
     position: absolute;
 }
+
+.leave-left-top{
+    background-image: url("../images/tile_0017.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.leave-middle-top{
+    background-image: url("../images/tile_0018.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.leave-right-top{
+    background-image: url("../images/tile_0019.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.leave-left-middle{
+    background-image: url("../images/tile_0037.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;    
+}
+.leave-middle-middle{
+    background-image: url("../images/tile_0038.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.leave-right-middle{
+    background-image: url("../images/tile_0039.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.leave-left-bottom{
+    background-image: url("../images/tile_0057.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.leave-middle-bottom{
+    background-image: url("../images/tile_0058.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.leave-right-bottom{
+    background-image: url("../images/tile_0059.png");
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+}

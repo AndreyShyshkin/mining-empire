@@ -8,7 +8,11 @@ function Update(){
     p.innerText = Time.DeltaTime;
 }
 
-createTrees();
+createTrees(600, 300);
+createTrees(600, 900);
+createTrees(600, 1500);
+createTrees(600, 2100);
+createTrees(600, 2700);
 createGround();
 game.Start();
 

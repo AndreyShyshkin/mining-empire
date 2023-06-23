@@ -1,5 +1,5 @@
 const map = document.getElementById("playMap");
-const mapWidth = map.offsetWidth * 2;
+const mapWidth = 2000 * 2;
 const mapHeight = map.offsetHeight;
 
 function createGround() {
@@ -13,7 +13,7 @@ function createGround() {
     while ((i + 1) * groundWidth <= mapWidth) {
       let ground = document.createElement("div");
       ground.className = "ground";
-      ground.style.top = 500 + a * groundHeight + "px";
+      ground.style.top = 700 + a * groundHeight + "px";
       if(a > 0){
         ground.classList.add("dirt")
       }
