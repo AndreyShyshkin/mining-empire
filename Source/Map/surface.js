@@ -24,7 +24,7 @@ function createGround() {
 
       if(a > 0){
         let dangSpawn = Math.floor(Math.random() * 2000);
-        if(dangSpawn < 1 && a > 10){danger(ground, left, top);}else{
+        if(dangSpawn < 1 && a > 10 && left > 10 && left < mapWidth - 10){danger(ground, left, top);}else{
         if(a > 3 && a < 20){
         let spawn = Math.floor(Math.random() * 100);
         if(spawn < 3){
