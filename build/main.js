@@ -66,7 +66,7 @@
         let top = ground.style.top.replace("px", "");
         if (a > 0) {
           let dangSpawn = Math.floor(Math.random() * 2e3);
-          if (dangSpawn < 1 && a > 10) {
+          if (dangSpawn < 1 && a > 10 && left > 10 && left < mapWidth - 10) {
             danger(ground, left, top);
           } else {
             if (a > 3 && a < 20) {
