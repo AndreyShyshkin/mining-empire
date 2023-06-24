@@ -268,7 +268,7 @@
 
   // Source/player.js
   function player() {
-    const moveRange = 20;
+    const moveRange = 25;
     window.scrollTo(0, 0);
     document.addEventListener("keydown", function(event) {
       if (event.keyCode === 68) {
