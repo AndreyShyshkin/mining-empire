@@ -61,40 +61,79 @@
         let ground = document.createElement("div");
         ground.className = "ground";
         ground.style.top = 700 + a * groundHeight + "px";
-        if (a > 0) {
-          if (a > 3 && a < 20) {
-            let spawn = Math.floor(Math.random() * 100);
-            if (spawn < 5) {
-              ground.classList.add("iron");
-            } else if (spawn < 15) {
-              ground.classList.add("coal");
-            } else {
-              ground.classList.add("dirt");
-            }
-          } else {
-            ground.classList.add("dirt");
-          }
-          if (a > 20) {
-            let spawn = Math.floor(Math.random() * 100);
-            if (spawn < 5) {
-              ground.classList.add("coal");
-            } else if (spawn < 15) {
-              ground.classList.add("iron");
-            } else {
-              ground.classList.add("dirt");
-            }
-          } else {
-            ground.classList.add("dirt");
-          }
-        }
         ground.style.left = i2 * groundWidth + "px";
         let left = ground.style.left.replace("px", "");
         let top = ground.style.top.replace("px", "");
+        if (a > 0) {
+          let dangSpawn = Math.floor(Math.random() * 2e3);
+          if (dangSpawn < 1 && a > 10) {
+            danger(ground, left, top);
+          } else {
+            if (a > 3 && a < 20) {
+              let spawn = Math.floor(Math.random() * 100);
+              if (spawn < 3) {
+                ground.classList.add("iron");
+              } else if (spawn < 10) {
+                ground.classList.add("coal");
+              } else {
+                ground.classList.add("dirt");
+              }
+            } else {
+              ground.classList.add("dirt");
+            }
+            if (a > 20) {
+              let spawn = Math.floor(Math.random() * 100);
+              if (spawn < 3) {
+                ground.classList.add("coal");
+              } else if (spawn < 10) {
+                ground.classList.add("iron");
+              } else {
+                ground.classList.add("dirt");
+              }
+            } else {
+              ground.classList.add("dirt");
+            }
+          }
+        }
         ground.id = "x-" + left + "y-" + top;
         map.appendChild(ground);
         i2++;
       }
       a++;
+    }
+  }
+  function danger(ground, left, top) {
+    ground.classList.add("dangerWall");
+    let dangerWidth = 0;
+    let dangerHeight = 0;
+    while (dangerHeight < 7) {
+      while (dangerWidth < 12) {
+        if (dangerHeight == 0 || dangerHeight == 6 || dangerWidth == 0 || dangerWidth == 11) {
+          let danger2 = document.createElement("div");
+          danger2.className = "danger";
+          danger2.style.top = parseInt(top) - dangerHeight * 50 + "px";
+          danger2.style.left = parseInt(left) - dangerWidth * 50 + "px";
+          danger2.classList.add("dangerWall");
+          map.appendChild(danger2);
+        } else {
+          let danger2 = document.createElement("div");
+          danger2.className = "danger";
+          danger2.style.top = parseInt(top) - dangerHeight * 50 + "px";
+          danger2.style.left = parseInt(left) - dangerWidth * 50 + "px";
+          danger2.classList.add("dirt-bg");
+          map.appendChild(danger2);
+          if (dangerHeight == 1 && dangerWidth == 4) {
+            let chest = document.createElement("div");
+            chest.className = "chest";
+            chest.style.top = parseInt(top) - dangerHeight * 50 + "px";
+            chest.style.left = parseInt(left) + 50 - dangerWidth * 50 + "px";
+            map.appendChild(chest);
+          }
+        }
+        dangerWidth++;
+      }
+      dangerHeight++;
+      dangerWidth = 0;
     }
   }
   var surface_default = createGround;
@@ -282,8 +321,11 @@
     restartGame();
   };
   var restart = document.querySelector(".restart");
-  restart.onclick = function restartGame2() {
+  restart.onclick = function() {
     window.scrollTo(0, 0);
   };
+  function restartGame() {
+    window.scrollTo(0, 0);
+  }
   game.Start();
 })();

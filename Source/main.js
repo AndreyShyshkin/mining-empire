@@ -24,7 +24,11 @@ window.onload = function() {
 
 let restart = document.querySelector(".restart");
 
-restart.onclick = function restartGame(){
+restart.onclick = function(){
+    window.scrollTo(0, 0);
+};
+
+function restartGame(){
     window.scrollTo(0, 0);
 };
 
