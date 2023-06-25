@@ -232,7 +232,6 @@
     Update() {
       if (!this.ShouldStop) {
         Time.Update();
-        console.log(Time.DeltaTime);
         this.onUpdate();
         window.requestAnimationFrame(this.Update.bind(this));
       }
