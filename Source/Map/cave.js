@@ -1,15 +1,7 @@
 import { CreateImageByPath } from "../Logic/RenderImage"
 import { Tile } from "../Entities/Tile"
 import { Vector2 } from "../Math/Vector2"
-
-let img = CreateImageByPath("Res/img/1085818.jpg");
-let tile1 = CreateImageByPath("Res/img/Grass.png");
-let tile2 = CreateImageByPath("Res/img/Tile2.png");
-let iron = CreateImageByPath("Res/img/Iron.png");
-let coal = CreateImageByPath("Res/img/Coal.png");
-
-let cross = CreateImageByPath("Res/img/Cross.png");
-let chest = CreateImageByPath("Res/img/Chest.png");
+import { Images } from "../Graphics/Images";
 
 function cave(TC){
   for (let y = 6; y < 1000; y++) {
@@ -19,7 +11,7 @@ function cave(TC){
           new Tile(
             new Vector2(0 + 100 * x, 100 * y),
             new Vector2(100, 100),
-            tile1,
+            Images.tile1,
             1
           )
         )
@@ -28,7 +20,7 @@ function cave(TC){
           new Tile(
             new Vector2(0 + 100 * x, 100 * y),
             new Vector2(100, 100),
-            tile2,
+            Images.tile2,
             1
           )
         )
@@ -55,7 +47,7 @@ function cave(TC){
                   new Tile(
                   new Vector2(0 + 100 * x, 100 * y),
                   new Vector2(100, 100),
-                  chest,
+                  Images.chest,
                   1
                   )
                 )
@@ -64,7 +56,7 @@ function cave(TC){
                 new Tile(
                 new Vector2(0 + 100 * x, 100 * y),
                 new Vector2(100, 100),
-                cross,
+                Images.cross,
                 1
                 )
               )}
@@ -77,7 +69,7 @@ function cave(TC){
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
-              coal,
+              Images.coal,
               1
             )
           )
@@ -87,7 +79,7 @@ function cave(TC){
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
-              iron,
+              Images.iron,
               1
             )
           )
@@ -97,7 +89,7 @@ function cave(TC){
           new Tile(
             new Vector2(0 + 100 * x, 100 * y),
             new Vector2(100, 100),
-            tile2,
+            Images.tile2,
             1
           )
         )
@@ -107,7 +99,7 @@ function cave(TC){
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
-              iron,
+              Images.iron,
               1
             )
           )
@@ -117,7 +109,7 @@ function cave(TC){
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
-              coal,
+              Images.coal,
               1
             )
           )
@@ -127,7 +119,7 @@ function cave(TC){
           new Tile(
             new Vector2(0 + 100 * x, 100 * y),
             new Vector2(100, 100),
-            tile2,
+            Images.tile2,
             1
           )
         )  

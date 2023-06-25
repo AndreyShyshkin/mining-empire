@@ -11,9 +11,9 @@
       this.Canvas.width = 1920;
       this.Canvas.height = 1080;
       this.Context = this.Canvas.getContext("2d");
-      let img2 = new Image();
-      img2.src = "Res/img/1085818.jpg";
-      this.Context.drawImage(img2, 0, 0);
+      let img = new Image();
+      img.src = "Res/img/1085818.jpg";
+      this.Context.drawImage(img, 0, 0);
     }
   };
 
@@ -411,19 +411,23 @@
 
   // Source/Logic/RenderImage.js
   function CreateImageByPath(path) {
-    let img2 = new Image();
-    img2.src = path;
-    return img2;
+    let img = new Image();
+    img.src = path;
+    return img;
   }
 
+  // Source/Graphics/Images.js
+  var Images = class {
+    static img = CreateImageByPath("Res/img/1085818.jpg");
+    static tile1 = CreateImageByPath("Res/img/Grass.png");
+    static tile2 = CreateImageByPath("Res/img/Tile2.png");
+    static iron = CreateImageByPath("Res/img/Iron.png");
+    static coal = CreateImageByPath("Res/img/Coal.png");
+    static cross = CreateImageByPath("Res/img/Cross.png");
+    static chest = CreateImageByPath("Res/img/Chest.png");
+  };
+
   // Source/Map/cave.js
-  var img = CreateImageByPath("Res/img/1085818.jpg");
-  var tile1 = CreateImageByPath("Res/img/Grass.png");
-  var tile2 = CreateImageByPath("Res/img/Tile2.png");
-  var iron = CreateImageByPath("Res/img/Iron.png");
-  var coal = CreateImageByPath("Res/img/Coal.png");
-  var cross = CreateImageByPath("Res/img/Cross.png");
-  var chest = CreateImageByPath("Res/img/Chest.png");
   function cave(TC2) {
     for (let y = 6; y < 1e3; y++) {
       for (let x = -50; x < 50; x++) {
@@ -432,7 +436,7 @@
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
-              tile1,
+              Images.tile1,
               1
             )
           );
@@ -441,7 +445,7 @@
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
-              tile2,
+              Images.tile2,
               1
             )
           );
@@ -468,7 +472,7 @@
                     new Tile(
                       new Vector2(0 + 100 * x, 100 * y),
                       new Vector2(100, 100),
-                      chest,
+                      Images.chest,
                       1
                     )
                   );
@@ -477,7 +481,7 @@
                     new Tile(
                       new Vector2(0 + 100 * x, 100 * y),
                       new Vector2(100, 100),
-                      cross,
+                      Images.cross,
                       1
                     )
                   );
@@ -493,7 +497,7 @@
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
-                    coal,
+                    Images.coal,
                     1
                   )
                 );
@@ -502,7 +506,7 @@
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
-                    iron,
+                    Images.iron,
                     1
                   )
                 );
@@ -511,7 +515,7 @@
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
-                    tile2,
+                    Images.tile2,
                     1
                   )
                 );
@@ -521,7 +525,7 @@
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
-                    iron,
+                    Images.iron,
                     1
                   )
                 );
@@ -530,7 +534,7 @@
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
-                    coal,
+                    Images.coal,
                     1
                   )
                 );
@@ -539,7 +543,7 @@
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
-                    tile2,
+                    Images.tile2,
                     1
                   )
                 );
