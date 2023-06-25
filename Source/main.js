@@ -6,6 +6,7 @@ import { Time } from "./Logic/Time"
 import { Tile } from "./Entities/Tile"
 import { Player } from "./Entities/Player"
 import { TileController } from "./Entities/TileController"
+import { CreateImageByPath } from "./Logic/RenderImage"
 
 let TC = new TileController(100, 1920)
 
@@ -17,18 +18,16 @@ let game = new Game(
   () => {},
   () => {}
 )
-let img = new Image()
-img.src = "Res/img/1085818.jpg"
-let tile1 = new Image()
-tile1.src = "Res/img/Tile1.png"
-let tile2 = new Image()
-tile2.src = "Res/img/Tile2.png"
-let playerImg = new Image()
-playerImg.src = "Res/img/player1.png"
+let img = CreateImageByPath("Res/img/1085818.jpg");
+let tile1 = CreateImageByPath("Res/img/Grass.png");
+let tile2 = CreateImageByPath("Res/img/Tile2.png");
+let iron = CreateImageByPath("Res/img/Iron.png");
+let coal = CreateImageByPath("Res/img/Coal.png");
+let playerImg = CreateImageByPath("Res/img/player1.png");
 let pos = Vector2.Zero
 let player = new Player(
   new Vector2(900, 450),
-  new Vector2(100, 100),
+  new Vector2(80, 80),
   playerImg,
   1
 )
@@ -46,6 +45,28 @@ for (let y = 6; y < 1000; y++) {
         )
       )
     } else {
+      let r = Random(1, 100);
+      if(r < 5){
+        TC.GetLayer(y).push(
+          new Tile(
+            new Vector2(0 + 100 * x, 100 * y),
+            new Vector2(100, 100),
+            coal,
+            1
+          )
+        )
+      }
+      else if(r < 7){
+        TC.GetLayer(y).push(
+          new Tile(
+            new Vector2(0 + 100 * x, 100 * y),
+            new Vector2(100, 100),
+            iron,
+            1
+          )
+        )
+      }
+      else
       TC.GetLayer(y).push(
         new Tile(
           new Vector2(0 + 100 * x, 100 * y),
@@ -107,4 +128,9 @@ function Update() {
     })
   })
   player.Draw(canvas.GetLayerContext(player.Layer), pos)
+}
+function Random(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }

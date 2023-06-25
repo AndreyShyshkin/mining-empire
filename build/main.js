@@ -410,6 +410,13 @@
     }
   };
 
+  // Source/Logic/RenderImage.js
+  function CreateImageByPath(path) {
+    let img2 = new Image();
+    img2.src = path;
+    return img2;
+  }
+
   // Source/main.js
   var TC = new TileController(100, 1920);
   var canvas = new Canvas(2);
@@ -423,18 +430,16 @@
     () => {
     }
   );
-  var img = new Image();
-  img.src = "Res/img/1085818.jpg";
-  var tile1 = new Image();
-  tile1.src = "Res/img/Tile1.png";
-  var tile2 = new Image();
-  tile2.src = "Res/img/Tile2.png";
-  var playerImg = new Image();
-  playerImg.src = "Res/img/player1.png";
+  var img = CreateImageByPath("Res/img/1085818.jpg");
+  var tile1 = CreateImageByPath("Res/img/Grass.png");
+  var tile2 = CreateImageByPath("Res/img/Tile2.png");
+  var iron = CreateImageByPath("Res/img/Iron.png");
+  var coal = CreateImageByPath("Res/img/Coal.png");
+  var playerImg = CreateImageByPath("Res/img/player1.png");
   var pos = Vector2.Zero;
   var player = new Player(
     new Vector2(900, 450),
-    new Vector2(100, 100),
+    new Vector2(80, 80),
     playerImg,
     1
   );
@@ -451,14 +456,34 @@
           )
         );
       } else {
-        TC.GetLayer(y).push(
-          new Tile(
-            new Vector2(0 + 100 * x, 100 * y),
-            new Vector2(100, 100),
-            tile2,
-            1
-          )
-        );
+        let r = Random(1, 100);
+        if (r < 5) {
+          TC.GetLayer(y).push(
+            new Tile(
+              new Vector2(0 + 100 * x, 100 * y),
+              new Vector2(100, 100),
+              coal,
+              1
+            )
+          );
+        } else if (r < 7) {
+          TC.GetLayer(y).push(
+            new Tile(
+              new Vector2(0 + 100 * x, 100 * y),
+              new Vector2(100, 100),
+              iron,
+              1
+            )
+          );
+        } else
+          TC.GetLayer(y).push(
+            new Tile(
+              new Vector2(0 + 100 * x, 100 * y),
+              new Vector2(100, 100),
+              tile2,
+              1
+            )
+          );
       }
     }
   }
@@ -509,5 +534,10 @@
       });
     });
     player.Draw(canvas.GetLayerContext(player.Layer), pos);
+  }
+  function Random(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
 })();
