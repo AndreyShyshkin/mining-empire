@@ -468,7 +468,7 @@
       } else {
         let r = Random(1, 100);
         let rd = Random(1, 1e3);
-        if (rd == 1 && y > 15) {
+        if (rd == 1 && y > 15 && x > -40 && x < 40) {
           let yStart = y;
           let xStart = x;
           for (a = 0; a < 4; a++) {

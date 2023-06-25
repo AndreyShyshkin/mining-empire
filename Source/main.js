@@ -60,7 +60,7 @@ for (let y = 6; y < 1000; y++) {
     } else {
       let r = Random(1, 100);
       let rd = Random(1, 1000);
-      if(rd == 1 && y > 15  && x > 10){
+      if(rd == 1 && y > 15  && x > -40 && x < 40){
         let yStart = y;
         let xStart = x;
           for(a = 0; a < 4; a++){
