@@ -366,6 +366,12 @@
         }
       });
     }
+    GetColliderDot() {
+      return [
+        this.transform.Position.Add(this.transform.Size.Scale(0.5)),
+        this.transform.Position.Add(this.transform.Size.Scale(0.5))
+      ];
+    }
     Draw(Context, Camera) {
       Context.drawImage(
         this.Image,
@@ -597,6 +603,15 @@
     }
     if (Input.GetKeyState(83) || Input.GetKeyState(17)) {
       stride = stride.Add(Vector2.Up.Scale(speed * Time.DeltaTime));
+    }
+    if (Input.GetKeyState(66)) {
+      TC.LoadedLayers.forEach((layer) => {
+        layer.forEach((entity) => {
+          if (Collisions.AABBtoAABB(entity.GetCollider(), player.GetColliderDot())) {
+            layer.splice(layer.indexOf(entity), 1);
+          }
+        });
+      });
     }
     if (stride.X > 0) {
       stride.X = Math.floor(stride.X);

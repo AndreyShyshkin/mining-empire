@@ -61,6 +61,12 @@ export class Player extends Entity {
       }
     })
   }
+  GetColliderDot() {
+    return [
+      this.transform.Position.Add(this.transform.Size.Scale(0.5)),
+      this.transform.Position.Add(this.transform.Size.Scale(0.5))
+    ]
+  }
   Draw(Context, Camera) {
     Context.drawImage(
       this.Image,

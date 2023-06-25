@@ -10,6 +10,8 @@ import { CreateImageByPath } from "./Logic/RenderImage"
 
 import cave from "./Map/cave";
 import village from "./Map/village";
+import { Layer } from "./Graphics/Canvas/Layer"
+import { Collisions } from "./Physics/Collisions"
 
 let TC = new TileController(100, 1920)
 
@@ -53,6 +55,15 @@ function UpdateInput() {
   }
   if (Input.GetKeyState(83) || Input.GetKeyState(17)) {
     stride = stride.Add(Vector2.Up.Scale(speed * Time.DeltaTime))
+  }
+  if (Input.GetKeyState(66)){// B
+    TC.LoadedLayers.forEach(layer => {
+      layer.forEach(entity => {
+        if(Collisions.AABBtoAABB(entity.GetCollider(), player.GetColliderDot())){//
+          layer.splice(layer.indexOf(entity), 1);
+        }
+      })
+    })
   }
   if (stride.X > 0) {
     stride.X = Math.floor(stride.X)
