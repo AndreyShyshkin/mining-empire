@@ -427,8 +427,8 @@
     static chest = CreateImageByPath("Res/img/Chest.png");
   };
 
-  // Source/Map/cave.js
-  function cave(TC2) {
+  // Source/Map/village.js
+  function village(TC2) {
     for (let y = 6; y < 1e3; y++) {
       for (let x = -50; x < 50; x++) {
         if (y == 6) {
@@ -440,7 +440,7 @@
               1
             )
           );
-        } else if (y < 10) {
+        } else if (y < 20) {
           TC2.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
@@ -449,116 +449,11 @@
               1
             )
           );
-        } else {
-          let r = Random(1, 100);
-          let rd = Random(1, 1e3);
-          if (rd == 1 && y > 15 && x > -40 && x < 40) {
-            let yStart = y;
-            let xStart = x;
-            for (a = 0; a < 4; a++) {
-              if (a == 0) {
-                y = yStart;
-              } else {
-                y -= 1;
-              }
-              for (i = 0; i < 9; i++) {
-                if (i == 0) {
-                  x = xStart;
-                } else {
-                  x -= 1;
-                }
-                if (a == 0 && i == 3) {
-                  TC2.GetLayer(y).push(
-                    new Tile(
-                      new Vector2(0 + 100 * x, 100 * y),
-                      new Vector2(100, 100),
-                      Images.chest,
-                      1
-                    )
-                  );
-                } else {
-                  TC2.GetLayer(y).push(
-                    new Tile(
-                      new Vector2(0 + 100 * x, 100 * y),
-                      new Vector2(100, 100),
-                      Images.cross,
-                      1
-                    )
-                  );
-                }
-              }
-              x = xStart;
-            }
-            y = yStart;
-          } else {
-            if (y >= 10 && y < 50) {
-              if (r < 5) {
-                TC2.GetLayer(y).push(
-                  new Tile(
-                    new Vector2(0 + 100 * x, 100 * y),
-                    new Vector2(100, 100),
-                    Images.coal,
-                    1
-                  )
-                );
-              } else if (r < 7) {
-                TC2.GetLayer(y).push(
-                  new Tile(
-                    new Vector2(0 + 100 * x, 100 * y),
-                    new Vector2(100, 100),
-                    Images.iron,
-                    1
-                  )
-                );
-              } else
-                TC2.GetLayer(y).push(
-                  new Tile(
-                    new Vector2(0 + 100 * x, 100 * y),
-                    new Vector2(100, 100),
-                    Images.tile2,
-                    1
-                  )
-                );
-            } else if (y >= 50) {
-              if (r < 5) {
-                TC2.GetLayer(y).push(
-                  new Tile(
-                    new Vector2(0 + 100 * x, 100 * y),
-                    new Vector2(100, 100),
-                    Images.iron,
-                    1
-                  )
-                );
-              } else if (r < 7) {
-                TC2.GetLayer(y).push(
-                  new Tile(
-                    new Vector2(0 + 100 * x, 100 * y),
-                    new Vector2(100, 100),
-                    Images.coal,
-                    1
-                  )
-                );
-              } else
-                TC2.GetLayer(y).push(
-                  new Tile(
-                    new Vector2(0 + 100 * x, 100 * y),
-                    new Vector2(100, 100),
-                    Images.tile2,
-                    1
-                  )
-                );
-            }
-          }
         }
       }
     }
   }
-  function Random(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-  var cave_default = cave;
+  var village_default = village;
 
   // Source/main.js
   var TC = new TileController(100, 1920);
@@ -582,7 +477,7 @@
     1
   );
   var Entities = [];
-  cave_default(TC);
+  village_default(TC);
   window.onload = () => game.Start();
   var speed = 500;
   function Start() {

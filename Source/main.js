@@ -9,6 +9,7 @@ import { TileController } from "./Entities/TileController"
 import { CreateImageByPath } from "./Logic/RenderImage"
 
 import cave from "./Map/cave";
+import village from "./Map/village";
 
 let TC = new TileController(100, 1920)
 
@@ -31,7 +32,8 @@ let player = new Player(
 )
 let Entities = []
 
-cave(TC);
+/*cave(TC);*/
+village(TC);
 
 window.onload = () => game.Start()
 let speed = 500
