@@ -32,8 +32,8 @@ let player = new Player(
 )
 let Entities = []
 
-/*cave(TC);*/
-village(TC);
+cave(TC);
+//village(TC);
 
 window.onload = () => game.Start()
 let speed = 500
