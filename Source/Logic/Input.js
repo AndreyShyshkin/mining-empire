@@ -1,38 +1,37 @@
-export class Input{
-    static #activeKeys = [];
-    static Init(){
-        document.onkeydown = Input.#onKeyDown;
-        document.onkeyup = Input.#onKeyUP;
-        window.addEventListener("blur", () => {
-            Input.#onChangeFocus();
-        });
+export class Input {
+    static activeKeys = []
+    static Init() {
+      document.onkeydown = Input.#onKeyDown
+      document.onkeyup = Input.#onKeyUP
+      window.addEventListener("blur", () => {
+        Input.#onChangeFocus()
+      })
     }
-    static #onKeyDown(e){
-        Input.#SetKeyState(e ,true);
-    }    
-    static #onKeyUP(e){
-        Input.#SetKeyState(e, false);
+    static #onKeyDown(e) {
+      Input.#SetKeyState(e, true)
     }
-    static #onChangeFocus(){
-        Input.#activeKeys = [];
+    static #onKeyUP(e) {
+      Input.#SetKeyState(e, false)
     }
-    static #SetKeyState(e, state){
-        if(e.keyCode == 9){
-            return;
+    static #onChangeFocus() {
+      Input.activeKeys = []
+    }
+    static #SetKeyState(e, state) {
+      if (e.keyCode == 9) {
+        return
+      }
+      if (state == true) {
+        if (!Input.activeKeys.includes(e.keyCode)) {
+          Input.activeKeys.push(e.keyCode)
         }
-        if(state == true){
-            if(!Input.#activeKeys.includes(e.keyCode)){
-                Input.#activeKeys.push(e.keyCode);
-            }
+      } else {
+        if (Input.activeKeys.includes(e.keyCode)) {
+          Input.activeKeys.splice(Input.activeKeys.indexOf(e.keyCode), 1)
         }
-        else{
-            if(Input.#activeKeys.includes(e.keyCode)){
-                Input.#activeKeys.splice(Input.#activeKeys.indexOf(e.keyCode), 1);
-            }
-        }
+      }
     }
-    //Use HTML keycode to get key state
-    static GetKeyState(keyCode){
-        return this.#activeKeys.includes(keyCode);
+    static GetKeyState(keyCode) {
+      return this.activeKeys.includes(keyCode)
     }
-}
+  }
+  
