@@ -23,6 +23,10 @@ let tile1 = CreateImageByPath("Res/img/Grass.png");
 let tile2 = CreateImageByPath("Res/img/Tile2.png");
 let iron = CreateImageByPath("Res/img/Iron.png");
 let coal = CreateImageByPath("Res/img/Coal.png");
+
+let cross = CreateImageByPath("Res/img/Cross.png");
+let chest = CreateImageByPath("Res/img/Chest.png");
+
 let playerImg = CreateImageByPath("Res/img/player1.png");
 let pos = Vector2.Zero
 let player = new Player(
@@ -44,8 +48,55 @@ for (let y = 6; y < 1000; y++) {
           1
         )
       )
+    }else if (y < 10){
+      TC.GetLayer(y).push(
+        new Tile(
+          new Vector2(0 + 100 * x, 100 * y),
+          new Vector2(100, 100),
+          tile2,
+          1
+        )
+      )
     } else {
       let r = Random(1, 100);
+      let rd = Random(1, 1000);
+      if(rd == 1 && y > 15){
+        let yStart = y;
+        let xStart = x;
+          for(a = 0; a < 4; a++){
+            if(a == 0){
+              y = yStart;
+            }else{
+              y -= 1;
+            }
+            for(i = 0; i < 9; i++){
+              if(i == 0){
+                x = xStart;
+              }else{
+                x -= 1;
+              }
+            if(a == 0 && i == 3){
+              TC.GetLayer(y).push(
+                new Tile(
+                new Vector2(0 + 100 * x, 100 * y),
+                new Vector2(100, 100),
+                chest,
+                1
+                )
+              )
+            }else {    
+            TC.GetLayer(y).push(
+              new Tile(
+              new Vector2(0 + 100 * x, 100 * y),
+              new Vector2(100, 100),
+              cross,
+              1
+              )
+            )}
+            } x = xStart;
+          } y = yStart;
+      }else{
+      if(y >= 10 && y < 50){
       if(r < 5){
         TC.GetLayer(y).push(
           new Tile(
@@ -75,6 +126,38 @@ for (let y = 6; y < 1000; y++) {
           1
         )
       )
+    } else if (y >= 50){
+      if(r < 5){
+        TC.GetLayer(y).push(
+          new Tile(
+            new Vector2(0 + 100 * x, 100 * y),
+            new Vector2(100, 100),
+            iron,
+            1
+          )
+        )
+      }
+      else if(r < 7){
+        TC.GetLayer(y).push(
+          new Tile(
+            new Vector2(0 + 100 * x, 100 * y),
+            new Vector2(100, 100),
+            coal,
+            1
+          )
+        )
+      }
+      else
+      TC.GetLayer(y).push(
+        new Tile(
+          new Vector2(0 + 100 * x, 100 * y),
+          new Vector2(100, 100),
+          tile2,
+          1
+        )
+      )  
+      }
+      }
     }
   }
 }
@@ -92,10 +175,10 @@ function UpdateInput() {
   if (Input.GetKeyState(68)) {
     stride = stride.Add(Vector2.Left.Scale(speed * Time.DeltaTime))
   }
-  if (Input.GetKeyState(87)) {
+  if (Input.GetKeyState(87) || Input.GetKeyState(32)) {
     stride = stride.Add(Vector2.Down.Scale(speed * Time.DeltaTime))
   }
-  if (Input.GetKeyState(83)) {
+  if (Input.GetKeyState(83) || Input.GetKeyState(17)) {
     stride = stride.Add(Vector2.Up.Scale(speed * Time.DeltaTime))
   }
   if (stride.X > 0) {

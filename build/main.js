@@ -26,7 +26,7 @@
       this.WScale = 16;
       this.HScale = 9;
       this.updateSize();
-      for (let i = 0; i < LayersCount; i++) {
+      for (let i2 = 0; i2 < LayersCount; i2++) {
         this.Layers.push(new Layer(this.canvas));
       }
       window.addEventListener("resize", () => this.updateSize());
@@ -392,7 +392,7 @@
     GetLayer(Layer2) {
       if (Layer2 > -1) {
         if (Layer2 > this.Layers.length - 1) {
-          for (let i = this.Layers.length; i <= Layer2; i++) {
+          for (let i2 = this.Layers.length; i2 <= Layer2; i2++) {
             this.Layers.push([]);
           }
         }
@@ -402,9 +402,9 @@
     }
     UpdateLoadted(cameraPosH) {
       this.LoadedLayers = [];
-      for (let i = cameraPosH; i < cameraPosH + this.cameraHeight; i += this.tileSize) {
-        if (i > 0) {
-          this.LoadedLayers.push(this.Layers[Math.floor(i / this.tileSize)]);
+      for (let i2 = cameraPosH; i2 < cameraPosH + this.cameraHeight; i2 += this.tileSize) {
+        if (i2 > 0) {
+          this.LoadedLayers.push(this.Layers[Math.floor(i2 / this.tileSize)]);
         }
       }
     }
@@ -435,6 +435,8 @@
   var tile2 = CreateImageByPath("Res/img/Tile2.png");
   var iron = CreateImageByPath("Res/img/Iron.png");
   var coal = CreateImageByPath("Res/img/Coal.png");
+  var cross = CreateImageByPath("Res/img/Cross.png");
+  var chest = CreateImageByPath("Res/img/Chest.png");
   var playerImg = CreateImageByPath("Res/img/player1.png");
   var pos = Vector2.Zero;
   var player = new Player(
@@ -455,35 +457,115 @@
             1
           )
         );
+      } else if (y < 10) {
+        TC.GetLayer(y).push(
+          new Tile(
+            new Vector2(0 + 100 * x, 100 * y),
+            new Vector2(100, 100),
+            tile2,
+            1
+          )
+        );
       } else {
         let r = Random(1, 100);
-        if (r < 5) {
-          TC.GetLayer(y).push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * y),
-              new Vector2(100, 100),
-              coal,
-              1
-            )
-          );
-        } else if (r < 7) {
-          TC.GetLayer(y).push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * y),
-              new Vector2(100, 100),
-              iron,
-              1
-            )
-          );
-        } else
-          TC.GetLayer(y).push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * y),
-              new Vector2(100, 100),
-              tile2,
-              1
-            )
-          );
+        let rd = Random(1, 1e3);
+        if (rd == 1 && y > 15) {
+          let yStart = y;
+          let xStart = x;
+          for (a = 0; a < 4; a++) {
+            if (a == 0) {
+              y = yStart;
+            } else {
+              y -= 1;
+            }
+            for (i = 0; i < 9; i++) {
+              if (i == 0) {
+                x = xStart;
+              } else {
+                x -= 1;
+              }
+              if (a == 0 && i == 3) {
+                TC.GetLayer(y).push(
+                  new Tile(
+                    new Vector2(0 + 100 * x, 100 * y),
+                    new Vector2(100, 100),
+                    chest,
+                    1
+                  )
+                );
+              } else {
+                TC.GetLayer(y).push(
+                  new Tile(
+                    new Vector2(0 + 100 * x, 100 * y),
+                    new Vector2(100, 100),
+                    cross,
+                    1
+                  )
+                );
+              }
+            }
+            x = xStart;
+          }
+          y = yStart;
+        } else {
+          if (y >= 10 && y < 50) {
+            if (r < 5) {
+              TC.GetLayer(y).push(
+                new Tile(
+                  new Vector2(0 + 100 * x, 100 * y),
+                  new Vector2(100, 100),
+                  coal,
+                  1
+                )
+              );
+            } else if (r < 7) {
+              TC.GetLayer(y).push(
+                new Tile(
+                  new Vector2(0 + 100 * x, 100 * y),
+                  new Vector2(100, 100),
+                  iron,
+                  1
+                )
+              );
+            } else
+              TC.GetLayer(y).push(
+                new Tile(
+                  new Vector2(0 + 100 * x, 100 * y),
+                  new Vector2(100, 100),
+                  tile2,
+                  1
+                )
+              );
+          } else if (y >= 50) {
+            if (r < 5) {
+              TC.GetLayer(y).push(
+                new Tile(
+                  new Vector2(0 + 100 * x, 100 * y),
+                  new Vector2(100, 100),
+                  iron,
+                  1
+                )
+              );
+            } else if (r < 7) {
+              TC.GetLayer(y).push(
+                new Tile(
+                  new Vector2(0 + 100 * x, 100 * y),
+                  new Vector2(100, 100),
+                  coal,
+                  1
+                )
+              );
+            } else
+              TC.GetLayer(y).push(
+                new Tile(
+                  new Vector2(0 + 100 * x, 100 * y),
+                  new Vector2(100, 100),
+                  tile2,
+                  1
+                )
+              );
+          }
+        }
       }
     }
   }
@@ -500,10 +582,10 @@
     if (Input.GetKeyState(68)) {
       stride = stride.Add(Vector2.Left.Scale(speed * Time.DeltaTime));
     }
-    if (Input.GetKeyState(87)) {
+    if (Input.GetKeyState(87) || Input.GetKeyState(32)) {
       stride = stride.Add(Vector2.Down.Scale(speed * Time.DeltaTime));
     }
-    if (Input.GetKeyState(83)) {
+    if (Input.GetKeyState(83) || Input.GetKeyState(17)) {
       stride = stride.Add(Vector2.Up.Scale(speed * Time.DeltaTime));
     }
     if (stride.X > 0) {
