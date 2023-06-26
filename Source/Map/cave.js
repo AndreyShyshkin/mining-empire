@@ -4,6 +4,7 @@ import { Vector2 } from "../Math/Vector2"
 import { Images } from "../Graphics/Images";
 
 function cave(TC){
+  level = "caveLVL";
   for (let y = 6; y < 1000; y++) {
     for (let x = -50; x < 50; x++) {
       if (y == 6) {

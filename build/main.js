@@ -449,10 +449,17 @@
     static coal = CreateImageByPath("Res/img/Coal.png");
     static cross = CreateImageByPath("Res/img/Cross.png");
     static chest = CreateImageByPath("Res/img/Chest.png");
+    static cave = CreateImageByPath("Res/img/cave.png");
+    static forge = CreateImageByPath("Res/img/forge.png");
+    static home1 = CreateImageByPath("Res/img/home1.png");
+    static home2 = CreateImageByPath("Res/img/home2.png");
+    static home3 = CreateImageByPath("Res/img/home3.png");
+    static market = CreateImageByPath("Res/img/market.png");
   };
 
   // Source/Map/cave.js
   function cave(TC2) {
+    level = "caveLVL";
     for (let y = 6; y < 1e3; y++) {
       for (let x = -50; x < 50; x++) {
         if (y == 6) {
@@ -584,6 +591,89 @@
   }
   var cave_default = cave;
 
+  // Source/Map/village.js
+  function village(TC2) {
+    level = "villageLVL";
+    for (let y = 5; y < 1e3; y++) {
+      for (let x = -50; x < 50; x++) {
+        if (y == 5 && x == 0) {
+          TC2.GetLayer(y).push(
+            new Tile(
+              new Vector2(0 + 100 * x, 100 * (y - 1) + 50),
+              new Vector2(200, 200),
+              Images.cave,
+              1
+            )
+          );
+        } else if (y == 5 && x == 4) {
+          TC2.GetLayer(y).push(
+            new Tile(
+              new Vector2(0 + 100 * x, 100 * (y - 1)),
+              new Vector2(200, 200),
+              Images.home1,
+              1
+            )
+          );
+        } else if (y == 5 && x == 6) {
+          TC2.GetLayer(y).push(
+            new Tile(
+              new Vector2(0 + 100 * x, 100 * (y - 1)),
+              new Vector2(200, 200),
+              Images.home2,
+              1
+            )
+          );
+        } else if (y == 5 && x == 8) {
+          TC2.GetLayer(y).push(
+            new Tile(
+              new Vector2(0 + 100 * x, 100 * (y - 1)),
+              new Vector2(200, 200),
+              Images.home3,
+              1
+            )
+          );
+        } else if (y == 5 && x == 10) {
+          TC2.GetLayer(y).push(
+            new Tile(
+              new Vector2(0 + 100 * x, 100 * (y - 1)),
+              new Vector2(200, 200),
+              Images.market,
+              1
+            )
+          );
+        } else if (y == 5 && x == 12) {
+          TC2.GetLayer(y).push(
+            new Tile(
+              new Vector2(0 + 100 * x, 100 * (y - 1)),
+              new Vector2(200, 200),
+              Images.forge,
+              1
+            )
+          );
+        } else if (y == 6) {
+          TC2.GetLayer(y).push(
+            new Tile(
+              new Vector2(0 + 100 * x, 100 * y),
+              new Vector2(100, 100),
+              Images.tile1,
+              1
+            )
+          );
+        } else if (y > 6 && y < 20) {
+          TC2.GetLayer(y).push(
+            new Tile(
+              new Vector2(0 + 100 * x, 100 * y),
+              new Vector2(100, 100),
+              Images.tile2,
+              1
+            )
+          );
+        }
+      }
+    }
+  }
+  var village_default = village;
+
   // Source/Physics/Physics.js
   var Physics = class {
     static G = 500;
@@ -602,6 +692,7 @@
     () => {
     }
   );
+  var level2 = "villageLVL";
   var playerImg = CreateImageByPath("Res/img/player1.png");
   var pos = Vector2.Zero;
   var player = new Player(
@@ -611,7 +702,15 @@
     1
   );
   var Entities = [];
-  cave_default(TC);
+  selectLVL(TC);
+  function selectLVL() {
+    console.log(level2);
+    if (level2 == "villageLVL") {
+      village_default(TC);
+    } else {
+      cave_default(TC);
+    }
+  }
   window.onload = () => game.Start();
   var speed = 500;
   function Start() {
@@ -654,6 +753,15 @@
             }
           });
         });
+    }
+    if (Input.GetKeyState(90)) {
+      if (level2 == "villageLVL") {
+        level2 = "caveLVL";
+        selectLVL();
+      } else {
+        level2 = "villageLVL";
+        selectLVL();
+      }
     }
     stride = stride.Add(Vector2.Down.Scale(player.velocityY * Time.deltaTime));
     stride = Vector2.Round(stride);

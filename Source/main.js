@@ -24,6 +24,9 @@ let game = new Game(
   () => {}
 )
 
+
+let level = "villageLVL";
+
 let playerImg = CreateImageByPath("Res/img/player1.png");
 let pos = Vector2.Zero
 let player = new Player(
@@ -34,8 +37,15 @@ let player = new Player(
 )
 let Entities = []
 
-cave(TC);
-//village(TC);
+selectLVL(TC);
+function selectLVL(){
+  console.log(level)
+  if(level == "villageLVL"){
+    village(TC);
+    }else {
+    cave(TC);
+  }
+}
 
 window.onload = () => game.Start()
 let speed = 500
@@ -82,6 +92,15 @@ function UpdateInput() {
         }
       })
     })
+  }
+  if (Input.GetKeyState(90)){// Z
+    if( level == "villageLVL"){
+      level = "caveLVL";
+      selectLVL();
+    }else{
+      level = "villageLVL";
+      selectLVL();
+    }
   }
   stride = stride.Add(Vector2.Down.Scale(player.velocityY * Time.deltaTime));
   stride = Vector2.Round(stride);
