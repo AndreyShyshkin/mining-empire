@@ -33,7 +33,8 @@ let player = new Player(
   new Vector2(80, 80),
   playerImg,
   1,
-  Vector2.Zero
+  Vector2.Zero,
+  TC
 )
 let Entities = []
 

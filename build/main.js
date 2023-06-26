@@ -336,9 +336,11 @@
     bottomCollision = false;
     velocityY = 0;
     speed = 500;
-    constructor(position, size, Image2, Layer2, Camera) {
+    TC;
+    constructor(position, size, Image2, Layer2, Camera, TC2) {
       super(new Transform(position, size), Image2, Layer2);
       this.Camera = Camera;
+      this.TC = TC2;
     }
     Update(Entities2) {
       this.InputUpdate();
@@ -377,7 +379,7 @@
           col = this.GetColliderDot(Vector2.Up.Scale(100));
         }
         if (col.length == 2)
-          TC.LoadedLayers.forEach((layer) => {
+          this.TC.LoadedLayers.forEach((layer) => {
             layer.forEach((entity) => {
               if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
                 layer.splice(layer.indexOf(entity), 1);
@@ -518,12 +520,12 @@
   };
 
   // Source/Map/cave.js
-  function cave(TC3) {
+  function cave(TC2) {
     level = "caveLVL";
     for (let y = 6; y < 1e3; y++) {
       for (let x = -50; x < 50; x++) {
         if (y == 6) {
-          TC3.GetLayer(y).push(
+          TC2.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -532,7 +534,7 @@
             )
           );
         } else if (y < 10) {
-          TC3.GetLayer(y).push(
+          TC2.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -559,7 +561,7 @@
                   x -= 1;
                 }
                 if (a == 0 && i == 3) {
-                  TC3.GetLayer(y).push(
+                  TC2.GetLayer(y).push(
                     new Tile(
                       new Vector2(0 + 100 * x, 100 * y),
                       new Vector2(100, 100),
@@ -568,7 +570,7 @@
                     )
                   );
                 } else {
-                  TC3.GetLayer(y).push(
+                  TC2.GetLayer(y).push(
                     new Tile(
                       new Vector2(0 + 100 * x, 100 * y),
                       new Vector2(100, 100),
@@ -584,7 +586,7 @@
           } else {
             if (y >= 10 && y < 50) {
               if (r < 5) {
-                TC3.GetLayer(y).push(
+                TC2.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -593,7 +595,7 @@
                   )
                 );
               } else if (r < 7) {
-                TC3.GetLayer(y).push(
+                TC2.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -602,7 +604,7 @@
                   )
                 );
               } else
-                TC3.GetLayer(y).push(
+                TC2.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -612,7 +614,7 @@
                 );
             } else if (y >= 50) {
               if (r < 5) {
-                TC3.GetLayer(y).push(
+                TC2.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -621,7 +623,7 @@
                   )
                 );
               } else if (r < 7) {
-                TC3.GetLayer(y).push(
+                TC2.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -630,7 +632,7 @@
                   )
                 );
               } else
-                TC3.GetLayer(y).push(
+                TC2.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -652,12 +654,12 @@
   var cave_default = cave;
 
   // Source/Map/village.js
-  function village(TC3) {
+  function village(TC2) {
     level = "villageLVL";
     for (let y = 5; y < 1e3; y++) {
       for (let x = -50; x < 50; x++) {
         if (y == 5 && x == 0) {
-          TC3.GetLayer(y).push(
+          TC2.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1) + 50),
               new Vector2(200, 200),
@@ -666,7 +668,7 @@
             )
           );
         } else if (y == 5 && x == 4) {
-          TC3.GetLayer(y).push(
+          TC2.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -675,7 +677,7 @@
             )
           );
         } else if (y == 5 && x == 6) {
-          TC3.GetLayer(y).push(
+          TC2.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -684,7 +686,7 @@
             )
           );
         } else if (y == 5 && x == 8) {
-          TC3.GetLayer(y).push(
+          TC2.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -693,7 +695,7 @@
             )
           );
         } else if (y == 5 && x == 10) {
-          TC3.GetLayer(y).push(
+          TC2.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -702,7 +704,7 @@
             )
           );
         } else if (y == 5 && x == 12) {
-          TC3.GetLayer(y).push(
+          TC2.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -711,7 +713,7 @@
             )
           );
         } else if (y == 6) {
-          TC3.GetLayer(y).push(
+          TC2.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -720,7 +722,7 @@
             )
           );
         } else if (y > 6 && y < 20) {
-          TC3.GetLayer(y).push(
+          TC2.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -735,7 +737,7 @@
   var village_default = village;
 
   // Source/main.js
-  var TC2 = new TileController(100, 1920);
+  var TC = new TileController(100, 1920);
   var canvas = new Canvas(2);
   var game = new Game(
     Start,
@@ -754,16 +756,17 @@
     new Vector2(80, 80),
     playerImg,
     1,
-    Vector2.Zero
+    Vector2.Zero,
+    TC
   );
   var Entities = [];
-  selectLVL(TC2);
+  selectLVL(TC);
   function selectLVL() {
     console.log(level2);
     if (level2 == "villageLVL") {
-      village_default(TC2);
+      village_default(TC);
     } else {
-      cave_default(TC2);
+      cave_default(TC);
     }
   }
   window.onload = () => game.Start();
@@ -783,13 +786,13 @@
   }
   function Update() {
     let tiles = [];
-    TC2.LoadedLayers.forEach((layer) => {
+    TC.LoadedLayers.forEach((layer) => {
       layer.forEach((entity) => {
         tiles.push(entity);
       });
     });
     UpdateInput();
-    TC2.UpdateLoadted(player.Camera.Y);
+    TC.UpdateLoadted(player.Camera.Y);
     player.Update(tiles);
     canvas.GetLayerContext(1).clearRect(0, 0, 1920, 1080);
     Entities.forEach((tile) => {
