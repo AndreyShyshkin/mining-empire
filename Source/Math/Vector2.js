@@ -100,4 +100,17 @@ export class Vector2 {
     vector = vector.Normilize()
     return new Vector2(Math.cos(angle) * m, Math.sin(angle) * m)
   }
+  static Round(vector){
+    if (vector.X > 0) {
+      vector.X = Math.floor(vector.X)
+    } else if (vector.X < 0) {
+      vector.X = Math.ceil(vector.X)
+    }
+    if (vector.Y > 0) {
+      vector.Y = Math.floor(vector.Y)
+    } else if (vector.Y < 0) {
+      vector.Y = Math.ceil(vector.Y)
+    }
+    return vector;
+  }
 }

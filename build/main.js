@@ -146,6 +146,19 @@
       vector = vector.Normilize();
       return new _Vector2(Math.cos(angle) * m, Math.sin(angle) * m);
     }
+    static Round(vector) {
+      if (vector.X > 0) {
+        vector.X = Math.floor(vector.X);
+      } else if (vector.X < 0) {
+        vector.X = Math.ceil(vector.X);
+      }
+      if (vector.Y > 0) {
+        vector.Y = Math.floor(vector.Y);
+      } else if (vector.Y < 0) {
+        vector.Y = Math.ceil(vector.Y);
+      }
+      return vector;
+    }
   };
 
   // Source/Logic/Input.js
@@ -314,44 +327,47 @@
 
   // Source/Entities/Player.js
   var Player = class extends Entity {
+    bottomCollision = false;
+    velocityY = 0;
     constructor(position, size, Image2, Layer2) {
       super(new Transform(position, size), Image2, Layer2);
     }
     Update(Entities2) {
+      let bottomFlag = false;
       Entities2.forEach((entity) => {
         if (!(entity === this)) {
-          let t = 10;
+          let offset = 10;
           let Left = [
-            new Vector2(this.transform.Position.X, this.transform.Position.Y + t),
+            new Vector2(this.transform.Position.X, this.transform.Position.Y + offset),
             new Vector2(
               this.transform.Position.X,
-              this.transform.Position.Y + this.transform.Size.Y - t
+              this.transform.Position.Y + this.transform.Size.Y - offset
             )
           ];
           let Right = [
             new Vector2(
               this.transform.Position.X + this.transform.Size.X,
-              this.transform.Position.Y + t
+              this.transform.Position.Y + offset
             ),
             new Vector2(
               this.transform.Position.X + this.transform.Size.X,
-              this.transform.Position.Y + this.transform.Size.Y - t
+              this.transform.Position.Y + this.transform.Size.Y - offset
             )
           ];
           let Top = [
-            new Vector2(this.transform.Position.X + t, this.transform.Position.Y),
+            new Vector2(this.transform.Position.X + offset, this.transform.Position.Y),
             new Vector2(
-              this.transform.Position.X + this.transform.Size.X - t,
+              this.transform.Position.X + this.transform.Size.X - offset,
               this.transform.Position.Y
             )
           ];
           let Bottom = [
             new Vector2(
-              this.transform.Position.X + t,
+              this.transform.Position.X + offset,
               this.transform.Position.Y + this.transform.Size.Y
             ),
             new Vector2(
-              this.transform.Position.X + this.transform.Size.X - t,
+              this.transform.Position.X + this.transform.Size.X - offset,
               this.transform.Position.Y + this.transform.Size.Y
             )
           ];
@@ -362,14 +378,20 @@
           if (Collisions.AABBtoAABB(entity.GetCollider(), Top)) {
           }
           if (Collisions.AABBtoAABB(entity.GetCollider(), Bottom)) {
+            bottomFlag = true;
+            this.bottomCollision = true;
+            this.velocityY = 0;
           }
         }
       });
+      if (!bottomFlag) {
+        this.bottomCollision = false;
+      }
     }
-    GetColliderDot() {
+    GetColliderDot(direction) {
       return [
-        this.transform.Position.Add(this.transform.Size.Scale(0.5)),
-        this.transform.Position.Add(this.transform.Size.Scale(0.5))
+        this.transform.Position.Add(this.transform.Size.Scale(0.5).Add(direction)),
+        this.transform.Position.Add(this.transform.Size.Scale(0.5).Add(direction))
       ];
     }
     Draw(Context, Camera) {
@@ -562,6 +584,11 @@
   }
   var cave_default = cave;
 
+  // Source/Physics/Physics.js
+  var Physics = class {
+    static G = 500;
+  };
+
   // Source/main.js
   var TC = new TileController(100, 1920);
   var canvas = new Canvas(2);
@@ -598,48 +625,66 @@
     if (Input.GetKeyState(68)) {
       stride = stride.Add(Vector2.Left.Scale(speed * Time.DeltaTime));
     }
-    if (Input.GetKeyState(87) || Input.GetKeyState(32)) {
-      stride = stride.Add(Vector2.Down.Scale(speed * Time.DeltaTime));
+    if (player.bottomCollision) {
+      if (Input.GetKeyState(87) || Input.GetKeyState(32)) {
+        player.velocityY = 400;
+      }
     }
-    if (Input.GetKeyState(83) || Input.GetKeyState(17)) {
-      stride = stride.Add(Vector2.Up.Scale(speed * Time.DeltaTime));
+    if (!player.bottomCollision) {
+      if (Input.GetKeyState(83) || Input.GetKeyState(17)) {
+        stride = stride.Add(Vector2.Up.Scale(speed * Time.DeltaTime));
+      }
     }
     if (Input.GetKeyState(66)) {
-      TC.LoadedLayers.forEach((layer) => {
-        layer.forEach((entity) => {
-          if (Collisions.AABBtoAABB(entity.GetCollider(), player.GetColliderDot())) {
-            layer.splice(layer.indexOf(entity), 1);
-          }
+      let col = [];
+      if (Input.GetKeyState(39)) {
+        col = player.GetColliderDot(Vector2.Right.Scale(100));
+      } else if (Input.GetKeyState(37)) {
+        col = player.GetColliderDot(Vector2.Left.Scale(100));
+      } else if (Input.GetKeyState(38)) {
+        col = player.GetColliderDot(Vector2.Down.Scale(100));
+      } else if (Input.GetKeyState(40)) {
+        col = player.GetColliderDot(Vector2.Up.Scale(100));
+      }
+      if (col.length == 2)
+        TC.LoadedLayers.forEach((layer) => {
+          layer.forEach((entity) => {
+            if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
+              layer.splice(layer.indexOf(entity), 1);
+            }
+          });
         });
-      });
     }
-    if (stride.X > 0) {
-      stride.X = Math.floor(stride.X);
-    } else if (stride.X < 0) {
-      stride.X = Math.ceil(stride.X);
-    }
-    if (stride.Y > 0) {
-      stride.Y = Math.floor(stride.Y);
-    } else if (stride.Y < 0) {
-      stride.Y = Math.ceil(stride.Y);
-    }
+    stride = stride.Add(Vector2.Down.Scale(player.velocityY * Time.deltaTime));
+    stride = Vector2.Round(stride);
     pos = pos.Add(stride);
     player.transform.Position = player.transform.Position.Add(
       new Vector2(-stride.X, stride.Y)
     );
   }
   function Update() {
+    let tiles = [];
+    TC.LoadedLayers.forEach((layer) => {
+      layer.forEach((entity) => {
+        tiles.push(entity);
+      });
+    });
     UpdateInput();
     TC.UpdateLoadted(pos.Y);
+    playerUpdate(tiles);
     canvas.GetLayerContext(1).clearRect(0, 0, 1920, 1080);
     Entities.forEach((tile) => {
       tile.Draw(canvas.GetLayerContext(tile.Layer), pos);
     });
-    TC.LoadedLayers.forEach((layer) => {
-      layer.forEach((entity) => {
-        entity.Draw(canvas.GetLayerContext(entity.Layer), pos);
-      });
+    tiles.forEach((entity) => {
+      entity.Draw(canvas.GetLayerContext(entity.Layer), pos);
     });
     player.Draw(canvas.GetLayerContext(player.Layer), pos);
+  }
+  function playerUpdate(tiles) {
+    if (!player.bottomCollision) {
+      player.velocityY -= Physics.G * Time.DeltaTime;
+    }
+    player.Update(tiles);
   }
 })();
