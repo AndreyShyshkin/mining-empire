@@ -7,14 +7,14 @@ import { Physics } from "../Physics/Physics"
 import { Input } from "../Logic/Input"
 
 export class Player extends Entity {
-  Camera;
+  static Camera;
   bottomCollision = false;
   velocityY = 0;
   speed = 500;
   TC;
   constructor(position, size, Image, Layer, Camera, TC) {
     super(new Transform(position, size), Image, Layer)
-    this.Camera = Camera;
+    Player.Camera = Camera;
     this.TC = TC;
   }
   Update(Entities) {
@@ -67,7 +67,7 @@ export class Player extends Entity {
     }
     stride = stride.Add(Vector2.Down.Scale(this.velocityY * Time.deltaTime));
     stride = Vector2.Round(stride);
-    this.Camera = this.Camera.Add(stride)
+    Player.Camera = Player.Camera.Add(stride)
     this.transform.Position = this.transform.Position.Add(
       new Vector2(-stride.X, stride.Y)
     )

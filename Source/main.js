@@ -3,19 +3,14 @@ import { Vector2 } from "./Math/Vector2"
 import { Input } from "./Logic/Input"
 import { Game } from "./Logic/Game"
 import { Time } from "./Logic/Time"
-import { Tile } from "./Entities/Tile"
 import { Player } from "./Entities/Player"
 import { TileController } from "./Entities/TileController"
 import { CreateImageByPath } from "./Logic/RenderImage"
 import cave from "./Map/cave";
 import village from "./Map/village";
-import { Layer } from "./Graphics/Canvas/Layer"
-import { Collisions } from "./Physics/Collisions"
-import { Physics } from "./Physics/Physics"
+import { Scene } from "./Logic/Scene"
 
-let TC = new TileController(100, 1920)
-
-let canvas = new Canvas(2)
+let myScene = new Scene();
 let game = new Game(
   Start,
   Update,
@@ -34,23 +29,22 @@ let player = new Player(
   playerImg,
   1,
   Vector2.Zero,
-  TC
+  myScene.TC
 )
-let Entities = []
 
-selectLVL(TC);
+selectLVL(myScene.TC);
 function selectLVL(){
   console.log(level)
   if(level == "villageLVL"){
-    village(TC);
+    village(myScene.TC);
     }else {
-    cave(TC);
+    cave(myScene.TC);
   }
 }
 
 window.onload = () => game.Start()
 function Start() {
-  canvas.updateSize()
+  Canvas.Instance.updateSize()
 }
 function UpdateInput() {
   if (Input.GetKeyState(90)){// Z
@@ -65,23 +59,18 @@ function UpdateInput() {
 }
 function Update() {
   let tiles = []
-  TC.LoadedLayers.forEach(layer => {
+  myScene.TC.LoadedLayers.forEach(layer => {
     layer.forEach(entity => {
       tiles.push(entity);
     })
   })
   UpdateInput()
-  TC.UpdateLoadted(player.Camera.Y);
+  myScene.TC.UpdateLoadted(Player.Camera.Y);
   player.Update(tiles);
-  canvas.GetLayerContext(1).clearRect(0, 0, 1920, 1080)
+  Canvas.Instance.GetLayerContext(1).clearRect(0, 0, 1920, 1080)
   //canvas.GetLayerContext(0)!.drawImage(img, 0, 0);
-  Entities.forEach(tile => {
-    tile.Draw(canvas.GetLayerContext(tile.Layer), player.Camera)
-  })
-  tiles.forEach(entity => {
-    entity.Draw(canvas.GetLayerContext(entity.Layer), player.Camera)
-  })
-  player.Draw(canvas.GetLayerContext(player.Layer), player.Camera)
+  myScene.Draw();
+  player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera)
 }
 function Random(min, max) {
   min = Math.ceil(min);

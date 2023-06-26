@@ -1,5 +1,6 @@
 import { Layer } from "./Layer"
 export class Canvas {
+  static Instance = new Canvas(2);
   Layers = []
   constructor(LayersCount) {
     this.LayersCount = LayersCount
@@ -10,7 +11,7 @@ export class Canvas {
     for (let i = 0; i < LayersCount; i++) {
       this.Layers.push(new Layer(this.canvas))
     }
-    window.addEventListener("resize", () => this.updateSize())
+    window.addEventListener("resize", () => this.updateSize());
   }
   updateSize() {
     let w = window.innerWidth / this.WScale
