@@ -754,7 +754,7 @@
   };
 
   // Source/Logic/SceneManager.js
-  var SceneMagager = class {
+  var SceneManager = class {
     town = new Scene();
     mine = new Scene();
     currentScene = this.town;
@@ -778,7 +778,7 @@
     () => {
     }
   );
-  var SM = new SceneMagager();
+  var SM = new SceneManager();
   var playerImg = CreateImageByPath("Res/img/player1.png");
   var player = new Player(
     new Vector2(900, 450),

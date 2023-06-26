@@ -8,7 +8,7 @@ import { TileController } from "./Entities/TileController"
 import { CreateImageByPath } from "./Logic/RenderImage"
 import cave from "./Map/cave";
 import village from "./Map/village";
-import { SceneMagager } from "./Logic/SceneManager"
+import { SceneManager } from "./Logic/SceneManager"
 let game = new Game(
   Start,
   Update,
@@ -17,7 +17,7 @@ let game = new Game(
   () => {}
 )
 
-let SM = new SceneMagager();
+let SM = new SceneManager();
 
 let playerImg = CreateImageByPath("Res/img/player1.png");
 let player = new Player(
