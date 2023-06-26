@@ -312,16 +312,20 @@
 
   // Source/Physics/Physics.js
   var Physics = class {
-    static G = 500;
+    static G = 1e3;
   };
 
   // Source/Entities/Player.js
   var Player = class _Player extends Entity {
     static Camera;
     bottomCollision = false;
+    topCollision = false;
+    leftCollision = false;
+    rightCollision = false;
     velocityY = 0;
     speed = 500;
     SM;
+    jumpForce = 600;
     constructor(position, size, Image2, Layer2, Camera, SM2) {
       super(new Transform(position, size), Image2, Layer2);
       _Player.Camera = Camera;
@@ -336,18 +340,18 @@
     }
     InputUpdate() {
       let stride = Vector2.Zero;
-      if (Input.GetKeyState(65)) {
+      if (Input.GetKeyState(65) && !this.leftCollision) {
         stride = stride.Add(Vector2.Right.Scale(this.speed * Time.DeltaTime));
       }
-      if (Input.GetKeyState(68)) {
+      if (Input.GetKeyState(68) && !this.rightCollision) {
         stride = stride.Add(Vector2.Left.Scale(this.speed * Time.DeltaTime));
       }
       if (this.bottomCollision) {
         if (Input.GetKeyState(87) || Input.GetKeyState(32)) {
-          this.velocityY = 400;
+          this.velocityY = this.jumpForce;
         }
       }
-      if (!this.bottomCollision) {
+      if (!this.bottomCollision && false) {
         if (Input.GetKeyState(83) || Input.GetKeyState(17)) {
           stride = stride.Add(Vector2.Up.Scale(this.speed * Time.DeltaTime));
         }
@@ -381,6 +385,9 @@
     }
     CollisionCheck(Entities) {
       let bottomFlag = false;
+      let topFlag = false;
+      let leftFlag = false;
+      let rightFlag = false;
       Entities.forEach((entity) => {
         if (!(entity === this)) {
           let offset = 10;
@@ -419,10 +426,19 @@
             )
           ];
           if (Collisions.AABBtoAABB(entity.GetCollider(), Left)) {
+            this.leftCollision = true;
+            leftFlag = true;
           }
           if (Collisions.AABBtoAABB(entity.GetCollider(), Right)) {
+            this.rightCollision = true;
+            rightFlag = true;
           }
           if (Collisions.AABBtoAABB(entity.GetCollider(), Top)) {
+            topFlag = true;
+            this.topCollision = true;
+            if (this.velocityY > 0) {
+              this.velocityY = 0;
+            }
           }
           if (Collisions.AABBtoAABB(entity.GetCollider(), Bottom)) {
             bottomFlag = true;
@@ -433,6 +449,15 @@
       });
       if (!bottomFlag) {
         this.bottomCollision = false;
+      }
+      if (!topFlag) {
+        this.topCollision = false;
+      }
+      if (!leftFlag) {
+        this.leftCollision = false;
+      }
+      if (!rightFlag) {
+        this.rightCollision = false;
       }
     }
     GetColliderDot(direction) {

@@ -1,3 +1,3 @@
 export class Physics{
-    static G = 500;
+    static G = 1000;
 }
