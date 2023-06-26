@@ -5,6 +5,9 @@ import { Transform } from "../Physics/Transform"
 import { Time } from "../Logic/Time"
 import { Physics } from "../Physics/Physics"
 import { Input } from "../Logic/Input"
+import { SceneManager } from "../Logic/SceneManager"
+
+let SM = new SceneManager();
 
 export class Player extends Entity {
   static Camera;
@@ -47,6 +50,7 @@ export class Player extends Entity {
       }
     }
     if (Input.GetKeyState(66)){// B
+      if (SM.currentScene == SM.mine){
         let col = []
         if(Input.GetKeyState(39)){//right
           col = this.GetColliderDot(Vector2.Right.Scale(100));
@@ -67,7 +71,7 @@ export class Player extends Entity {
               layer.splice(layer.indexOf(entity), 1);
             }
           })
-        })
+        })}
     }
     stride = stride.Add(Vector2.Down.Scale(this.velocityY * Time.deltaTime));
     stride = Vector2.Round(stride);

@@ -315,7 +315,67 @@
     static G = 1e3;
   };
 
+  // Source/Entities/TileController.js
+  var TileController = class {
+    Layers = [];
+    LoadedLayers = [];
+    constructor(tileSize, cameraHeight) {
+      this.tileSize = tileSize;
+      this.cameraHeight = cameraHeight;
+    }
+    GetLayer(Layer2) {
+      if (Layer2 > -1) {
+        if (Layer2 > this.Layers.length - 1) {
+          for (let i2 = this.Layers.length; i2 <= Layer2; i2++) {
+            this.Layers.push([]);
+          }
+        }
+        return this.Layers[Layer2];
+      }
+      return null;
+    }
+    UpdateLoadted(cameraPosH) {
+      this.LoadedLayers = [];
+      for (let y = cameraPosH; y < cameraPosH + this.cameraHeight; y += this.tileSize) {
+        if (y > 0 && Math.floor(y / this.tileSize) < this.Layers.length) {
+          this.LoadedLayers.push(this.Layers[Math.floor(y / this.tileSize)]);
+        }
+      }
+    }
+  };
+
+  // Source/Logic/Scene.js
+  var Scene = class {
+    Entities = [];
+    TC = new TileController(100, 1920);
+    Draw() {
+      this.Entities.forEach((entity) => {
+        entity.Draw(Canvas.Instance.GetLayerContext(entity.Layer), Player.Camera);
+      });
+      this.TC.LoadedLayers.forEach((layer) => {
+        layer.forEach((entity) => {
+          entity.Draw(Canvas.Instance.GetLayerContext(entity.Layer), Player.Camera);
+        });
+      });
+    }
+  };
+
+  // Source/Logic/SceneManager.js
+  var SceneManager = class {
+    town = new Scene();
+    mine = new Scene();
+    currentScene = this.town;
+    ChangeScene() {
+      if (this.currentScene == this.town) {
+        this.currentScene = this.mine;
+      } else {
+        this.currentScene = this.town;
+      }
+    }
+  };
+
   // Source/Entities/Player.js
+  var SM = new SceneManager();
   var Player = class _Player extends Entity {
     static Camera;
     bottomCollision = false;
@@ -326,10 +386,10 @@
     speed = 500;
     SM;
     jumpForce = 600;
-    constructor(position, size, Image2, Layer2, Camera, SM2) {
+    constructor(position, size, Image2, Layer2, Camera, SM3) {
       super(new Transform(position, size), Image2, Layer2);
       _Player.Camera = Camera;
-      this.SM = SM2;
+      this.SM = SM3;
     }
     Update(Entities) {
       this.InputUpdate();
@@ -357,24 +417,26 @@
         }
       }
       if (Input.GetKeyState(66)) {
-        let col = [];
-        if (Input.GetKeyState(39)) {
-          col = this.GetColliderDot(Vector2.Right.Scale(100));
-        } else if (Input.GetKeyState(37)) {
-          col = this.GetColliderDot(Vector2.Left.Scale(100));
-        } else if (Input.GetKeyState(38)) {
-          col = this.GetColliderDot(Vector2.Down.Scale(100));
-        } else if (Input.GetKeyState(40)) {
-          col = this.GetColliderDot(Vector2.Up.Scale(100));
-        }
-        if (col.length == 2)
-          this.SM.currentScene.TC.LoadedLayers.forEach((layer) => {
-            layer.forEach((entity) => {
-              if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
-                layer.splice(layer.indexOf(entity), 1);
-              }
+        if (SM.currentScene == SM.mine) {
+          let col = [];
+          if (Input.GetKeyState(39)) {
+            col = this.GetColliderDot(Vector2.Right.Scale(100));
+          } else if (Input.GetKeyState(37)) {
+            col = this.GetColliderDot(Vector2.Left.Scale(100));
+          } else if (Input.GetKeyState(38)) {
+            col = this.GetColliderDot(Vector2.Down.Scale(100));
+          } else if (Input.GetKeyState(40)) {
+            col = this.GetColliderDot(Vector2.Up.Scale(100));
+          }
+          if (col.length == 2)
+            this.SM.currentScene.TC.LoadedLayers.forEach((layer) => {
+              layer.forEach((entity) => {
+                if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
+                  layer.splice(layer.indexOf(entity), 1);
+                }
+              });
             });
-          });
+        }
       }
       stride = stride.Add(Vector2.Down.Scale(this.velocityY * Time.deltaTime));
       stride = Vector2.Round(stride);
@@ -474,35 +536,6 @@
         this.transform.Size.X,
         this.transform.Size.Y
       );
-    }
-  };
-
-  // Source/Entities/TileController.js
-  var TileController = class {
-    Layers = [];
-    LoadedLayers = [];
-    constructor(tileSize, cameraHeight) {
-      this.tileSize = tileSize;
-      this.cameraHeight = cameraHeight;
-    }
-    GetLayer(Layer2) {
-      if (Layer2 > -1) {
-        if (Layer2 > this.Layers.length - 1) {
-          for (let i2 = this.Layers.length; i2 <= Layer2; i2++) {
-            this.Layers.push([]);
-          }
-        }
-        return this.Layers[Layer2];
-      }
-      return null;
-    }
-    UpdateLoadted(cameraPosH) {
-      this.LoadedLayers = [];
-      for (let y = cameraPosH; y < cameraPosH + this.cameraHeight; y += this.tileSize) {
-        if (y > 0 && Math.floor(y / this.tileSize) < this.Layers.length) {
-          this.LoadedLayers.push(this.Layers[Math.floor(y / this.tileSize)]);
-        }
-      }
     }
   };
 
@@ -794,36 +827,6 @@
   }
   var village_default = village;
 
-  // Source/Logic/Scene.js
-  var Scene = class {
-    Entities = [];
-    TC = new TileController(100, 1920);
-    Draw() {
-      this.Entities.forEach((entity) => {
-        entity.Draw(Canvas.Instance.GetLayerContext(entity.Layer), Player.Camera);
-      });
-      this.TC.LoadedLayers.forEach((layer) => {
-        layer.forEach((entity) => {
-          entity.Draw(Canvas.Instance.GetLayerContext(entity.Layer), Player.Camera);
-        });
-      });
-    }
-  };
-
-  // Source/Logic/SceneManager.js
-  var SceneManager = class {
-    town = new Scene();
-    mine = new Scene();
-    currentScene = this.town;
-    ChangeScene() {
-      if (this.currentScene == this.town) {
-        this.currentScene = this.mine;
-      } else {
-        this.currentScene = this.town;
-      }
-    }
-  };
-
   // Source/main.js
   var game = new Game(
     Start,
@@ -835,7 +838,7 @@
     () => {
     }
   );
-  var SM = new SceneManager();
+  var SM2 = new SceneManager();
   var playerImg = CreateImageByPath("Res/img/player1.png");
   var player = new Player(
     new Vector2(900, 450),
@@ -843,19 +846,24 @@
     playerImg,
     1,
     Vector2.Zero,
-    SM
+    SM2
   );
-  village_default(SM.town.TC);
-  cave_default(SM.mine.TC);
+  village_default(SM2.town.TC);
+  cave_default(SM2.mine.TC);
   window.onload = () => game.Start();
   function Start() {
     Canvas.Instance.updateSize();
+  }
+  if (SM2.currentScene == SM2.town) {
+    console.log("town");
+  } else if (SM2.currentScene == SM2.mine) {
+    console.log("mine");
   }
   var changeSceneFlag = false;
   function UpdateInput() {
     if (Input.GetKeyState(90)) {
       if (!changeSceneFlag) {
-        SM.ChangeScene();
+        SM2.ChangeScene();
       }
       changeSceneFlag = true;
     } else {
@@ -864,16 +872,16 @@
   }
   function Update() {
     let tiles = [];
-    SM.currentScene.TC.LoadedLayers.forEach((layer) => {
+    SM2.currentScene.TC.LoadedLayers.forEach((layer) => {
       layer.forEach((entity) => {
         tiles.push(entity);
       });
     });
     UpdateInput();
-    SM.currentScene.TC.UpdateLoadted(Player.Camera.Y);
+    SM2.currentScene.TC.UpdateLoadted(Player.Camera.Y);
     player.Update(tiles);
     Canvas.Instance.GetLayerContext(1).clearRect(0, 0, 1920, 1080);
-    SM.currentScene.Draw();
+    SM2.currentScene.Draw();
     player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
   }
 })();
