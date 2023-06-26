@@ -47,27 +47,27 @@ export class Player extends Entity {
       }
     }
     if (Input.GetKeyState(66)){// B
-      let col = []
-      if(Input.GetKeyState(39)){//right
-        col = this.GetColliderDot(Vector2.Right.Scale(100));
-      }
-      else if(Input.GetKeyState(37)){//left
-        col = this.GetColliderDot(Vector2.Left.Scale(100));
-      }
-      else if(Input.GetKeyState(38)){//top
-        col = this.GetColliderDot(Vector2.Down.Scale(100));
-      }
-      else if(Input.GetKeyState(40)){//down
-        col = this.GetColliderDot(Vector2.Up.Scale(100));
-      }
-      if(col.length == 2)
-      this.SM.currentScene.TC.LoadedLayers.forEach(layer => {
-        layer.forEach(entity => {
-          if(Collisions.AABBtoAABB(entity.GetCollider(), col)){//
-            layer.splice(layer.indexOf(entity), 1);
-          }
+        let col = []
+        if(Input.GetKeyState(39)){//right
+          col = this.GetColliderDot(Vector2.Right.Scale(100));
+        }
+        else if(Input.GetKeyState(37)){//left
+          col = this.GetColliderDot(Vector2.Left.Scale(100));
+        }
+        else if(Input.GetKeyState(38)){//top
+          col = this.GetColliderDot(Vector2.Down.Scale(100));
+        }
+        else if(Input.GetKeyState(40)){//down
+          col = this.GetColliderDot(Vector2.Up.Scale(100));
+        }
+        if(col.length == 2)
+        this.SM.currentScene.TC.LoadedLayers.forEach(layer => {
+          layer.forEach(entity => {
+            if(Collisions.AABBtoAABB(entity.GetCollider(), col)){//
+              layer.splice(layer.indexOf(entity), 1);
+            }
+          })
         })
-      })
     }
     stride = stride.Add(Vector2.Down.Scale(this.velocityY * Time.deltaTime));
     stride = Vector2.Round(stride);

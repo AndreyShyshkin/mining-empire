@@ -63,8 +63,3 @@ function Update() {
   SM.currentScene.Draw();
   player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera)
 }
-function Random(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}

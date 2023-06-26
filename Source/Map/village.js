@@ -4,10 +4,35 @@ import { Vector2 } from "../Math/Vector2"
 import { Images } from "../Graphics/Images";
 
 function village(TC){
-  level = "villageLVL";
     for (let y = 5; y < 1000; y++) {
-      for (let x = -50; x < 50; x++) {
-        if( y == 5 && x == 0){
+      for (let x = -10; x < 30; x++) {
+        if( y == 5 && x % 2 == 0 && x < 6){
+          let r = Random(1, 3);
+          switch (r){
+            case 1:
+              home1(TC, x, y);
+              break;
+            case 2:
+              home2(TC, x, y);
+              break;
+            case 3:
+              home3(TC, x, y);
+              break;
+          }
+        }else if( y == 5 && x % 2 == 0 && x > 14){
+          let r = Random(1, 3);
+          switch (r){
+            case 1:
+              home1(TC, x, y);
+              break;
+            case 2:
+              home2(TC, x, y);
+              break;
+            case 3:
+              home3(TC, x, y);
+              break;
+          }
+        }else if( y == 5 && x == 6){
           TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y-1) + 50),
@@ -16,34 +41,7 @@ function village(TC){
               1
             )
           )
-        }else if( y == 5 && x == 4){
-          TC.GetLayer(y).push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * (y-1)),
-              new Vector2(200, 200),
-              Images.home1,
-              1
-            )
-          )
-        }else if( y == 5 && x == 6){
-          TC.GetLayer(y).push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * (y-1)),
-              new Vector2(200, 200),
-              Images.home2,
-              1
-            )
-          )
-        }else if( y == 5 && x == 8){
-          TC.GetLayer(y).push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * (y-1)),
-              new Vector2(200, 200),
-              Images.home3,
-              1
-            )
-          )
-        }else if( y == 5 && x == 10){
+        }else if( y == 5 && x == 12){
           TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y-1)),
@@ -52,7 +50,7 @@ function village(TC){
               1
             )
           )
-        }else if( y == 5 && x == 12){
+        }else if( y == 5 && x == 14){
           TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y-1)),
@@ -72,7 +70,7 @@ function village(TC){
             )
           )
         }
-        else if (y > 6 && y < 20){
+        else if (y > 6 && y < 15){
           TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
@@ -84,6 +82,45 @@ function village(TC){
         }
       }
     }
+}
+
+function home1(TC, x, y){
+  TC.GetLayer(y).push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * (y-1)),
+      new Vector2(200, 200),
+      Images.home1,
+      1
+    )
+  )
+}
+
+function home2(TC, x, y){
+  TC.GetLayer(y).push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * (y-1)),
+      new Vector2(200, 200),
+      Images.home2,
+      1
+    )
+  )
+}
+
+function home3(TC, x, y){
+  TC.GetLayer(y).push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * (y-1)),
+      new Vector2(200, 200),
+      Images.home3,
+      1
+    )
+  )
+}
+
+function Random(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 export default village;
