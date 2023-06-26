@@ -18,9 +18,6 @@ let game = new Game(
 )
 
 let SM = new SceneMagager();
-console.log(SM.town === SM.currentScene)
-
-let level = "villageLVL";
 
 let playerImg = CreateImageByPath("Res/img/player1.png");
 let player = new Player(
@@ -32,29 +29,23 @@ let player = new Player(
   SM
 )
 
-selectLVL(SM.currentScene.TC);
-function selectLVL(){
-  console.log(level)
-  if(level == "villageLVL"){
-    village(SM.currentScene.TC);
-    }else {
-    cave(SM.currentScene.TC);
-  }
-}
+village(SM.town.TC);
+cave(SM.mine.TC);
 
 window.onload = () => game.Start()
 function Start() {
   Canvas.Instance.updateSize()
 }
+let changeSceneFlag = false;
 function UpdateInput() {
   if (Input.GetKeyState(90)){// Z
-    if( level == "villageLVL"){
-      level = "caveLVL";
-      selectLVL();
-    }else{
-      level = "villageLVL";
-      selectLVL();
+    if(!changeSceneFlag){
+      SM.ChangeScene();
     }
+    changeSceneFlag = true;
+  }
+  else{
+    changeSceneFlag = false;
   }
 }
 function Update() {

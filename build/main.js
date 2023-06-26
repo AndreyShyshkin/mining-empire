@@ -758,6 +758,13 @@
     town = new Scene();
     mine = new Scene();
     currentScene = this.town;
+    ChangeScene() {
+      if (this.currentScene == this.town) {
+        this.currentScene = this.mine;
+      } else {
+        this.currentScene = this.town;
+      }
+    }
   };
 
   // Source/main.js
@@ -772,8 +779,6 @@
     }
   );
   var SM = new SceneMagager();
-  console.log(SM.town === SM.currentScene);
-  var level2 = "villageLVL";
   var playerImg = CreateImageByPath("Res/img/player1.png");
   var player = new Player(
     new Vector2(900, 450),
@@ -783,28 +788,21 @@
     Vector2.Zero,
     SM
   );
-  selectLVL(SM.currentScene.TC);
-  function selectLVL() {
-    console.log(level2);
-    if (level2 == "villageLVL") {
-      village_default(SM.currentScene.TC);
-    } else {
-      cave_default(SM.currentScene.TC);
-    }
-  }
+  village_default(SM.town.TC);
+  cave_default(SM.mine.TC);
   window.onload = () => game.Start();
   function Start() {
     Canvas.Instance.updateSize();
   }
+  var changeSceneFlag = false;
   function UpdateInput() {
     if (Input.GetKeyState(90)) {
-      if (level2 == "villageLVL") {
-        level2 = "caveLVL";
-        selectLVL();
-      } else {
-        level2 = "villageLVL";
-        selectLVL();
+      if (!changeSceneFlag) {
+        SM.ChangeScene();
       }
+      changeSceneFlag = true;
+    } else {
+      changeSceneFlag = false;
     }
   }
   function Update() {
