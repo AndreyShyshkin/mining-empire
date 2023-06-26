@@ -325,14 +325,74 @@
     }
   };
 
+  // Source/Physics/Physics.js
+  var Physics = class {
+    static G = 500;
+  };
+
   // Source/Entities/Player.js
   var Player = class extends Entity {
+    Camera;
     bottomCollision = false;
     velocityY = 0;
-    constructor(position, size, Image2, Layer2) {
+    speed = 500;
+    constructor(position, size, Image2, Layer2, Camera) {
       super(new Transform(position, size), Image2, Layer2);
+      this.Camera = Camera;
     }
     Update(Entities2) {
+      this.InputUpdate();
+      if (!this.bottomCollision) {
+        this.velocityY -= Physics.G * Time.DeltaTime;
+      }
+      this.CollisionCheck(Entities2);
+    }
+    InputUpdate() {
+      let stride = Vector2.Zero;
+      if (Input.GetKeyState(65)) {
+        stride = stride.Add(Vector2.Right.Scale(this.speed * Time.DeltaTime));
+      }
+      if (Input.GetKeyState(68)) {
+        stride = stride.Add(Vector2.Left.Scale(this.speed * Time.DeltaTime));
+      }
+      if (this.bottomCollision) {
+        if (Input.GetKeyState(87) || Input.GetKeyState(32)) {
+          this.velocityY = 400;
+        }
+      }
+      if (!this.bottomCollision) {
+        if (Input.GetKeyState(83) || Input.GetKeyState(17)) {
+          stride = stride.Add(Vector2.Up.Scale(this.speed * Time.DeltaTime));
+        }
+      }
+      if (Input.GetKeyState(66)) {
+        let col = [];
+        if (Input.GetKeyState(39)) {
+          col = this.GetColliderDot(Vector2.Right.Scale(100));
+        } else if (Input.GetKeyState(37)) {
+          col = this.GetColliderDot(Vector2.Left.Scale(100));
+        } else if (Input.GetKeyState(38)) {
+          col = this.GetColliderDot(Vector2.Down.Scale(100));
+        } else if (Input.GetKeyState(40)) {
+          col = this.GetColliderDot(Vector2.Up.Scale(100));
+        }
+        if (col.length == 2)
+          TC.LoadedLayers.forEach((layer) => {
+            layer.forEach((entity) => {
+              if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
+                layer.splice(layer.indexOf(entity), 1);
+              }
+            });
+          });
+      }
+      stride = stride.Add(Vector2.Down.Scale(this.velocityY * Time.deltaTime));
+      stride = Vector2.Round(stride);
+      this.Camera = this.Camera.Add(stride);
+      this.transform.Position = this.transform.Position.Add(
+        new Vector2(-stride.X, stride.Y)
+      );
+    }
+    CollisionCheck(Entities2) {
       let bottomFlag = false;
       Entities2.forEach((entity) => {
         if (!(entity === this)) {
@@ -458,12 +518,12 @@
   };
 
   // Source/Map/cave.js
-  function cave(TC2) {
+  function cave(TC3) {
     level = "caveLVL";
     for (let y = 6; y < 1e3; y++) {
       for (let x = -50; x < 50; x++) {
         if (y == 6) {
-          TC2.GetLayer(y).push(
+          TC3.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -472,7 +532,7 @@
             )
           );
         } else if (y < 10) {
-          TC2.GetLayer(y).push(
+          TC3.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -499,7 +559,7 @@
                   x -= 1;
                 }
                 if (a == 0 && i == 3) {
-                  TC2.GetLayer(y).push(
+                  TC3.GetLayer(y).push(
                     new Tile(
                       new Vector2(0 + 100 * x, 100 * y),
                       new Vector2(100, 100),
@@ -508,7 +568,7 @@
                     )
                   );
                 } else {
-                  TC2.GetLayer(y).push(
+                  TC3.GetLayer(y).push(
                     new Tile(
                       new Vector2(0 + 100 * x, 100 * y),
                       new Vector2(100, 100),
@@ -524,7 +584,7 @@
           } else {
             if (y >= 10 && y < 50) {
               if (r < 5) {
-                TC2.GetLayer(y).push(
+                TC3.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -533,7 +593,7 @@
                   )
                 );
               } else if (r < 7) {
-                TC2.GetLayer(y).push(
+                TC3.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -542,7 +602,7 @@
                   )
                 );
               } else
-                TC2.GetLayer(y).push(
+                TC3.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -552,7 +612,7 @@
                 );
             } else if (y >= 50) {
               if (r < 5) {
-                TC2.GetLayer(y).push(
+                TC3.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -561,7 +621,7 @@
                   )
                 );
               } else if (r < 7) {
-                TC2.GetLayer(y).push(
+                TC3.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -570,7 +630,7 @@
                   )
                 );
               } else
-                TC2.GetLayer(y).push(
+                TC3.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -592,12 +652,12 @@
   var cave_default = cave;
 
   // Source/Map/village.js
-  function village(TC2) {
+  function village(TC3) {
     level = "villageLVL";
     for (let y = 5; y < 1e3; y++) {
       for (let x = -50; x < 50; x++) {
         if (y == 5 && x == 0) {
-          TC2.GetLayer(y).push(
+          TC3.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1) + 50),
               new Vector2(200, 200),
@@ -606,7 +666,7 @@
             )
           );
         } else if (y == 5 && x == 4) {
-          TC2.GetLayer(y).push(
+          TC3.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -615,7 +675,7 @@
             )
           );
         } else if (y == 5 && x == 6) {
-          TC2.GetLayer(y).push(
+          TC3.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -624,7 +684,7 @@
             )
           );
         } else if (y == 5 && x == 8) {
-          TC2.GetLayer(y).push(
+          TC3.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -633,7 +693,7 @@
             )
           );
         } else if (y == 5 && x == 10) {
-          TC2.GetLayer(y).push(
+          TC3.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -642,7 +702,7 @@
             )
           );
         } else if (y == 5 && x == 12) {
-          TC2.GetLayer(y).push(
+          TC3.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -651,7 +711,7 @@
             )
           );
         } else if (y == 6) {
-          TC2.GetLayer(y).push(
+          TC3.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -660,7 +720,7 @@
             )
           );
         } else if (y > 6 && y < 20) {
-          TC2.GetLayer(y).push(
+          TC3.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -674,13 +734,8 @@
   }
   var village_default = village;
 
-  // Source/Physics/Physics.js
-  var Physics = class {
-    static G = 500;
-  };
-
   // Source/main.js
-  var TC = new TileController(100, 1920);
+  var TC2 = new TileController(100, 1920);
   var canvas = new Canvas(2);
   var game = new Game(
     Start,
@@ -694,66 +749,28 @@
   );
   var level2 = "villageLVL";
   var playerImg = CreateImageByPath("Res/img/player1.png");
-  var pos = Vector2.Zero;
   var player = new Player(
     new Vector2(900, 450),
     new Vector2(80, 80),
     playerImg,
-    1
+    1,
+    Vector2.Zero
   );
   var Entities = [];
-  selectLVL(TC);
+  selectLVL(TC2);
   function selectLVL() {
     console.log(level2);
     if (level2 == "villageLVL") {
-      village_default(TC);
+      village_default(TC2);
     } else {
-      cave_default(TC);
+      cave_default(TC2);
     }
   }
   window.onload = () => game.Start();
-  var speed = 500;
   function Start() {
     canvas.updateSize();
   }
   function UpdateInput() {
-    let stride = Vector2.Zero;
-    if (Input.GetKeyState(65)) {
-      stride = stride.Add(Vector2.Right.Scale(speed * Time.DeltaTime));
-    }
-    if (Input.GetKeyState(68)) {
-      stride = stride.Add(Vector2.Left.Scale(speed * Time.DeltaTime));
-    }
-    if (player.bottomCollision) {
-      if (Input.GetKeyState(87) || Input.GetKeyState(32)) {
-        player.velocityY = 400;
-      }
-    }
-    if (!player.bottomCollision) {
-      if (Input.GetKeyState(83) || Input.GetKeyState(17)) {
-        stride = stride.Add(Vector2.Up.Scale(speed * Time.DeltaTime));
-      }
-    }
-    if (Input.GetKeyState(66)) {
-      let col = [];
-      if (Input.GetKeyState(39)) {
-        col = player.GetColliderDot(Vector2.Right.Scale(100));
-      } else if (Input.GetKeyState(37)) {
-        col = player.GetColliderDot(Vector2.Left.Scale(100));
-      } else if (Input.GetKeyState(38)) {
-        col = player.GetColliderDot(Vector2.Down.Scale(100));
-      } else if (Input.GetKeyState(40)) {
-        col = player.GetColliderDot(Vector2.Up.Scale(100));
-      }
-      if (col.length == 2)
-        TC.LoadedLayers.forEach((layer) => {
-          layer.forEach((entity) => {
-            if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
-              layer.splice(layer.indexOf(entity), 1);
-            }
-          });
-        });
-    }
     if (Input.GetKeyState(90)) {
       if (level2 == "villageLVL") {
         level2 = "caveLVL";
@@ -763,36 +780,24 @@
         selectLVL();
       }
     }
-    stride = stride.Add(Vector2.Down.Scale(player.velocityY * Time.deltaTime));
-    stride = Vector2.Round(stride);
-    pos = pos.Add(stride);
-    player.transform.Position = player.transform.Position.Add(
-      new Vector2(-stride.X, stride.Y)
-    );
   }
   function Update() {
     let tiles = [];
-    TC.LoadedLayers.forEach((layer) => {
+    TC2.LoadedLayers.forEach((layer) => {
       layer.forEach((entity) => {
         tiles.push(entity);
       });
     });
     UpdateInput();
-    TC.UpdateLoadted(pos.Y);
-    playerUpdate(tiles);
+    TC2.UpdateLoadted(player.Camera.Y);
+    player.Update(tiles);
     canvas.GetLayerContext(1).clearRect(0, 0, 1920, 1080);
     Entities.forEach((tile) => {
-      tile.Draw(canvas.GetLayerContext(tile.Layer), pos);
+      tile.Draw(canvas.GetLayerContext(tile.Layer), player.Camera);
     });
     tiles.forEach((entity) => {
-      entity.Draw(canvas.GetLayerContext(entity.Layer), pos);
+      entity.Draw(canvas.GetLayerContext(entity.Layer), player.Camera);
     });
-    player.Draw(canvas.GetLayerContext(player.Layer), pos);
-  }
-  function playerUpdate(tiles) {
-    if (!player.bottomCollision) {
-      player.velocityY -= Physics.G * Time.DeltaTime;
-    }
-    player.Update(tiles);
+    player.Draw(canvas.GetLayerContext(player.Layer), player.Camera);
   }
 })();
