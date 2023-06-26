@@ -11,11 +11,11 @@ export class Player extends Entity {
   bottomCollision = false;
   velocityY = 0;
   speed = 500;
-  TC;
-  constructor(position, size, Image, Layer, Camera, TC) {
+  SM;
+  constructor(position, size, Image, Layer, Camera, SM) {
     super(new Transform(position, size), Image, Layer)
     Player.Camera = Camera;
-    this.TC = TC;
+    this.SM = SM;
   }
   Update(Entities) {
     this.InputUpdate();
@@ -57,7 +57,7 @@ export class Player extends Entity {
         col = this.GetColliderDot(Vector2.Up.Scale(100));
       }
       if(col.length == 2)
-      this.TC.LoadedLayers.forEach(layer => {
+      this.SM.currentScene.TC.LoadedLayers.forEach(layer => {
         layer.forEach(entity => {
           if(Collisions.AABBtoAABB(entity.GetCollider(), col)){//
             layer.splice(layer.indexOf(entity), 1);

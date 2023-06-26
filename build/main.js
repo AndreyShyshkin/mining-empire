@@ -321,11 +321,11 @@
     bottomCollision = false;
     velocityY = 0;
     speed = 500;
-    TC;
-    constructor(position, size, Image2, Layer2, Camera, TC) {
+    SM;
+    constructor(position, size, Image2, Layer2, Camera, SM2) {
       super(new Transform(position, size), Image2, Layer2);
       _Player.Camera = Camera;
-      this.TC = TC;
+      this.SM = SM2;
     }
     Update(Entities) {
       this.InputUpdate();
@@ -364,7 +364,7 @@
           col = this.GetColliderDot(Vector2.Up.Scale(100));
         }
         if (col.length == 2)
-          this.TC.LoadedLayers.forEach((layer) => {
+          this.SM.currentScene.TC.LoadedLayers.forEach((layer) => {
             layer.forEach((entity) => {
               if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
                 layer.splice(layer.indexOf(entity), 1);
@@ -753,8 +753,14 @@
     }
   };
 
+  // Source/Logic/SceneManager.js
+  var SceneMagager = class {
+    town = new Scene();
+    mine = new Scene();
+    currentScene = this.town;
+  };
+
   // Source/main.js
-  var myScene = new Scene();
   var game = new Game(
     Start,
     Update,
@@ -765,6 +771,8 @@
     () => {
     }
   );
+  var SM = new SceneMagager();
+  console.log(SM.town === SM.currentScene);
   var level2 = "villageLVL";
   var playerImg = CreateImageByPath("Res/img/player1.png");
   var player = new Player(
@@ -773,15 +781,15 @@
     playerImg,
     1,
     Vector2.Zero,
-    myScene.TC
+    SM
   );
-  selectLVL(myScene.TC);
+  selectLVL(SM.currentScene.TC);
   function selectLVL() {
     console.log(level2);
     if (level2 == "villageLVL") {
-      village_default(myScene.TC);
+      village_default(SM.currentScene.TC);
     } else {
-      cave_default(myScene.TC);
+      cave_default(SM.currentScene.TC);
     }
   }
   window.onload = () => game.Start();
@@ -801,16 +809,16 @@
   }
   function Update() {
     let tiles = [];
-    myScene.TC.LoadedLayers.forEach((layer) => {
+    SM.currentScene.TC.LoadedLayers.forEach((layer) => {
       layer.forEach((entity) => {
         tiles.push(entity);
       });
     });
     UpdateInput();
-    myScene.TC.UpdateLoadted(Player.Camera.Y);
+    SM.currentScene.TC.UpdateLoadted(Player.Camera.Y);
     player.Update(tiles);
     Canvas.Instance.GetLayerContext(1).clearRect(0, 0, 1920, 1080);
-    myScene.Draw();
+    SM.currentScene.Draw();
     player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
   }
 })();

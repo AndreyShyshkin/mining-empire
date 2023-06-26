@@ -8,9 +8,7 @@ import { TileController } from "./Entities/TileController"
 import { CreateImageByPath } from "./Logic/RenderImage"
 import cave from "./Map/cave";
 import village from "./Map/village";
-import { Scene } from "./Logic/Scene"
-
-let myScene = new Scene();
+import { SceneMagager } from "./Logic/SceneManager"
 let game = new Game(
   Start,
   Update,
@@ -19,6 +17,8 @@ let game = new Game(
   () => {}
 )
 
+let SM = new SceneMagager();
+console.log(SM.town === SM.currentScene)
 
 let level = "villageLVL";
 
@@ -29,16 +29,16 @@ let player = new Player(
   playerImg,
   1,
   Vector2.Zero,
-  myScene.TC
+  SM
 )
 
-selectLVL(myScene.TC);
+selectLVL(SM.currentScene.TC);
 function selectLVL(){
   console.log(level)
   if(level == "villageLVL"){
-    village(myScene.TC);
+    village(SM.currentScene.TC);
     }else {
-    cave(myScene.TC);
+    cave(SM.currentScene.TC);
   }
 }
 
@@ -59,17 +59,17 @@ function UpdateInput() {
 }
 function Update() {
   let tiles = []
-  myScene.TC.LoadedLayers.forEach(layer => {
+  SM.currentScene.TC.LoadedLayers.forEach(layer => {
     layer.forEach(entity => {
       tiles.push(entity);
     })
   })
   UpdateInput()
-  myScene.TC.UpdateLoadted(Player.Camera.Y);
+  SM.currentScene.TC.UpdateLoadted(Player.Camera.Y);
   player.Update(tiles);
   Canvas.Instance.GetLayerContext(1).clearRect(0, 0, 1920, 1080)
   //canvas.GetLayerContext(0)!.drawImage(img, 0, 0);
-  myScene.Draw();
+  SM.currentScene.Draw();
   player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera)
 }
 function Random(min, max) {
