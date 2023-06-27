@@ -7,6 +7,16 @@ import { SceneManager } from "../Logic/SceneManager";
 function cave(){
   for (let y = 6; y < 1000; y++) {
     for (let x = -50; x < 50; x++) {
+      if( y == 6 && x == 6){
+        SceneManager.Instance.mine.Entities.push(
+          new Tile(
+            new Vector2(0 + 100 * x, 100 * (y-2) + 50),
+            new Vector2(200, 200),
+            Images.cave,
+            1
+          )
+      )
+    }
       if (y == 6) {
         title1(SceneManager, x, y)
       } else if (y < 10){
