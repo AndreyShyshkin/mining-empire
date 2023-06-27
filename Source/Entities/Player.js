@@ -6,6 +6,9 @@ import { Time } from "../Logic/Time"
 import { Physics } from "../Physics/Physics"
 import { Input } from "../Logic/Input"
 import { SceneManager } from "../Logic/SceneManager"
+import { Images } from "../Graphics/Images";
+
+import resurse from "../Logic/inventory"
 
 let SM = new SceneManager();
 
@@ -68,6 +71,13 @@ export class Player extends Entity {
         this.SM.currentScene.TC.LoadedLayers.forEach(layer => {
           layer.forEach(entity => {
             if(Collisions.AABBtoAABB(entity.GetCollider(), col)){//
+              if(entity.Image == Images.coal){
+                resurse[0] += 1
+                console.log("coal " + resurse[0]);
+              }if(entity.Image == Images.iron){
+                resurse[1] += 1
+                console.log("iron " + resurse[1]);
+              }
               layer.splice(layer.indexOf(entity), 1);
             }
           })

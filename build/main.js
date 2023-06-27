@@ -378,6 +378,40 @@
     }
   };
 
+  // Source/Logic/RenderImage.js
+  function CreateImageByPath(path) {
+    let img = new Image();
+    img.src = path;
+    return img;
+  }
+
+  // Source/Graphics/Images.js
+  var Images = class {
+    static tile1 = CreateImageByPath("Res/img/Grass.png");
+    static tile2 = CreateImageByPath("Res/img/Tile2.png");
+    static layer = CreateImageByPath("Res/img/Cobblestone.png");
+    static layer1 = CreateImageByPath("Res/img/Cobblestone_blue.png");
+    static layer2 = CreateImageByPath("Res/img/Cobblestone_red.png");
+    static layer3 = CreateImageByPath("Res/img/Cobblestone_purple.png");
+    static iron = CreateImageByPath("Res/img/Iron.png");
+    static coal = CreateImageByPath("Res/img/Coal.png");
+    static cross = CreateImageByPath("Res/img/Cross.png");
+    static chest = CreateImageByPath("Res/img/Chest.png");
+    static cave = CreateImageByPath("Res/img/cave.png");
+    static forge = CreateImageByPath("Res/img/forge.png");
+    static home1 = CreateImageByPath("Res/img/home1.png");
+    static home2 = CreateImageByPath("Res/img/home2.png");
+    static home3 = CreateImageByPath("Res/img/home3.png");
+    static market = CreateImageByPath("Res/img/market.png");
+  };
+
+  // Source/Logic/inventory.js
+  var resurse = [
+    coal = 0,
+    iron = 0
+  ];
+  var inventory_default = resurse;
+
   // Source/Entities/Player.js
   var SM = new SceneManager();
   var Player = class _Player extends Entity {
@@ -436,6 +470,14 @@
             this.SM.currentScene.TC.LoadedLayers.forEach((layer4) => {
               layer4.forEach((entity) => {
                 if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
+                  if (entity.Image == Images.coal) {
+                    inventory_default[0] += 1;
+                    console.log("coal " + inventory_default[0]);
+                  }
+                  if (entity.Image == Images.iron) {
+                    inventory_default[1] += 1;
+                    console.log("iron " + inventory_default[1]);
+                  }
                   layer4.splice(layer4.indexOf(entity), 1);
                 }
               });
@@ -543,13 +585,6 @@
     }
   };
 
-  // Source/Logic/RenderImage.js
-  function CreateImageByPath(path) {
-    let img = new Image();
-    img.src = path;
-    return img;
-  }
-
   // Source/Entities/Tile.js
   var Tile = class extends Entity {
     constructor(position, size, Image2, Layer2) {
@@ -564,26 +599,6 @@
         this.transform.Size.Y
       );
     }
-  };
-
-  // Source/Graphics/Images.js
-  var Images = class {
-    static tile1 = CreateImageByPath("Res/img/Grass.png");
-    static tile2 = CreateImageByPath("Res/img/Tile2.png");
-    static layer = CreateImageByPath("Res/img/Cobblestone.png");
-    static layer1 = CreateImageByPath("Res/img/Cobblestone_blue.png");
-    static layer2 = CreateImageByPath("Res/img/Cobblestone_red.png");
-    static layer3 = CreateImageByPath("Res/img/Cobblestone_purple.png");
-    static iron = CreateImageByPath("Res/img/Iron.png");
-    static coal = CreateImageByPath("Res/img/Coal.png");
-    static cross = CreateImageByPath("Res/img/Cross.png");
-    static chest = CreateImageByPath("Res/img/Chest.png");
-    static cave = CreateImageByPath("Res/img/cave.png");
-    static forge = CreateImageByPath("Res/img/forge.png");
-    static home1 = CreateImageByPath("Res/img/home1.png");
-    static home2 = CreateImageByPath("Res/img/home2.png");
-    static home3 = CreateImageByPath("Res/img/home3.png");
-    static market = CreateImageByPath("Res/img/market.png");
   };
 
   // Source/Map/cave.js
@@ -624,44 +639,44 @@
           } else {
             if (y >= 10 && y < 50) {
               if (r < 5) {
-                coal(SceneManager, x, y);
+                coal2(SceneManager, x, y);
               } else if (r < 7) {
-                iron(SceneManager, x, y);
+                iron2(SceneManager, x, y);
               } else
                 title2(SceneManager, x, y);
             } else if (y >= 50 && y < 100) {
               if (r < 5) {
-                iron(SceneManager, x, y);
+                iron2(SceneManager, x, y);
               } else if (r < 7) {
-                coal(SceneManager, x, y);
+                coal2(SceneManager, x, y);
               } else
                 title2(SceneManager, x, y);
             } else if (y >= 100 && y < 150) {
               if (r < 5) {
-                iron(SceneManager, x, y);
+                iron2(SceneManager, x, y);
               } else if (r < 7) {
-                coal(SceneManager, x, y);
+                coal2(SceneManager, x, y);
               } else
                 layer(SceneManager, x, y);
             } else if (y >= 150 && y < 200) {
               if (r < 5) {
-                iron(SceneManager, x, y);
+                iron2(SceneManager, x, y);
               } else if (r < 7) {
-                coal(SceneManager, x, y);
+                coal2(SceneManager, x, y);
               } else
                 layer1(SceneManager, x, y);
             } else if (y >= 200 && y < 250) {
               if (r < 5) {
-                iron(SceneManager, x, y);
+                iron2(SceneManager, x, y);
               } else if (r < 7) {
-                coal(SceneManager, x, y);
+                coal2(SceneManager, x, y);
               } else
                 layer2(SceneManager, x, y);
             } else if (y >= 250) {
               if (r < 5) {
-                iron(SceneManager, x, y);
+                iron2(SceneManager, x, y);
               } else if (r < 7) {
-                coal(SceneManager, x, y);
+                coal2(SceneManager, x, y);
               } else
                 layer3(SceneManager, x, y);
             }
@@ -690,7 +705,7 @@
       )
     );
   }
-  function coal(SceneManager2, x, y) {
+  function coal2(SceneManager2, x, y) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
@@ -700,7 +715,7 @@
       )
     );
   }
-  function iron(SceneManager2, x, y) {
+  function iron2(SceneManager2, x, y) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
