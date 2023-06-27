@@ -2,12 +2,13 @@ import { CreateImageByPath } from "../Logic/RenderImage"
 import { Tile } from "../Entities/Tile"
 import { Vector2 } from "../Math/Vector2"
 import { Images } from "../Graphics/Images";
+import { SceneManager } from "../Logic/SceneManager";
 
-function cave(TC){
+function cave(){
   for (let y = 6; y < 1000; y++) {
     for (let x = -50; x < 50; x++) {
       if (y == 6) {
-        TC.GetLayer(y).push(
+        SceneManager.Instance.mine.TC.GetLayer(y).push(
           new Tile(
             new Vector2(0 + 100 * x, 100 * y),
             new Vector2(100, 100),
@@ -16,7 +17,7 @@ function cave(TC){
           )
         )
       }else if (y < 10){
-        TC.GetLayer(y).push(
+        SceneManager.Instance.mine.TC.GetLayer(y).push(
           new Tile(
             new Vector2(0 + 100 * x, 100 * y),
             new Vector2(100, 100),
@@ -43,7 +44,7 @@ function cave(TC){
                   x -= 1;
                 }
               if(a == 0 && i == 3){
-                TC.GetLayer(y).push(
+                SceneManager.Instance.mine.TC.GetLayer(y).push(
                   new Tile(
                   new Vector2(0 + 100 * x, 100 * y),
                   new Vector2(100, 100),
@@ -52,7 +53,7 @@ function cave(TC){
                   )
                 )
               }else {    
-              TC.GetLayer(y).push(
+                SceneManager.Instance.mine.TC.GetLayer(y).push(
                 new Tile(
                 new Vector2(0 + 100 * x, 100 * y),
                 new Vector2(100, 100),
@@ -65,7 +66,7 @@ function cave(TC){
         }else{
         if(y >= 10 && y < 50){
         if(r < 5){
-          TC.GetLayer(y).push(
+          SceneManager.Instance.mine.TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -75,7 +76,7 @@ function cave(TC){
           )
         }
         else if(r < 7){
-          TC.GetLayer(y).push(
+          SceneManager.Instance.mine.TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -85,7 +86,7 @@ function cave(TC){
           )
         }
         else
-        TC.GetLayer(y).push(
+        SceneManager.Instance.mine.TC.GetLayer(y).push(
           new Tile(
             new Vector2(0 + 100 * x, 100 * y),
             new Vector2(100, 100),
@@ -95,7 +96,7 @@ function cave(TC){
         )
       } else if (y >= 50){
         if(r < 5){
-          TC.GetLayer(y).push(
+          SceneManager.Instance.mine.TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -105,7 +106,7 @@ function cave(TC){
           )
         }
         else if(r < 7){
-          TC.GetLayer(y).push(
+          SceneManager.Instance.mine.TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -115,7 +116,7 @@ function cave(TC){
           )
         }
         else
-        TC.GetLayer(y).push(
+        SceneManager.Instance.mine.TC.GetLayer(y).push(
           new Tile(
             new Vector2(0 + 100 * x, 100 * y),
             new Vector2(100, 100),

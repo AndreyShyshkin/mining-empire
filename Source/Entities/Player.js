@@ -50,7 +50,7 @@ export class Player extends Entity {
       }
     }
     if (Input.GetKeyState(66)){// B
-      if (SM.currentScene == SM.mine){
+      if (SceneManager.Instance.currentScene == SceneManager.Instance.mine){
         let col = []
         if(Input.GetKeyState(39)){//right
           col = this.GetColliderDot(Vector2.Right.Scale(100));

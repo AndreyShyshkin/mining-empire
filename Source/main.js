@@ -30,7 +30,7 @@ let player = new Player(
 )
 
 village(SM.town.TC);
-cave(SM.mine.TC);
+cave();
 
 window.onload = () => game.Start()
 function Start() {
@@ -49,6 +49,7 @@ function UpdateInput() {
   }
 }
 function Update() {
+  console.log(SM.currentSceneName);
   let tiles = []
   SM.currentScene.TC.LoadedLayers.forEach(layer => {
     layer.forEach(entity => {

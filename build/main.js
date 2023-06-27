@@ -361,12 +361,16 @@
   };
 
   // Source/Logic/SceneManager.js
-  var SceneManager = class {
+  var SceneManager = class _SceneManager {
     town = new Scene();
     mine = new Scene();
     currentScene = this.town;
+    static Instance;
+    constructor() {
+      _SceneManager.Instance = this;
+    }
     ChangeScene() {
-      if (this.currentScene == this.town) {
+      if (Object.is(this.currentScene, this.town)) {
         this.currentScene = this.mine;
       } else {
         this.currentScene = this.town;
@@ -417,7 +421,7 @@
         }
       }
       if (Input.GetKeyState(66)) {
-        if (SM.currentScene == SM.mine) {
+        if (SceneManager.Instance.currentScene == SceneManager.Instance.mine) {
           let col = [];
           if (Input.GetKeyState(39)) {
             col = this.GetColliderDot(Vector2.Right.Scale(100));
@@ -579,11 +583,11 @@
   };
 
   // Source/Map/cave.js
-  function cave(TC) {
+  function cave() {
     for (let y = 6; y < 1e3; y++) {
       for (let x = -50; x < 50; x++) {
         if (y == 6) {
-          TC.GetLayer(y).push(
+          SceneManager.Instance.mine.TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -592,7 +596,7 @@
             )
           );
         } else if (y < 10) {
-          TC.GetLayer(y).push(
+          SceneManager.Instance.mine.TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -619,7 +623,7 @@
                   x -= 1;
                 }
                 if (a == 0 && i == 3) {
-                  TC.GetLayer(y).push(
+                  SceneManager.Instance.mine.TC.GetLayer(y).push(
                     new Tile(
                       new Vector2(0 + 100 * x, 100 * y),
                       new Vector2(100, 100),
@@ -628,7 +632,7 @@
                     )
                   );
                 } else {
-                  TC.GetLayer(y).push(
+                  SceneManager.Instance.mine.TC.GetLayer(y).push(
                     new Tile(
                       new Vector2(0 + 100 * x, 100 * y),
                       new Vector2(100, 100),
@@ -644,7 +648,7 @@
           } else {
             if (y >= 10 && y < 50) {
               if (r < 5) {
-                TC.GetLayer(y).push(
+                SceneManager.Instance.mine.TC.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -653,7 +657,7 @@
                   )
                 );
               } else if (r < 7) {
-                TC.GetLayer(y).push(
+                SceneManager.Instance.mine.TC.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -662,7 +666,7 @@
                   )
                 );
               } else
-                TC.GetLayer(y).push(
+                SceneManager.Instance.mine.TC.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -672,7 +676,7 @@
                 );
             } else if (y >= 50) {
               if (r < 5) {
-                TC.GetLayer(y).push(
+                SceneManager.Instance.mine.TC.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -681,7 +685,7 @@
                   )
                 );
               } else if (r < 7) {
-                TC.GetLayer(y).push(
+                SceneManager.Instance.mine.TC.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -690,7 +694,7 @@
                   )
                 );
               } else
-                TC.GetLayer(y).push(
+                SceneManager.Instance.mine.TC.GetLayer(y).push(
                   new Tile(
                     new Vector2(0 + 100 * x, 100 * y),
                     new Vector2(100, 100),
@@ -712,37 +716,37 @@
   var cave_default = cave;
 
   // Source/Map/village.js
-  function village(TC) {
+  function village() {
     for (let y = 5; y < 1e3; y++) {
       for (let x = -10; x < 30; x++) {
         if (y == 5 && x % 2 == 0 && x < 6) {
           let r = Random2(1, 3);
           switch (r) {
             case 1:
-              home1(TC, x, y);
+              home1(SceneManager.Instance.town.Entities, x, y);
               break;
             case 2:
-              home2(TC, x, y);
+              home2(SceneManager.Instance.town.Entities, x, y);
               break;
             case 3:
-              home3(TC, x, y);
+              home3(SceneManager.Instance.town.Entities, x, y);
               break;
           }
         } else if (y == 5 && x % 2 == 0 && x > 14) {
           let r = Random2(1, 3);
           switch (r) {
             case 1:
-              home1(TC, x, y);
+              home1(SceneManager.Instance.town.Entities, x, y);
               break;
             case 2:
-              home2(TC, x, y);
+              home2(SceneManager.Instance.town.Entities, x, y);
               break;
             case 3:
-              home3(TC, x, y);
+              home3(SceneManager.Instance.town.Entities, x, y);
               break;
           }
         } else if (y == 5 && x == 6) {
-          TC.GetLayer(y).push(
+          SceneManager.Instance.town.Entities.push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1) + 50),
               new Vector2(200, 200),
@@ -751,7 +755,7 @@
             )
           );
         } else if (y == 5 && x == 12) {
-          TC.GetLayer(y).push(
+          SceneManager.Instance.town.Entities.push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -760,7 +764,7 @@
             )
           );
         } else if (y == 5 && x == 14) {
-          TC.GetLayer(y).push(
+          SceneManager.Instance.town.Entities.push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
@@ -769,7 +773,7 @@
             )
           );
         } else if (y == 6) {
-          TC.GetLayer(y).push(
+          SceneManager.Instance.town.TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -778,7 +782,7 @@
             )
           );
         } else if (y > 6 && y < 15) {
-          TC.GetLayer(y).push(
+          SceneManager.Instance.town.TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -790,8 +794,8 @@
       }
     }
   }
-  function home1(TC, x, y) {
-    TC.GetLayer(y).push(
+  function home1(Entities, x, y) {
+    Entities.push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * (y - 1)),
         new Vector2(200, 200),
@@ -800,8 +804,8 @@
       )
     );
   }
-  function home2(TC, x, y) {
-    TC.GetLayer(y).push(
+  function home2(Entities, x, y) {
+    Entities.push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * (y - 1)),
         new Vector2(200, 200),
@@ -810,8 +814,8 @@
       )
     );
   }
-  function home3(TC, x, y) {
-    TC.GetLayer(y).push(
+  function home3(Entities, x, y) {
+    Entities.push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * (y - 1)),
         new Vector2(200, 200),
@@ -849,15 +853,10 @@
     SM2
   );
   village_default(SM2.town.TC);
-  cave_default(SM2.mine.TC);
+  cave_default();
   window.onload = () => game.Start();
   function Start() {
     Canvas.Instance.updateSize();
-  }
-  if (SM2.currentScene == SM2.town) {
-    console.log("town");
-  } else if (SM2.currentScene == SM2.mine) {
-    console.log("mine");
   }
   var changeSceneFlag = false;
   function UpdateInput() {
@@ -871,6 +870,7 @@
     }
   }
   function Update() {
+    console.log(SM2.currentSceneName);
     let tiles = [];
     SM2.currentScene.TC.LoadedLayers.forEach((layer) => {
       layer.forEach((entity) => {

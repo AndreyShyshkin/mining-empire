@@ -2,38 +2,38 @@ import { CreateImageByPath } from "../Logic/RenderImage"
 import { Tile } from "../Entities/Tile"
 import { Vector2 } from "../Math/Vector2"
 import { Images } from "../Graphics/Images";
-
-function village(TC){
+import { SceneManager } from "../Logic/SceneManager";
+function village(){
     for (let y = 5; y < 1000; y++) {
       for (let x = -10; x < 30; x++) {
         if( y == 5 && x % 2 == 0 && x < 6){
           let r = Random(1, 3);
           switch (r){
             case 1:
-              home1(TC, x, y);
+              home1(SceneManager.Instance.town.Entities, x, y);
               break;
             case 2:
-              home2(TC, x, y);
+              home2(SceneManager.Instance.town.Entities, x, y);
               break;
             case 3:
-              home3(TC, x, y);
+              home3(SceneManager.Instance.town.Entities, x, y);
               break;
           }
         }else if( y == 5 && x % 2 == 0 && x > 14){
           let r = Random(1, 3);
           switch (r){
             case 1:
-              home1(TC, x, y);
+              home1(SceneManager.Instance.town.Entities, x, y);
               break;
             case 2:
-              home2(TC, x, y);
+              home2(SceneManager.Instance.town.Entities, x, y);
               break;
             case 3:
-              home3(TC, x, y);
+              home3(SceneManager.Instance.town.Entities, x, y);
               break;
           }
         }else if( y == 5 && x == 6){
-          TC.GetLayer(y).push(
+          SceneManager.Instance.town.Entities.push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y-1) + 50),
               new Vector2(200, 200),
@@ -42,7 +42,7 @@ function village(TC){
             )
           )
         }else if( y == 5 && x == 12){
-          TC.GetLayer(y).push(
+          SceneManager.Instance.town.Entities.push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y-1)),
               new Vector2(200, 200),
@@ -51,7 +51,7 @@ function village(TC){
             )
           )
         }else if( y == 5 && x == 14){
-          TC.GetLayer(y).push(
+          SceneManager.Instance.town.Entities.push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y-1)),
               new Vector2(200, 200),
@@ -61,7 +61,7 @@ function village(TC){
           )
         }
         else if (y == 6) {
-          TC.GetLayer(y).push(
+          SceneManager.Instance.town.TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -71,7 +71,7 @@ function village(TC){
           )
         }
         else if (y > 6 && y < 15){
-          TC.GetLayer(y).push(
+          SceneManager.Instance.town.TC.GetLayer(y).push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
@@ -84,8 +84,8 @@ function village(TC){
     }
 }
 
-function home1(TC, x, y){
-  TC.GetLayer(y).push(
+function home1(Entities, x, y){
+  Entities.push(
     new Tile(
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
@@ -95,8 +95,8 @@ function home1(TC, x, y){
   )
 }
 
-function home2(TC, x, y){
-  TC.GetLayer(y).push(
+function home2(Entities, x, y){
+  Entities.push(
     new Tile(
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
@@ -106,8 +106,8 @@ function home2(TC, x, y){
   )
 }
 
-function home3(TC, x, y){
-  TC.GetLayer(y).push(
+function home3(Entities, x, y){
+  Entities.push(
     new Tile(
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
