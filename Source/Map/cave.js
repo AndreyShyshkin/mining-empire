@@ -8,23 +8,9 @@ function cave(){
   for (let y = 6; y < 1000; y++) {
     for (let x = -50; x < 50; x++) {
       if (y == 6) {
-        SceneManager.Instance.mine.TC.GetLayer(y).push(
-          new Tile(
-            new Vector2(0 + 100 * x, 100 * y),
-            new Vector2(100, 100),
-            Images.tile1,
-            1
-          )
-        )
+        title1(SceneManager, x, y)
       }else if (y < 10){
-        SceneManager.Instance.mine.TC.GetLayer(y).push(
-          new Tile(
-            new Vector2(0 + 100 * x, 100 * y),
-            new Vector2(100, 100),
-            Images.tile2,
-            1
-          )
-        )
+        title2(SceneManager, x, y);
       } else {
         let r = Random(1, 100);
         let rd = Random(1, 1000);
@@ -44,92 +30,103 @@ function cave(){
                   x -= 1;
                 }
               if(a == 0 && i == 3){
-                SceneManager.Instance.mine.TC.GetLayer(y).push(
-                  new Tile(
-                  new Vector2(0 + 100 * x, 100 * y),
-                  new Vector2(100, 100),
-                  Images.chest,
-                  1
-                  )
-                )
+                chest(SceneManager, x, y)
               }else {    
-                SceneManager.Instance.mine.TC.GetLayer(y).push(
-                new Tile(
-                new Vector2(0 + 100 * x, 100 * y),
-                new Vector2(100, 100),
-                Images.cross,
-                1
-                )
-              )}
+                cross(SceneManager, x, y)
+              }
               } x = xStart;
             } y = yStart;
         }else{
         if(y >= 10 && y < 50){
         if(r < 5){
-          SceneManager.Instance.mine.TC.GetLayer(y).push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * y),
-              new Vector2(100, 100),
-              Images.coal,
-              1
-            )
-          )
+          coal(SceneManager, x, y);
         }
         else if(r < 7){
-          SceneManager.Instance.mine.TC.GetLayer(y).push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * y),
-              new Vector2(100, 100),
-              Images.iron,
-              1
-            )
-          )
+          iron(SceneManager, x, y)
         }
         else
-        SceneManager.Instance.mine.TC.GetLayer(y).push(
-          new Tile(
-            new Vector2(0 + 100 * x, 100 * y),
-            new Vector2(100, 100),
-            Images.tile2,
-            1
-          )
-        )
+        title2(SceneManager, x, y);
       } else if (y >= 50){
         if(r < 5){
-          SceneManager.Instance.mine.TC.GetLayer(y).push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * y),
-              new Vector2(100, 100),
-              Images.iron,
-              1
-            )
-          )
+          iron(SceneManager, x, y)
         }
         else if(r < 7){
-          SceneManager.Instance.mine.TC.GetLayer(y).push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * y),
-              new Vector2(100, 100),
-              Images.coal,
-              1
-            )
-          )
+          coal(SceneManager, x, y);
         }
         else
-        SceneManager.Instance.mine.TC.GetLayer(y).push(
-          new Tile(
-            new Vector2(0 + 100 * x, 100 * y),
-            new Vector2(100, 100),
-            Images.tile2,
-            1
-          )
-        )  
+          title2(SceneManager, x, y);
         }
         }
       }
     }
   }
   
+}
+
+
+function title1(SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * y),
+      new Vector2(100, 100),
+      Images.tile1,
+      1
+    )
+  )
+}
+function title2(SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * y),
+      new Vector2(100, 100),
+      Images.tile2,
+      1
+    )
+  )
+}
+
+function coal(SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * y),
+      new Vector2(100, 100),
+      Images.coal,
+      1
+    )
+  )
+}
+
+function iron(SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * y),
+      new Vector2(100, 100),
+      Images.iron,
+      1
+    )
+  )
+}
+
+function chest(SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+    new Vector2(0 + 100 * x, 100 * y),
+    new Vector2(100, 100),
+    Images.chest,
+    1
+    )
+  )
+}
+
+function cross(SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+    new Vector2(0 + 100 * x, 100 * y),
+    new Vector2(100, 100),
+    Images.cross,
+    1
+    )
+  )  
 }
 
 function Random(min, max) {

@@ -49,7 +49,6 @@ function UpdateInput() {
   }
 }
 function Update() {
-  console.log(SM.currentSceneName);
   let tiles = []
   SM.currentScene.TC.LoadedLayers.forEach(layer => {
     layer.forEach(entity => {
