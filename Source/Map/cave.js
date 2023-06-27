@@ -9,58 +9,93 @@ function cave(){
     for (let x = -50; x < 50; x++) {
       if (y == 6) {
         title1(SceneManager, x, y)
-      }else if (y < 10){
+      } else if (y < 10){
         title2(SceneManager, x, y);
       } else {
         let r = Random(1, 100);
-        let rd = Random(1, 1000);
+        let rd = Random(1, 2000);
         if(rd == 1 && y > 15  && x > -40 && x < 40){
           let yStart = y;
           let xStart = x;
-            for(a = 0; a < 4; a++){
-              if(a == 0){
-                y = yStart;
+          for(a = 0; a < 4; a++){
+            if(a == 0){
+              y = yStart;
+            }else{
+              y -= 1;
+            }
+            for(i = 0; i < 9; i++){
+              if(i == 0){
+                x = xStart;
               }else{
-                y -= 1;
+                x -= 1;
               }
-              for(i = 0; i < 9; i++){
-                if(i == 0){
-                  x = xStart;
-                }else{
-                  x -= 1;
-                }
-              if(a == 0 && i == 3){
+              if (a == 0 && i == 3){
                 chest(SceneManager, x, y)
-              }else {    
+              } else {    
                 cross(SceneManager, x, y)
               }
-              } x = xStart;
-            } y = yStart;
+            } x = xStart;
+          } y = yStart;
         }else{
-        if(y >= 10 && y < 50){
-        if(r < 5){
-          coal(SceneManager, x, y);
-        }
-        else if(r < 7){
-          iron(SceneManager, x, y)
-        }
-        else
-        title2(SceneManager, x, y);
-      } else if (y >= 50){
-        if(r < 5){
-          iron(SceneManager, x, y)
-        }
-        else if(r < 7){
-          coal(SceneManager, x, y);
-        }
-        else
-          title2(SceneManager, x, y);
-        }
+          if(y >= 10 && y < 50){
+            if(r < 5){
+              coal(SceneManager, x, y);
+            }
+            else if(r < 7){
+              iron(SceneManager, x, y)
+            }
+            else
+            title2(SceneManager, x, y);
+          } else if (y >= 50 && y < 100){
+            if(r < 5){
+              iron(SceneManager, x, y)
+            }
+            else if(r < 7){
+              coal(SceneManager, x, y);
+            }
+            else
+              title2(SceneManager, x, y);
+          } else if (y >= 100 && y < 150){
+            if(r < 5){
+              iron(SceneManager, x, y)
+            }
+            else if(r < 7){
+              coal(SceneManager, x, y);
+            }
+            else
+            layer1(SceneManager, x, y)
+          } else if (y >= 150 && y < 200){
+            if(r < 5){
+              iron(SceneManager, x, y)
+            }
+            else if(r < 7){
+              coal(SceneManager, x, y);
+            }
+            else
+            layer2(SceneManager, x, y)
+          } else if (y >= 200 && y < 250){
+            if(r < 5){
+              iron(SceneManager, x, y)
+            }
+            else if(r < 7){
+              coal(SceneManager, x, y);
+            }
+            else
+            layer3(SceneManager, x, y)
+          } else {
+            if(r < 5){
+              iron(SceneManager, x, y)
+            }
+            else if(r < 7){
+              coal(SceneManager, x, y);
+            }
+            else
+            title2(SceneManager, x, y);
+          }
         }
       }
     }
-  }
-  
+  } 
 }
 
 
@@ -127,6 +162,39 @@ function cross(SceneManager, x, y){
     1
     )
   )  
+}
+
+function layer1(SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+    new Vector2(0 + 100 * x, 100 * y),
+    new Vector2(100, 100),
+    Images.layer1,
+    1
+    )
+  )
+}
+
+function layer2(SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+    new Vector2(0 + 100 * x, 100 * y),
+    new Vector2(100, 100),
+    Images.layer2,
+    1
+    )
+  )
+}
+
+function layer3(SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+    new Vector2(0 + 100 * x, 100 * y),
+    new Vector2(100, 100),
+    Images.layer3,
+    1
+    )
+  )
 }
 
 function Random(min, max) {

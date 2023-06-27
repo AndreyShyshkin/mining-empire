@@ -570,6 +570,9 @@
   var Images = class {
     static tile1 = CreateImageByPath("Res/img/Grass.png");
     static tile2 = CreateImageByPath("Res/img/Tile2.png");
+    static layer1 = CreateImageByPath("Res/img/Cobblestone_blue.png");
+    static layer2 = CreateImageByPath("Res/img/Cobblestone_red.png");
+    static layer3 = CreateImageByPath("Res/img/Cobblestone_purple.png");
     static iron = CreateImageByPath("Res/img/Iron.png");
     static coal = CreateImageByPath("Res/img/Coal.png");
     static cross = CreateImageByPath("Res/img/Cross.png");
@@ -592,7 +595,7 @@
           title2(SceneManager, x, y);
         } else {
           let r = Random(1, 100);
-          let rd = Random(1, 1e3);
+          let rd = Random(1, 2e3);
           if (rd == 1 && y > 15 && x > -40 && x < 40) {
             let yStart = y;
             let xStart = x;
@@ -625,7 +628,35 @@
                 iron(SceneManager, x, y);
               } else
                 title2(SceneManager, x, y);
-            } else if (y >= 50) {
+            } else if (y >= 50 && y < 100) {
+              if (r < 5) {
+                iron(SceneManager, x, y);
+              } else if (r < 7) {
+                coal(SceneManager, x, y);
+              } else
+                title2(SceneManager, x, y);
+            } else if (y >= 100 && y < 150) {
+              if (r < 5) {
+                iron(SceneManager, x, y);
+              } else if (r < 7) {
+                coal(SceneManager, x, y);
+              } else
+                layer1(SceneManager, x, y);
+            } else if (y >= 150 && y < 200) {
+              if (r < 5) {
+                iron(SceneManager, x, y);
+              } else if (r < 7) {
+                coal(SceneManager, x, y);
+              } else
+                layer2(SceneManager, x, y);
+            } else if (y >= 200 && y < 250) {
+              if (r < 5) {
+                iron(SceneManager, x, y);
+              } else if (r < 7) {
+                coal(SceneManager, x, y);
+              } else
+                layer3(SceneManager, x, y);
+            } else {
               if (r < 5) {
                 iron(SceneManager, x, y);
               } else if (r < 7) {
@@ -694,6 +725,36 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.cross,
+        1
+      )
+    );
+  }
+  function layer1(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.layer1,
+        1
+      )
+    );
+  }
+  function layer2(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.layer2,
+        1
+      )
+    );
+  }
+  function layer3(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.layer3,
         1
       )
     );
