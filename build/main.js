@@ -938,10 +938,19 @@
   var changeSceneFlag = false;
   function UpdateInput() {
     if (Input.GetKeyState(90)) {
-      if (!changeSceneFlag) {
-        SM2.ChangeScene();
+      const entranceTile = SceneManager.Instance.town.Entities.find(
+        (entity) => entity.Image === Images.cave
+      );
+      if (entranceTile) {
+        const playerCollider = player.GetCollider();
+        const entranceCollider = entranceTile.GetCollider();
+        if (Collisions.AABBtoAABB(playerCollider, entranceCollider)) {
+          if (!changeSceneFlag) {
+            SM2.ChangeScene();
+          }
+          changeSceneFlag = true;
+        }
       }
-      changeSceneFlag = true;
     } else {
       changeSceneFlag = false;
     }

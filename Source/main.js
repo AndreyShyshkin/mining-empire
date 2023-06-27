@@ -9,6 +9,8 @@ import { CreateImageByPath } from "./Logic/RenderImage"
 import cave from "./Map/cave";
 import village from "./Map/village";
 import { SceneManager } from "./Logic/SceneManager"
+import { Images } from "./Graphics/Images"
+import { Collisions } from "./Physics/Collisions"
 let game = new Game(
   Start,
   Update,
@@ -39,10 +41,21 @@ function Start() {
 let changeSceneFlag = false;
 function UpdateInput() {
   if (Input.GetKeyState(90)){// Z
-    if(!changeSceneFlag){
-      SM.ChangeScene();
+    const entranceTile = SceneManager.Instance.town.Entities.find(
+      (entity) => entity.Image === Images.cave
+    );
+  
+    if (entranceTile) {
+      const playerCollider = player.GetCollider();
+      const entranceCollider = entranceTile.GetCollider();
+  
+      if (Collisions.AABBtoAABB(playerCollider, entranceCollider)) {
+        if(!changeSceneFlag){
+          SM.ChangeScene();
+        }
+        changeSceneFlag = true;
+      }
     }
-    changeSceneFlag = true;
   }
   else{
     changeSceneFlag = false;
