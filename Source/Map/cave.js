@@ -63,7 +63,7 @@ function cave(){
               coal(SceneManager, x, y);
             }
             else
-            layer1(SceneManager, x, y)
+            layer(SceneManager, x, y)
           } else if (y >= 150 && y < 200){
             if(r < 5){
               iron(SceneManager, x, y)
@@ -72,7 +72,7 @@ function cave(){
               coal(SceneManager, x, y);
             }
             else
-            layer2(SceneManager, x, y)
+            layer1(SceneManager, x, y)
           } else if (y >= 200 && y < 250){
             if(r < 5){
               iron(SceneManager, x, y)
@@ -81,8 +81,8 @@ function cave(){
               coal(SceneManager, x, y);
             }
             else
-            layer3(SceneManager, x, y)
-          } else {
+            layer2(SceneManager, x, y)
+          } else if (y >= 250){
             if(r < 5){
               iron(SceneManager, x, y)
             }
@@ -90,7 +90,7 @@ function cave(){
               coal(SceneManager, x, y);
             }
             else
-            title2(SceneManager, x, y);
+            layer3(SceneManager, x, y)
           }
         }
       }
@@ -162,6 +162,17 @@ function cross(SceneManager, x, y){
     1
     )
   )  
+}
+
+function layer(SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+    new Vector2(0 + 100 * x, 100 * y),
+    new Vector2(100, 100),
+    Images.layer,
+    1
+    )
+  )
 }
 
 function layer1(SceneManager, x, y){

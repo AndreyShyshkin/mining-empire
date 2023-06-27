@@ -352,8 +352,8 @@
       this.Entities.forEach((entity) => {
         entity.Draw(Canvas.Instance.GetLayerContext(entity.Layer), Player.Camera);
       });
-      this.TC.LoadedLayers.forEach((layer) => {
-        layer.forEach((entity) => {
+      this.TC.LoadedLayers.forEach((layer4) => {
+        layer4.forEach((entity) => {
           entity.Draw(Canvas.Instance.GetLayerContext(entity.Layer), Player.Camera);
         });
       });
@@ -433,10 +433,10 @@
             col = this.GetColliderDot(Vector2.Up.Scale(100));
           }
           if (col.length == 2)
-            this.SM.currentScene.TC.LoadedLayers.forEach((layer) => {
-              layer.forEach((entity) => {
+            this.SM.currentScene.TC.LoadedLayers.forEach((layer4) => {
+              layer4.forEach((entity) => {
                 if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
-                  layer.splice(layer.indexOf(entity), 1);
+                  layer4.splice(layer4.indexOf(entity), 1);
                 }
               });
             });
@@ -570,6 +570,7 @@
   var Images = class {
     static tile1 = CreateImageByPath("Res/img/Grass.png");
     static tile2 = CreateImageByPath("Res/img/Tile2.png");
+    static layer = CreateImageByPath("Res/img/Cobblestone.png");
     static layer1 = CreateImageByPath("Res/img/Cobblestone_blue.png");
     static layer2 = CreateImageByPath("Res/img/Cobblestone_red.png");
     static layer3 = CreateImageByPath("Res/img/Cobblestone_purple.png");
@@ -641,28 +642,28 @@
               } else if (r < 7) {
                 coal(SceneManager, x, y);
               } else
-                layer1(SceneManager, x, y);
+                layer(SceneManager, x, y);
             } else if (y >= 150 && y < 200) {
               if (r < 5) {
                 iron(SceneManager, x, y);
               } else if (r < 7) {
                 coal(SceneManager, x, y);
               } else
-                layer2(SceneManager, x, y);
+                layer1(SceneManager, x, y);
             } else if (y >= 200 && y < 250) {
               if (r < 5) {
                 iron(SceneManager, x, y);
               } else if (r < 7) {
                 coal(SceneManager, x, y);
               } else
-                layer3(SceneManager, x, y);
-            } else {
+                layer2(SceneManager, x, y);
+            } else if (y >= 250) {
               if (r < 5) {
                 iron(SceneManager, x, y);
               } else if (r < 7) {
                 coal(SceneManager, x, y);
               } else
-                title2(SceneManager, x, y);
+                layer3(SceneManager, x, y);
             }
           }
         }
@@ -725,6 +726,16 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.cross,
+        1
+      )
+    );
+  }
+  function layer(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.layer,
         1
       )
     );
@@ -922,8 +933,8 @@
   }
   function Update() {
     let tiles = [];
-    SM2.currentScene.TC.LoadedLayers.forEach((layer) => {
-      layer.forEach((entity) => {
+    SM2.currentScene.TC.LoadedLayers.forEach((layer4) => {
+      layer4.forEach((entity) => {
         tiles.push(entity);
       });
     });
