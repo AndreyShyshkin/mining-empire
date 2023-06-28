@@ -24,7 +24,7 @@ function cave(){
       if (y == 6) {
         lvl1_grass(SceneManager, x, y)
       } else if (y < 10){
-        lvl1(SceneManager, x, y);
+        lvl(Images.lvl1, SceneManager, x, y);
       } else {
         let r = Random(1, 100);
         let rd = Random(1, 2000);
@@ -51,76 +51,76 @@ function cave(){
                 cross(SceneManager, x, y)
               }
               if(y >= 10 && y < 50){
-                lvl1bg(SceneManager, x, y)
+                lvlBg(Images.lvl1bg, SceneManager, x, y);
               }else if(y >= 50 && y < 150){
-                lvl2bg(SceneManager, x, y)
+                lvlBg(Images.lvl2bg, SceneManager, x, y);
               }else if(y >= 150 && y < 250){
-                lvl3bg(SceneManager, x, y)
+                lvlBg(Images.lvl3bg, SceneManager, x, y);
               }else if(y >= 250 && y < 350){
-                lvl4bg(SceneManager, x, y)
+                lvlBg(Images.lvl4bg, SceneManager, x, y);
               }else if(y >= 350){
-                lvl5bg(SceneManager, x, y)
+                lvlBg(Images.lvl5bg, SceneManager, x, y);
               }
             } x = xStart;
           } y = yStart;
         }else{
           if(y >= 10 && y < 50){
             if(r < 2){
-              lvl1_res2(SceneManager, x, y);
+              lvlRes(Images.lvl1_res2, SceneManager, x, y);
             }
             else if(r < 5){
-              lvl1_res1(SceneManager, x, y)
+              lvlRes(Images.lvl1_res1, SceneManager, x, y);
             }
             else
-            lvl1(SceneManager, x, y);
+              lvl(Images.lvl1, SceneManager, x, y);
           } else if (y >= 50 && y < 150){
             if(r < 2){
-              lvl2_res3(SceneManager, x, y)
+              lvlRes(Images.lvl2_res3, SceneManager, x, y);
             }
             else if(r < 5){
-              lvl2_res1(SceneManager, x, y);
+              lvlRes(Images.lvl2_res1, SceneManager, x, y);
             }
             else if(r < 10){
-              lvl2_res2(SceneManager, x, y);
+              lvlRes(Images.lvl2_res2, SceneManager, x, y);
             }
             else
-              lvl2(SceneManager, x, y);
+              lvl(Images.lvl2, SceneManager, x, y);
           } else if (y >= 150 && y < 250){
             if(r < 2){
-              lvl3_res4(SceneManager, x, y)
+              lvlRes(Images.lvl3_res4, SceneManager, x, y);
             }
             else if(r < 5){
-              lvl3_res3(SceneManager, x, y);
+              lvlRes(Images.lvl3_res3, SceneManager, x, y);
             }
             else if(r < 10){
-              lvl3_res2(SceneManager, x, y);
+              lvlRes(Images.lvl3_res2, SceneManager, x, y);
             }
             else
-            lvl3(SceneManager, x, y)
+              lvl(Images.lvl3, SceneManager, x, y);
           } else if (y >= 250 && y < 350){
             if(r < 2){
-              lvl4_res5(SceneManager, x, y)
+              lvlRes(Images.lvl4_res5, SceneManager, x, y);
             }
             else if(r < 5){
-              lvl4_res4(SceneManager, x, y);
+              lvlRes(Images.lvl4_res4, SceneManager, x, y);
             }
             else if(r < 10){
-              lvl4_res3(SceneManager, x, y);
+              lvlRes(Images.lvl4_res3, SceneManager, x, y);
             }
             else
-            lvl4(SceneManager, x, y)
+              lvl(Images.lvl4, SceneManager, x, y);
           } else if (y >= 350){
             if(r < 2){
-              lvl5_res6(SceneManager, x, y)
+              lvlRes(Images.lvl5_res6, SceneManager, x, y);
             }
             else if(r < 5){
-              lvl5_res5(SceneManager, x, y);
+              lvlRes(Images.lvl5_res5, SceneManager, x, y);
             }
             else if(r < 10){
-              lvl5_res4(SceneManager, x, y);
+              lvlRes(Images.lvl5_res4, SceneManager, x, y);
             }
             else
-            lvl5(SceneManager, x, y)
+              lvl(Images.lvl5, SceneManager, x, y);
           }
         }
       }
@@ -129,115 +129,52 @@ function cave(){
 }
 
 
+
+function lvl(lvlX, SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * y),
+      new Vector2(100, 100),
+      lvlX,
+      2,
+      EntityTypes.SolidTile,
+      SceneManager.Instance.mine
+    )
+  )
+}
+
+function lvlBg(lvlX, SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * y),
+      new Vector2(100, 100),
+      lvlX,
+      1,
+      EntityTypes.SolidTile,
+      SceneManager.Instance.mine
+    )
+  )
+}
+
+function lvlRes(lvlX, SceneManager, x, y){
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * y),
+      new Vector2(100, 100),
+      lvlX,
+      2,
+      EntityTypes.SolidTile,
+      SceneManager.Instance.mine
+    )
+  )
+}
+
 function lvl1_grass(SceneManager, x, y){
   SceneManager.Instance.mine.TC.GetLayer(y).push(
     new Tile(
       new Vector2(0 + 100 * x, 100 * y),
       new Vector2(100, 100),
       Images.lvl1_grass,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-function lvl1(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl1,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl1bg(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl1bg,
-      1,
-      EntityTypes.BackGroundTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl1_res1(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl1_res1,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl1_res2(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl1_res2,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl1_res3(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl1_res3,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl1_res4(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl1_res4,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl1_res5(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl1_res5,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl1_res6(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl1_res6,
       2,
       EntityTypes.SolidTile,
       SceneManager.Instance.mine
@@ -270,426 +207,6 @@ function cross(SceneManager, x, y){
     )
   )  
 }
-
-function lvl2(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-    new Vector2(0 + 100 * x, 100 * y),
-    new Vector2(100, 100),
-    Images.lvl2,
-    2,      
-    EntityTypes.SolidTile,
-    SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl2bg(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl2bg,
-      1,
-      EntityTypes.BackGroundTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl2_res1(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl2_res1,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl2_res2(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl2_res2,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl2_res3(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl2_res3,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl2_res4(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl2_res4,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl2_res5(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl2_res5,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl2_res6(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl2_res6,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl3(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-    new Vector2(0 + 100 * x, 100 * y),
-    new Vector2(100, 100),
-    Images.lvl3,
-    2,
-    EntityTypes.SolidTile,
-    SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl3bg(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl3bg,
-      1,
-      EntityTypes.BackGroundTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl3_res1(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl3_res1,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl3_res2(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl3_res2,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl3_res3(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl3_res3,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl3_res4(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl3_res4,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl3_res5(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl3_res5,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl3_res6(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl3_res6,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl4(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-    new Vector2(0 + 100 * x, 100 * y),
-    new Vector2(100, 100),
-    Images.lvl4,
-    2,
-    EntityTypes.SolidTile,
-    SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl4bg(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl4bg,
-      1,
-      EntityTypes.BackGroundTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl4_res1(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl4_res1,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl4_res2(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl4_res2,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl4_res3(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl4_res3,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl4_res4(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl4_res4,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl4_res5(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl4_res5,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl4_res6(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl4_res6,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl5(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-    new Vector2(0 + 100 * x, 100 * y),
-    new Vector2(100, 100),
-    Images.lvl5,
-    2,
-    EntityTypes.SolidTile,
-    SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl5bg(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl5bg,
-      1,
-      EntityTypes.BackGroundTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl5_res1(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl5_res1,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl5_res2(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl5_res2,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl5_res3(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl5_res3,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl5_res4(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl5_res4,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl5_res5(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl5_res5,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-function lvl5_res6(SceneManager, x, y){
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
-      new Vector2(100, 100),
-      Images.lvl5_res6,
-      2,
-      EntityTypes.SolidTile,
-      SceneManager.Instance.mine
-    )
-  )
-}
-
-
-
-
 
 function Random(min, max) {
   min = Math.ceil(min);

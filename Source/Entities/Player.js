@@ -108,15 +108,15 @@ export class Player extends Entity {
                 let newY = Math.floor(entity.transform.Position.Y / 100);
 
                 if(newY < 50){
-                  createLvl1bg(newX, newY);
+                  createLvlBg(Images.lvl1bg, newX, newY);
                 }if(newY >= 50 && newY < 150){
-                  createLvl2bg(newX, newY);
+                  createLvlBg(Images.lvl2bg, newX, newY);
                 }if(newY >= 150 && newY < 250){
-                  createLvl3bg(newX, newY);
+                  createLvlBg(Images.lvl3bg, newX, newY);
                 }if(newY >= 250 && newY < 350){
-                  createLvl4bg(newX, newY);
+                  createLvlBg(Images.lvl4bg, newX, newY);
                 }if(newY >= 350){
-                  createLvl5bg(newX, newY);
+                  createLvlBg(Images.lvl5bg, newX, newY);
                 }
               }
             }
@@ -243,12 +243,12 @@ export class Player extends Entity {
   }
 }
 
-function createLvl1bg(x, y) {
+function createLvlBg(lvlX, x, y) {
   SceneManager.Instance.mine.TC.GetLayer(y).push(
     new Tile(
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
-    Images.lvl1bg,
+    lvlX,
     1,
     EntityTypes.BackGroundTile,
     SceneManager.Instance.mine
@@ -256,55 +256,4 @@ function createLvl1bg(x, y) {
   )
 }
 
-function createLvl2bg(x, y) {
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-    new Vector2(0 + 100 * x, 100 * y),
-    new Vector2(100, 100),
-    Images.lvl2bg,
-    1,
-    EntityTypes.BackGroundTile,
-    SceneManager.Instance.mine
-    )
-  )
-}
-
-function createLvl3bg(x, y) {
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-    new Vector2(0 + 100 * x, 100 * y),
-    new Vector2(100, 100),
-    Images.lvl3bg,
-    1,
-    EntityTypes.BackGroundTile,
-    SceneManager.Instance.mine
-    )
-  )
-}
-
-function createLvl4bg(x, y) {
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-    new Vector2(0 + 100 * x, 100 * y),
-    new Vector2(100, 100),
-    Images.lvl4bg,
-    1,
-    EntityTypes.BackGroundTile,
-    SceneManager.Instance.mine
-    )
-  )
-}
-
-function createLvl5bg(x, y) {
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-    new Vector2(0 + 100 * x, 100 * y),
-    new Vector2(100, 100),
-    Images.lvl5bg,
-    1,
-    EntityTypes.BackGroundTile,
-    SceneManager.Instance.mine
-    )
-  )
-}
 
