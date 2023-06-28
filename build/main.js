@@ -397,6 +397,7 @@
   var Images = class {
     static tile1 = CreateImageByPath("Res/img/Grass.png");
     static tile2 = CreateImageByPath("Res/img/Tile2.png");
+    static tile2bg = CreateImageByPath("Res/img/Dirt2bg.png");
     static layer = CreateImageByPath("Res/img/Cobblestone.png");
     static layer1 = CreateImageByPath("Res/img/Cobblestone_blue.png");
     static layer2 = CreateImageByPath("Res/img/Cobblestone_red.png");
@@ -414,6 +415,57 @@
     static damage1 = CreateImageByPath("Res/img/Block damage1.png");
     static damage2 = CreateImageByPath("Res/img/Block damage2.png");
     static damage3 = CreateImageByPath("Res/img/Block damage3.png");
+  };
+
+  // Source/Entities/Tile.js
+  var Tile = class extends Entity {
+    curHp;
+    maxHp;
+    constructor(position, size, Image2, Layer2, Type, Scene2, maxHp = 5) {
+      super(new Transform(position, size), Image2, Layer2, Type, Scene2);
+      this.curHp = maxHp;
+      this.maxHp = maxHp;
+    }
+    Draw(Context, Camera) {
+      Context.drawImage(
+        this.Image,
+        this.transform.Position.X + Camera.X,
+        this.transform.Position.Y - Camera.Y,
+        this.transform.Size.X,
+        this.transform.Size.Y
+      );
+      if (this.curHp < this.maxHp) {
+        let per = this.curHp / this.maxHp;
+        if (per <= 0.25) {
+          Context.drawImage(
+            Images.damage3,
+            this.transform.Position.X + Camera.X,
+            this.transform.Position.Y - Camera.Y,
+            this.transform.Size.X,
+            this.transform.Size.Y
+          );
+        } else if (per <= 0.6) {
+          Context.drawImage(
+            Images.damage2,
+            this.transform.Position.X + Camera.X,
+            this.transform.Position.Y - Camera.Y,
+            this.transform.Size.X,
+            this.transform.Size.Y
+          );
+        } else {
+          Context.drawImage(
+            Images.damage1,
+            this.transform.Position.X + Camera.X,
+            this.transform.Position.Y - Camera.Y,
+            this.transform.Size.X,
+            this.transform.Size.Y
+          );
+        }
+      }
+    }
+    GetDamage(damage) {
+      this.curHp -= damage;
+    }
   };
 
   // Source/Logic/inventory.js
@@ -512,6 +564,9 @@
                         console.log("iron " + inventory_default[1]);
                       }
                       layer4.splice(layer4.indexOf(entity), 1);
+                      let newX = Math.floor(entity.transform.Position.X / 100);
+                      let newY = Math.floor(entity.transform.Position.Y / 100);
+                      createNewBlock(newX, newY);
                     }
                   }
                 }
@@ -636,57 +691,18 @@
       );
     }
   };
-
-  // Source/Entities/Tile.js
-  var Tile = class extends Entity {
-    curHp;
-    maxHp;
-    constructor(position, size, Image2, Layer2, Type, Scene2, maxHp = 5) {
-      super(new Transform(position, size), Image2, Layer2, Type, Scene2);
-      this.curHp = maxHp;
-      this.maxHp = maxHp;
-    }
-    Draw(Context, Camera) {
-      Context.drawImage(
-        this.Image,
-        this.transform.Position.X + Camera.X,
-        this.transform.Position.Y - Camera.Y,
-        this.transform.Size.X,
-        this.transform.Size.Y
-      );
-      if (this.curHp < this.maxHp) {
-        let per = this.curHp / this.maxHp;
-        if (per <= 0.25) {
-          Context.drawImage(
-            Images.damage3,
-            this.transform.Position.X + Camera.X,
-            this.transform.Position.Y - Camera.Y,
-            this.transform.Size.X,
-            this.transform.Size.Y
-          );
-        } else if (per <= 0.6) {
-          Context.drawImage(
-            Images.damage2,
-            this.transform.Position.X + Camera.X,
-            this.transform.Position.Y - Camera.Y,
-            this.transform.Size.X,
-            this.transform.Size.Y
-          );
-        } else {
-          Context.drawImage(
-            Images.damage1,
-            this.transform.Position.X + Camera.X,
-            this.transform.Position.Y - Camera.Y,
-            this.transform.Size.X,
-            this.transform.Size.Y
-          );
-        }
-      }
-    }
-    GetDamage(damage) {
-      this.curHp -= damage;
-    }
-  };
+  function createNewBlock(x, y) {
+    SceneManager.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.tile2bg,
+        1,
+        EntityTypes.DestroyableTile,
+        SceneManager.Instance.mine
+      )
+    );
+  }
 
   // Source/Entities/Cave.js
   var Cave = class extends Entity {

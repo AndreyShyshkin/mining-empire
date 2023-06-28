@@ -2,6 +2,7 @@ import { CreateImageByPath } from "../Logic/RenderImage";
 export class Images{
     static tile1 = CreateImageByPath("Res/img/Grass.png");
     static tile2 = CreateImageByPath("Res/img/Tile2.png");
+    static tile2bg = CreateImageByPath("Res/img/Dirt2bg.png");
     static layer = CreateImageByPath("Res/img/Cobblestone.png");
     static layer1 = CreateImageByPath("Res/img/Cobblestone_blue.png");
     static layer2 = CreateImageByPath("Res/img/Cobblestone_red.png");

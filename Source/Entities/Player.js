@@ -7,6 +7,7 @@ import { Physics } from "../Physics/Physics"
 import { Input } from "../Logic/Input"
 import { SceneManager } from "../Logic/SceneManager"
 import { Images } from "../Graphics/Images";
+import { Tile } from "../Entities/Tile"
 
 import resurse from "../Logic/inventory"
 import { EntityTypes } from "../Physics/EntityTypes"
@@ -90,6 +91,12 @@ export class Player extends Entity {
                   console.log("iron " + resurse[1]);
                 }
                 layer.splice(layer.indexOf(entity), 1);
+
+                 // Создание нового блока
+                let newX = Math.floor(entity.transform.Position.X / 100);
+                let newY = Math.floor(entity.transform.Position.Y / 100);
+                // Вызов функции для создания нового блока
+                createNewBlock(newX, newY);
               }
             }
           })
@@ -214,3 +221,17 @@ export class Player extends Entity {
     )
   }
 }
+
+function createNewBlock(x, y) {
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+    new Vector2(0 + 100 * x, 100 * y),
+    new Vector2(100, 100),
+    Images.tile2bg,
+    1,
+    EntityTypes.DestroyableTile,
+    SceneManager.Instance.mine
+    )
+  )
+}
+
