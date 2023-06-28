@@ -411,6 +411,9 @@
     static home2 = CreateImageByPath("Res/img/home2.png");
     static home3 = CreateImageByPath("Res/img/home3.png");
     static market = CreateImageByPath("Res/img/market.png");
+    static damage1 = CreateImageByPath("Res/img/Block damage1.png");
+    static damage2 = CreateImageByPath("Res/img/Block damage2.png");
+    static damage3 = CreateImageByPath("Res/img/Block damage3.png");
   };
 
   // Source/Logic/inventory.js
@@ -443,8 +446,11 @@
     rightCollision = false;
     velocityY = 0;
     speed = 500;
+    damage = 1;
     SM;
     jumpForce = 600;
+    attackDelay = 0.2;
+    curAttackDelay = 0;
     constructor(position, size, Image2, Layer2, Camera, SM3) {
       super(new Transform(position, size), Image2, Layer2);
       _Player.Camera = Camera;
@@ -456,6 +462,8 @@
         this.velocityY -= Physics.G * Time.DeltaTime;
       }
       this.CollisionCheck(Entities);
+      this.curAttackDelay -= Time.deltaTime;
+      console.log(this.curAttackDelay);
     }
     InputUpdate() {
       let stride = Vector2.Zero;
@@ -475,7 +483,8 @@
           stride = stride.Add(Vector2.Up.Scale(this.speed * Time.DeltaTime));
         }
       }
-      if (Input.GetKeyState(66)) {
+      if (Input.GetKeyState(66) && this.curAttackDelay <= 0) {
+        this.curAttackDelay = this.attackDelay;
         if (SceneManager.Instance.currentScene == SceneManager.Instance.mine) {
           let col = [];
           if (Input.GetKeyState(39)) {
@@ -490,16 +499,21 @@
           if (col.length == 2)
             this.SM.currentScene.TC.LoadedLayers.forEach((layer4) => {
               layer4.forEach((entity) => {
-                if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
-                  if (entity.Image == Images.coal) {
-                    inventory_default[0] += 1;
-                    console.log("coal " + inventory_default[0]);
+                if (entity.Type === EntityTypes.SolidTile || entity.Type === EntityTypes.DestroyableTile) {
+                  if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
+                    entity.GetDamage(this.damage);
+                    if (entity.curHp <= 0) {
+                      if (entity.Image == Images.coal) {
+                        inventory_default[0] += 1;
+                        console.log("coal " + inventory_default[0]);
+                      }
+                      if (entity.Image == Images.iron) {
+                        inventory_default[1] += 1;
+                        console.log("iron " + inventory_default[1]);
+                      }
+                      layer4.splice(layer4.indexOf(entity), 1);
+                    }
                   }
-                  if (entity.Image == Images.iron) {
-                    inventory_default[1] += 1;
-                    console.log("iron " + inventory_default[1]);
-                  }
-                  layer4.splice(layer4.indexOf(entity), 1);
                 }
               });
             });
@@ -625,8 +639,12 @@
 
   // Source/Entities/Tile.js
   var Tile = class extends Entity {
-    constructor(position, size, Image2, Layer2, Type, Scene2) {
+    curHp;
+    maxHp;
+    constructor(position, size, Image2, Layer2, Type, Scene2, maxHp = 5) {
       super(new Transform(position, size), Image2, Layer2, Type, Scene2);
+      this.curHp = maxHp;
+      this.maxHp = maxHp;
     }
     Draw(Context, Camera) {
       Context.drawImage(
@@ -636,6 +654,37 @@
         this.transform.Size.X,
         this.transform.Size.Y
       );
+      if (this.curHp < this.maxHp) {
+        let per = this.curHp / this.maxHp;
+        if (per <= 0.25) {
+          Context.drawImage(
+            Images.damage3,
+            this.transform.Position.X + Camera.X,
+            this.transform.Position.Y - Camera.Y,
+            this.transform.Size.X,
+            this.transform.Size.Y
+          );
+        } else if (per <= 0.6) {
+          Context.drawImage(
+            Images.damage2,
+            this.transform.Position.X + Camera.X,
+            this.transform.Position.Y - Camera.Y,
+            this.transform.Size.X,
+            this.transform.Size.Y
+          );
+        } else {
+          Context.drawImage(
+            Images.damage1,
+            this.transform.Position.X + Camera.X,
+            this.transform.Position.Y - Camera.Y,
+            this.transform.Size.X,
+            this.transform.Size.Y
+          );
+        }
+      }
+    }
+    GetDamage(damage) {
+      this.curHp -= damage;
     }
   };
 
@@ -1055,7 +1104,6 @@
     Canvas.Instance.updateSize();
   }
   function Update() {
-    console.log(Time.deltaTime);
     let entities = [];
     SceneManager.Instance.currentScene.Entities.forEach((element) => {
       entities.push(element);

@@ -22,8 +22,11 @@ export class Player extends Entity {
   rightCollision = false;
   velocityY = 0;
   speed = 500;
+  damage = 1;
   SM;
   jumpForce = 600;
+  attackDelay = 0.2; 
+  curAttackDelay = 0;
   constructor(position, size, Image, Layer, Camera, SM) {
     super(new Transform(position, size), Image, Layer)
     Player.Camera = Camera;
@@ -35,6 +38,8 @@ export class Player extends Entity {
       this.velocityY -= Physics.G * Time.DeltaTime;
     }
     this.CollisionCheck(Entities);
+    this.curAttackDelay -= Time.deltaTime;
+    console.log(this.curAttackDelay);
   }
   InputUpdate(){
     let stride = Vector2.Zero
@@ -54,7 +59,8 @@ export class Player extends Entity {
         stride = stride.Add(Vector2.Up.Scale(this.speed * Time.DeltaTime))
       }
     }
-    if (Input.GetKeyState(66)){// B
+    if (Input.GetKeyState(66) && this.curAttackDelay <= 0){// B
+      this.curAttackDelay = this.attackDelay;
       if (SceneManager.Instance.currentScene == SceneManager.Instance.mine){
         let col = []
         if(Input.GetKeyState(39)){//right
@@ -72,15 +78,19 @@ export class Player extends Entity {
         if(col.length == 2)
         this.SM.currentScene.TC.LoadedLayers.forEach(layer => {
           layer.forEach(entity => {
+            if(entity.Type === EntityTypes.SolidTile || entity.Type === EntityTypes.DestroyableTile)
             if(Collisions.AABBtoAABB(entity.GetCollider(), col)){//
-              if(entity.Image == Images.coal){
-                resurse[0] += 1
-                console.log("coal " + resurse[0]);
-              }if(entity.Image == Images.iron){
-                resurse[1] += 1
-                console.log("iron " + resurse[1]);
+              entity.GetDamage(this.damage);
+              if(entity.curHp <= 0){
+                if(entity.Image == Images.coal){
+                  resurse[0] += 1
+                  console.log("coal " + resurse[0]);
+                }if(entity.Image == Images.iron){
+                  resurse[1] += 1
+                  console.log("iron " + resurse[1]);
+                }
+                layer.splice(layer.indexOf(entity), 1);
               }
-              layer.splice(layer.indexOf(entity), 1);
             }
           })
         })}

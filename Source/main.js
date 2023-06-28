@@ -39,7 +39,6 @@ function Start() {
   Canvas.Instance.updateSize()
 }
 function Update() {
-  console.log(Time.deltaTime);
   let entities = [];
   SceneManager.Instance.currentScene.Entities.forEach(element => {
     entities.push(element);
