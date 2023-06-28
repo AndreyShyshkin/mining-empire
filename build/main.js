@@ -880,6 +880,7 @@
                 }
                 removeBlockAtCoordinates(x, y);
                 if (a == 0 && i == 3) {
+                  cross(SceneManager, x, y);
                   chest(SceneManager, x, y);
                 } else {
                   cross(SceneManager, x, y);
