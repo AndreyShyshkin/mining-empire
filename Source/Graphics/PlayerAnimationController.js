@@ -5,8 +5,11 @@ export class PlayerAnimationController{
     WalkLeft = Animations.PlayerWalkLeft;
     IdleRight = Animations.PlayerIdleRight;
     IdleLeft = Animations.PlayerIdleLeft;
+    AttackRight = Animations.PlayerAttackRight;
+    AttackLeft = Animations.PlayerAttackLeft;
+    JumpRight = Animations.PlayerJumpRight;
+    JumpLeft = Animations.PlayerJumpLeft;
     CurrentAnimation = Animations.PlayerIdleRight;
-    //CurrentAnimation = Animations.PlayerAttackRight;
     Update(){
         this.CurrentAnimation.Update();
     }

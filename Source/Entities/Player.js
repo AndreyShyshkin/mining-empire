@@ -50,45 +50,53 @@ export class Player extends Entity {
   }
   InputUpdate(){
     let stride = Vector2.Zero
-    let walk = false;
-    if (Input.GetKeyState(65) && !this.leftCollision) {
-      stride = stride.Add(Vector2.Right.Scale(this.speed * Time.DeltaTime))
-      walk = true;
-      this.Direction = -1;
-    }
-    if (Input.GetKeyState(68) && !this.rightCollision) {
-      stride = stride.Add(Vector2.Left.Scale(this.speed * Time.DeltaTime))
-      walk = true;
-      this.Direction = 1;
-    }
-    if(this.bottomCollision){
-      if (Input.GetKeyState(87) || Input.GetKeyState(32)) {
-        this.velocityY = this.jumpForce;
+      if(this.curAttackDelay <=0 && !Input.GetKeyState(66)){
+        let walk = false;
+        if (Input.GetKeyState(65) && !Input.GetKeyState(68) && !this.leftCollision) {
+          stride = stride.Add(Vector2.Right.Scale(this.speed * Time.DeltaTime))
+          walk = true;
+          this.Direction = -1;
+        }
+        if (Input.GetKeyState(68)&& !Input.GetKeyState(65) && !this.rightCollision) {
+          stride = stride.Add(Vector2.Left.Scale(this.speed * Time.DeltaTime))
+          walk = true;
+          this.Direction = 1;
+        }
+        if(this.bottomCollision){
+          if (Input.GetKeyState(87) || Input.GetKeyState(32)) {
+            this.velocityY = this.jumpForce;
+          }
+        }
+        if(!this.bottomCollision && false){
+          if (Input.GetKeyState(83) || Input.GetKeyState(17)) {
+            stride = stride.Add(Vector2.Up.Scale(this.speed * Time.DeltaTime))
+          }
+        }
+        if(walk){
+          this.State = PlayerStates.Walk;
+          if(this.Direction == 1){
+            this.PAC.ChangeAnimation(this.PAC.WalkRight);
+          }
+          else{
+            this.PAC.ChangeAnimation(this.PAC.WalkLeft);
+          }
+        }
+        else{
+          this.State = PlayerStates.Idle;
+          if(this.Direction == 1){
+            this.PAC.ChangeAnimation(this.PAC.IdleRight);
+          }
+          else{
+            this.PAC.ChangeAnimation(this.PAC.IdleLeft);
+          }
+        }
       }
-    }
-    if(!this.bottomCollision && false){
-      if (Input.GetKeyState(83) || Input.GetKeyState(17)) {
-        stride = stride.Add(Vector2.Up.Scale(this.speed * Time.DeltaTime))
+      if(!this.bottomCollision){
+        if(this.Direction == 1)
+          this.PAC.ChangeAnimation(this.PAC.JumpRight);
+        else
+          this.PAC.ChangeAnimation(this.PAC.JumpLeft);
       }
-    }
-    if(walk){
-      this.State = PlayerStates.Walk;
-      if(this.Direction == 1){
-        this.PAC.ChangeAnimation(this.PAC.WalkRight);
-      }
-      else{
-        this.PAC.ChangeAnimation(this.PAC.WalkLeft);
-      }
-    }
-    else{
-      this.State = PlayerStates.Idle;
-      if(this.Direction == 1){
-        this.PAC.ChangeAnimation(this.PAC.IdleRight);
-      }
-      else{
-        this.PAC.ChangeAnimation(this.PAC.IdleLeft);
-      }
-    }
     stride = stride.Add(Vector2.Down.Scale(this.velocityY * Time.deltaTime));
     stride = Vector2.Round(stride);
     Player.Camera = Player.Camera.Add(stride)
@@ -97,18 +105,19 @@ export class Player extends Entity {
     )
   }
   UpdateAttack(){
-    if (Input.GetKeyState(66) && this.curAttackDelay <= 0){// B
-      this.curAttackDelay = this.attackDelay;
+    if (Input.GetKeyState(66) && this.curAttackDelay <= 0 && this.bottomCollision){// B
       let dir;//1 - right, 2 - left, 3 - top, 4 - down
       if (SceneManager.Instance.currentScene == SceneManager.Instance.mine){
         let col = []
         if(Input.GetKeyState(39)){//right
           col = this.GetColliderDot(Vector2.Right.Scale(100));
           dir = 1;
+          this.Direction = 1;
         }
         else if(Input.GetKeyState(37)){//left
           col = this.GetColliderDot(Vector2.Left.Scale(100));
           dir = 2;
+          this.Direction = -1;
         }
         else if(Input.GetKeyState(38)){//top
           col = this.GetColliderDot(Vector2.Down.Scale(100));
@@ -118,12 +127,19 @@ export class Player extends Entity {
           col = this.GetColliderDot(Vector2.Up.Scale(100));
           dir = 4;
         }
+        let flag = false;
         if(col.length == 2)
         this.SM.currentScene.TC.LoadedLayers.forEach(layer => {
           layer.forEach(entity => {
             if(entity.Type === EntityTypes.SolidTile || entity.Type === EntityTypes.DestroyableTile)
             if(Collisions.AABBtoAABB(entity.GetCollider(), col)){//
-              this.PAC.ChangeAnimation();
+              flag = true;
+              if(this.Direction == 1)
+                this.PAC.ChangeAnimation(this.PAC.AttackRight);
+              else
+                this.PAC.ChangeAnimation(this.PAC.AttackLeft);
+              this.PAC.CurrentAnimation.Reset();
+              this.curAttackDelay = this.attackDelay;
               entity.GetDamage(this.damage);
               if(entity.curHp <= 0){
                 if(entity.Image == Images.lvl1_res1 || entity.Image == Images.lvl2_res1 || entity.Image == Images.lvl3_res1 || entity.Image == Images.lvl4_res1 || entity.Image == Images.lvl5_res1){
@@ -174,6 +190,15 @@ export class Player extends Entity {
                 }if(newY >= 350){
                   createLvlBg(Images.lvl5bg, newX, newY);
                 }
+              }
+            }
+            if(!flag){
+              this.State = PlayerStates.Idle;
+              if(this.Direction == 1){
+                this.PAC.ChangeAnimation(this.PAC.IdleRight);
+              }
+              else{
+                this.PAC.ChangeAnimation(this.PAC.IdleLeft);
               }
             }
           })

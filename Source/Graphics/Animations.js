@@ -27,6 +27,16 @@ export class Animations{
     ], 0.30);      
     static PlayerAttackRight = new Animation([
         new CreateImageByPath("Res/img/Player/Attack_right/Player_attack1.png"),
-        new CreateImageByPath("Res/img/Player/IdleLeft/Player_attack2.png"),
+        new CreateImageByPath("Res/img/Player/Attack_right/Player_attack2.png"),
+    ], 0.10);      
+    static PlayerAttackLeft = new Animation([
+        new CreateImageByPath("Res/img/Player/Attack_left/Player_attack1.png"),
+        new CreateImageByPath("Res/img/Player/Attack_left/Player_attack2.png"),
+    ], 0.10);      
+    static PlayerJumpRight = new Animation([
+        new CreateImageByPath("Res/img/Player/Jump/Player_jump_right.png"),
+    ], 0.10);      
+    static PlayerJumpLeft = new Animation([
+        new CreateImageByPath("Res/img/Player/Jump/Player_jump_left.png"),
     ], 0.10);  
 }
