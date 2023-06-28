@@ -893,7 +893,7 @@
                 } else {
                   cross(SceneManager, x, y);
                 }
-                if (y >= 100 && y < 200) {
+                if (y >= 10 && y < 200) {
                   lvl1bg(SceneManager, x, y);
                 } else if (y >= 200 && y < 400) {
                   lvl2bg(SceneManager, x, y);
@@ -909,7 +909,7 @@
             }
             y = yStart;
           } else {
-            if (y >= 100 && y < 200) {
+            if (y >= 10 && y < 200) {
               if (r < 2) {
                 lvl1_res2(SceneManager, x, y);
               } else if (r < 5) {
