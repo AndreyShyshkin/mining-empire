@@ -517,14 +517,15 @@
   };
 
   // Source/Logic/inventory.js
-  var resurse = [
-    res1 = 0,
-    res2 = 0,
-    res3 = 0,
-    res4 = 0,
-    res5 = 0,
-    res6 = 0
-  ];
+  var resurse = {
+    money: 0,
+    res1: 0,
+    res2: 0,
+    res3: 0,
+    res4: 0,
+    res5: 0,
+    res6: 0
+  };
   var inventory_default = resurse;
 
   // Source/Physics/EntityTypes.js
@@ -722,28 +723,40 @@
                     entity.GetDamage(this.damage);
                     if (entity.curHp <= 0) {
                       if (entity.Image == Images.lvl1_res1 || entity.Image == Images.lvl2_res1 || entity.Image == Images.lvl3_res1 || entity.Image == Images.lvl4_res1 || entity.Image == Images.lvl5_res1) {
-                        inventory_default[0] += 1;
-                        console.log("res1 " + inventory_default[0]);
+                        inventory_default.res1 += 1;
+                        inventory_default.money += 1;
+                        console.log("res1 " + inventory_default.res1);
+                        console.log("money " + inventory_default.money);
                       }
                       if (entity.Image == Images.lvl1_res2 || entity.Image == Images.lvl2_res2 || entity.Image == Images.lvl3_res2 || entity.Image == Images.lvl4_res2 || entity.Image == Images.lvl5_res2) {
-                        inventory_default[1] += 1;
-                        console.log("res2 " + inventory_default[1]);
+                        inventory_default.res2 += 1;
+                        inventory_default.money += 2;
+                        console.log("res2 " + inventory_default.res2);
+                        console.log("money " + inventory_default.money);
                       }
                       if (entity.Image == Images.lvl1_res3 || entity.Image == Images.lvl2_res3 || entity.Image == Images.lvl3_res3 || entity.Image == Images.lvl4_res3 || entity.Image == Images.lvl5_res3) {
-                        inventory_default[2] += 1;
-                        console.log("res3 " + inventory_default[2]);
+                        inventory_default.res3 += 1;
+                        inventory_default.money += 3;
+                        console.log("res3 " + inventory_default.res3);
+                        console.log("money " + inventory_default.money);
                       }
                       if (entity.Image == Images.lvl1_res4 || entity.Image == Images.lvl2_res4 || entity.Image == Images.lvl3_res4 || entity.Image == Images.lvl4_res4 || entity.Image == Images.lvl5_res4) {
-                        inventory_default[3] += 1;
-                        console.log("res4 " + inventory_default[3]);
+                        inventory_default.res4 += 1;
+                        inventory_default.money += 4;
+                        console.log("res4 " + inventory_default.res4);
+                        console.log("money " + inventory_default.money);
                       }
                       if (entity.Image == Images.lvl1_res5 || entity.Image == Images.lvl2_res5 || entity.Image == Images.lvl3_res5 || entity.Image == Images.lvl4_res5 || entity.Image == Images.lvl5_res5) {
-                        inventory_default[4] += 1;
-                        console.log("res5 " + inventory_default[4]);
+                        inventory_default.res5 += 1;
+                        inventory_default.money += 5;
+                        console.log("res5 " + inventory_default.res5);
+                        console.log("money " + inventory_default.money);
                       }
                       if (entity.Image == Images.lvl1_res6 || entity.Image == Images.lvl2_res6 || entity.Image == Images.lvl3_res6 || entity.Image == Images.lvl4_res6 || entity.Image == Images.lvl5_res6) {
-                        inventory_default[5] += 1;
-                        console.log("res6 " + inventory_default[5]);
+                        inventory_default.res6 += 1;
+                        inventory_default.money += 6;
+                        console.log("res6 " + inventory_default.res6);
+                        console.log("money " + inventory_default.money);
                       }
                       layer.splice(layer.indexOf(entity), 1);
                       let newX = Math.floor(entity.transform.Position.X / 100);
