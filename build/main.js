@@ -699,6 +699,7 @@
                 } else {
                   x -= 1;
                 }
+                removeBlockAtCoordinates(x, y);
                 if (a == 0 && i == 3) {
                   chest(SceneManager, x, y);
                 } else {
@@ -881,6 +882,16 @@
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  function removeBlockAtCoordinates(x, y) {
+    const layer4 = SceneManager.Instance.mine.TC.GetLayer(y);
+    for (let i2 = 0; i2 < layer4.length; i2++) {
+      const block = layer4[i2];
+      if (block.transform.Position.X === x * 100 && block.transform.Position.Y === y * 100) {
+        layer4.splice(i2, 1);
+        break;
+      }
+    }
   }
   var cave_default = cave;
 

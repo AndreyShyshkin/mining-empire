@@ -43,6 +43,7 @@ function cave(){
               }else{
                 x -= 1;
               }
+              removeBlockAtCoordinates(x, y);
               if (a == 0 && i == 3){
                 chest(SceneManager, x, y)
               } else {    
@@ -246,6 +247,17 @@ function Random(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function removeBlockAtCoordinates(x, y) {
+  const layer = SceneManager.Instance.mine.TC.GetLayer(y);
+  for (let i = 0; i < layer.length; i++) {
+    const block = layer[i];
+    if (block.transform.Position.X === x * 100 && block.transform.Position.Y === y * 100) {
+      layer.splice(i, 1); // Удаление блока из массива
+      break;
+    }
+  }
 }
 
 export default cave;
