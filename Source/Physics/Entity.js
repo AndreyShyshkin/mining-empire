@@ -1,9 +1,13 @@
 export class Entity {
-    IsActive = true
-    constructor(transform, Image, Layer) {
-      this.transform = transform
-      this.Image = Image
-      this.Layer = Layer
+    IsActive = true;
+    Type;
+    Scene;
+    constructor(transform, Image, Layer, Type, Scene) {
+      this.transform = transform;
+      this.Image = Image;
+      this.Layer = Layer;
+      this.Type = Type;
+      this.Scene = Scene;
     }
     Update(Entities) {}
     GetCollider() {
@@ -25,6 +29,10 @@ export class Entity {
     }
     SetActive(value) {
       this.IsActive = value
+    }
+    Collision(entity){
+    }
+    GetDamage(Damage){
     }
   }
   

@@ -3,6 +3,7 @@ import { Tile } from "../Entities/Tile"
 import { Vector2 } from "../Math/Vector2"
 import { Images } from "../Graphics/Images";
 import { SceneManager } from "../Logic/SceneManager";
+import { EntityTypes } from "../Physics/EntityTypes";
 
 function cave(){
   for (let y = 6; y < 1000; y++) {
@@ -11,9 +12,11 @@ function cave(){
         SceneManager.Instance.mine.Entities.push(
           new Tile(
             new Vector2(0 + 100 * x, 100 * (y-2) + 50),
-            new Vector2(200, 200),
+            new Vector2(300, 300),
             Images.cave,
-            1
+            1,
+            EntityTypes.Cave,
+            SceneManager.Instance.mine
           )
       )
     }
@@ -115,7 +118,9 @@ function title1(SceneManager, x, y){
       new Vector2(0 + 100 * x, 100 * y),
       new Vector2(100, 100),
       Images.tile1,
-      1
+      1,
+      EntityTypes.SolidTile,
+      SceneManager.Instance.mine
     )
   )
 }
@@ -125,7 +130,9 @@ function title2(SceneManager, x, y){
       new Vector2(0 + 100 * x, 100 * y),
       new Vector2(100, 100),
       Images.tile2,
-      1
+      1,
+      EntityTypes.SolidTile,
+      SceneManager.Instance.mine
     )
   )
 }
@@ -136,7 +143,9 @@ function coal(SceneManager, x, y){
       new Vector2(0 + 100 * x, 100 * y),
       new Vector2(100, 100),
       Images.coal,
-      1
+      1,
+      EntityTypes.SolidTile,
+      SceneManager.Instance.mine
     )
   )
 }
@@ -147,7 +156,9 @@ function iron(SceneManager, x, y){
       new Vector2(0 + 100 * x, 100 * y),
       new Vector2(100, 100),
       Images.iron,
-      1
+      1,
+      EntityTypes.SolidTile,
+      SceneManager.Instance.mine
     )
   )
 }
@@ -158,7 +169,9 @@ function chest(SceneManager, x, y){
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
     Images.chest,
-    1
+    1,
+    EntityTypes.DestroyableTile,
+    SceneManager.Instance.mine
     )
   )
 }
@@ -168,7 +181,7 @@ function cross(SceneManager, x, y){
     new Tile(
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
-    Images.cross,
+    Images.DestroyableTile,
     1
     )
   )  
@@ -180,7 +193,9 @@ function layer(SceneManager, x, y){
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
     Images.layer,
-    1
+    1,      
+    EntityTypes.SolidTile,
+    SceneManager.Instance.mine
     )
   )
 }
@@ -191,7 +206,9 @@ function layer1(SceneManager, x, y){
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
     Images.layer1,
-    1
+    1,
+    EntityTypes.SolidTile,
+    SceneManager.Instance.mine
     )
   )
 }
@@ -202,7 +219,9 @@ function layer2(SceneManager, x, y){
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
     Images.layer2,
-    1
+    1,
+    EntityTypes.SolidTile,
+    SceneManager.Instance.mine
     )
   )
 }
@@ -213,7 +232,9 @@ function layer3(SceneManager, x, y){
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
     Images.layer3,
-    1
+    1,
+    EntityTypes.SolidTile,
+    SceneManager.Instance.mine
     )
   )
 }

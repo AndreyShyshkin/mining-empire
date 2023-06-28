@@ -271,10 +271,14 @@
   // Source/Physics/Entity.js
   var Entity = class {
     IsActive = true;
-    constructor(transform, Image2, Layer2) {
+    Type;
+    Scene;
+    constructor(transform, Image2, Layer2, Type, Scene2) {
       this.transform = transform;
       this.Image = Image2;
       this.Layer = Layer2;
+      this.Type = Type;
+      this.Scene = Scene2;
     }
     Update(Entities) {
     }
@@ -297,6 +301,10 @@
     }
     SetActive(value) {
       this.IsActive = value;
+    }
+    Collision(entity) {
+    }
+    GetDamage(Damage) {
     }
   };
 
@@ -587,8 +595,8 @@
 
   // Source/Entities/Tile.js
   var Tile = class extends Entity {
-    constructor(position, size, Image2, Layer2) {
-      super(new Transform(position, size), Image2, Layer2);
+    constructor(position, size, Image2, Layer2, Type, Scene2) {
+      super(new Transform(position, size), Image2, Layer2, Type, Scene2);
     }
     Draw(Context, Camera) {
       Context.drawImage(
@@ -601,6 +609,18 @@
     }
   };
 
+  // Source/Physics/EntityTypes.js
+  var EntityTypes = class {
+    static Player = "Player";
+    static SolidTile = "SolidTile";
+    static BackGroundTile = "BackGroundTile";
+    static Forge = "Forge";
+    static Market = "Market";
+    static Building = "Building";
+    static Cave = "Cave";
+    static DestroyableTile = "DestroyableTile";
+  };
+
   // Source/Map/cave.js
   function cave() {
     for (let y = 6; y < 1e3; y++) {
@@ -609,9 +629,11 @@
           SceneManager.Instance.mine.Entities.push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 2) + 50),
-              new Vector2(200, 200),
+              new Vector2(300, 300),
               Images.cave,
-              1
+              1,
+              EntityTypes.Cave,
+              SceneManager.Instance.mine
             )
           );
         }
@@ -701,7 +723,9 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.tile1,
-        1
+        1,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
       )
     );
   }
@@ -711,7 +735,9 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.tile2,
-        1
+        1,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
       )
     );
   }
@@ -721,7 +747,9 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.coal,
-        1
+        1,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
       )
     );
   }
@@ -731,7 +759,9 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.iron,
-        1
+        1,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
       )
     );
   }
@@ -741,7 +771,9 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.chest,
-        1
+        1,
+        EntityTypes.DestroyableTile,
+        SceneManager2.Instance.mine
       )
     );
   }
@@ -750,7 +782,7 @@
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
-        Images.cross,
+        Images.DestroyableTile,
         1
       )
     );
@@ -761,7 +793,9 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.layer,
-        1
+        1,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
       )
     );
   }
@@ -771,7 +805,9 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.layer1,
-        1
+        1,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
       )
     );
   }
@@ -781,7 +817,9 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.layer2,
-        1
+        1,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
       )
     );
   }
@@ -791,7 +829,9 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.layer3,
-        1
+        1,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
       )
     );
   }
@@ -838,7 +878,9 @@
               new Vector2(0 + 100 * x, 100 * (y - 1) + 50),
               new Vector2(200, 200),
               Images.cave,
-              1
+              1,
+              EntityTypes.Cave,
+              SceneManager.Instance.town
             )
           );
         } else if (y == 5 && x == 12) {
@@ -847,7 +889,9 @@
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
               Images.market,
-              1
+              1,
+              EntityTypes.Market,
+              SceneManager.Instance.town
             )
           );
         } else if (y == 5 && x == 14) {
@@ -856,7 +900,9 @@
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
               Images.forge,
-              1
+              1,
+              EntityTypes.Forge,
+              SceneManager.Instance.town
             )
           );
         } else if (y == 6) {
@@ -865,7 +911,9 @@
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
               Images.tile1,
-              1
+              1,
+              EntityTypes.SolidTile,
+              SceneManager.Instance.town
             )
           );
         } else if (y > 6 && y < 15) {
@@ -874,7 +922,9 @@
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
               Images.tile2,
-              1
+              1,
+              EntityTypes.SolidTile,
+              SceneManager.Instance.town
             )
           );
         }
@@ -887,7 +937,9 @@
         new Vector2(0 + 100 * x, 100 * (y - 1)),
         new Vector2(200, 200),
         Images.home1,
-        1
+        1,
+        EntityTypes.Building,
+        SceneManager.Instance.town
       )
     );
   }
@@ -897,7 +949,9 @@
         new Vector2(0 + 100 * x, 100 * (y - 1)),
         new Vector2(200, 200),
         Images.home2,
-        1
+        1,
+        EntityTypes.Building,
+        SceneManager.Instance.town
       )
     );
   }
@@ -907,7 +961,9 @@
         new Vector2(0 + 100 * x, 100 * (y - 1)),
         new Vector2(200, 200),
         Images.home3,
-        1
+        1,
+        EntityTypes.Building,
+        SceneManager.Instance.town
       )
     );
   }

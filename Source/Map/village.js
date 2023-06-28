@@ -3,6 +3,7 @@ import { Tile } from "../Entities/Tile"
 import { Vector2 } from "../Math/Vector2"
 import { Images } from "../Graphics/Images";
 import { SceneManager } from "../Logic/SceneManager";
+import { EntityTypes } from "../Physics/EntityTypes";
 function village(){
     for (let y = 5; y < 1000; y++) {
       for (let x = -10; x < 30; x++) {
@@ -38,7 +39,9 @@ function village(){
               new Vector2(0 + 100 * x, 100 * (y-1) + 50),
               new Vector2(200, 200),
               Images.cave,
-              1
+              1,
+              EntityTypes.Cave,
+              SceneManager.Instance.town
             )
           )
         }else if( y == 5 && x == 12){
@@ -47,7 +50,9 @@ function village(){
               new Vector2(0 + 100 * x, 100 * (y-1)),
               new Vector2(200, 200),
               Images.market,
-              1
+              1,
+              EntityTypes.Market,
+              SceneManager.Instance.town
             )
           )
         }else if( y == 5 && x == 14){
@@ -56,7 +61,9 @@ function village(){
               new Vector2(0 + 100 * x, 100 * (y-1)),
               new Vector2(200, 200),
               Images.forge,
-              1
+              1,
+              EntityTypes.Forge,
+              SceneManager.Instance.town
             )
           )
         }
@@ -66,7 +73,9 @@ function village(){
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
               Images.tile1,
-              1
+              1,
+              EntityTypes.SolidTile,
+              SceneManager.Instance.town
             )
           )
         }
@@ -76,7 +85,9 @@ function village(){
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
               Images.tile2,
-              1
+              1,
+              EntityTypes.SolidTile,
+              SceneManager.Instance.town
             )
           )
         }
@@ -90,7 +101,9 @@ function home1(Entities, x, y){
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
       Images.home1,
-      1
+      1,
+      EntityTypes.Building,
+      SceneManager.Instance.town
     )
   )
 }
@@ -101,7 +114,9 @@ function home2(Entities, x, y){
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
       Images.home2,
-      1
+      1,
+      EntityTypes.Building,
+      SceneManager.Instance.town
     )
   )
 }
@@ -112,7 +127,9 @@ function home3(Entities, x, y){
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
       Images.home3,
-      1
+      1,
+      EntityTypes.Building,
+      SceneManager.Instance.town
     )
   )
 }

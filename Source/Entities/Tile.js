@@ -2,8 +2,8 @@ import { Entity } from "../Physics/Entity"
 import { Transform } from "../Physics/Transform"
 
 export class Tile extends Entity {
-  constructor(position, size, Image, Layer) {
-    super(new Transform(position, size), Image, Layer)
+  constructor(position, size, Image, Layer, Type, Scene) {
+    super(new Transform(position, size), Image, Layer, Type, Scene)
   }
   Draw(Context, Camera) {
     Context.drawImage(
