@@ -25,7 +25,7 @@ export class Player extends Entity {
   speed = 500;
   damage = 1;
   SM;
-  jumpForce = 600;
+  jumpForce = 700;
   attackDelay = 0.2; 
   curAttackDelay = 0;
   constructor(position, size, Image, Layer, Camera, SM) {
@@ -40,7 +40,6 @@ export class Player extends Entity {
     }
     this.CollisionCheck(Entities);
     this.curAttackDelay -= Time.deltaTime;
-    console.log(this.curAttackDelay);
   }
   InputUpdate(){
     let stride = Vector2.Zero
@@ -83,20 +82,42 @@ export class Player extends Entity {
             if(Collisions.AABBtoAABB(entity.GetCollider(), col)){//
               entity.GetDamage(this.damage);
               if(entity.curHp <= 0){
-                if(entity.Image == Images.coal){
+                if(entity.Image == Images.lvl1_res1 || entity.Image == Images.lvl2_res1 || entity.Image == Images.lvl3_res1 || entity.Image == Images.lvl4_res1 || entity.Image == Images.lvl5_res1){
                   resurse[0] += 1
-                  console.log("coal " + resurse[0]);
-                }if(entity.Image == Images.iron){
+                  console.log("res1 " + resurse[0]);
+                }if(entity.Image == Images.lvl1_res2 || entity.Image == Images.lvl2_res2 || entity.Image == Images.lvl3_res2 || entity.Image == Images.lvl4_res2 || entity.Image == Images.lvl5_res2){
                   resurse[1] += 1
-                  console.log("iron " + resurse[1]);
+                  console.log("res2 " + resurse[1]);
+                }if(entity.Image == Images.lvl1_res3 || entity.Image == Images.lvl2_res3 || entity.Image == Images.lvl3_res3 || entity.Image == Images.lvl4_res3 || entity.Image == Images.lvl5_res3){
+                  resurse[2] += 1
+                  console.log("res3 " + resurse[2]);
+                }if(entity.Image == Images.lvl1_res4 || entity.Image == Images.lvl2_res4 || entity.Image == Images.lvl3_res4 || entity.Image == Images.lvl4_res4 || entity.Image == Images.lvl5_res4){
+                  resurse[3] += 1
+                  console.log("res4 " + resurse[3]);
+                }if(entity.Image == Images.lvl1_res5 || entity.Image == Images.lvl2_res5 || entity.Image == Images.lvl3_res5 || entity.Image == Images.lvl4_res5 || entity.Image == Images.lvl5_res5){
+                  resurse[4] += 1
+                  console.log("res5 " + resurse[4]);
+                }if(entity.Image == Images.lvl1_res6 || entity.Image == Images.lvl2_res6 || entity.Image == Images.lvl3_res6 || entity.Image == Images.lvl4_res6 || entity.Image == Images.lvl5_res6){
+                  resurse[5] += 1
+                  console.log("res6 " + resurse[5]);
                 }
                 layer.splice(layer.indexOf(entity), 1);
 
                  // Создание нового блока
                 let newX = Math.floor(entity.transform.Position.X / 100);
                 let newY = Math.floor(entity.transform.Position.Y / 100);
-                // Вызов функции для создания нового блока
-                createNewBlock(newX, newY);
+
+                if(newY < 200){
+                  createLvl1bg(newX, newY);
+                }if(newY >= 200 && newY < 400){
+                  createLvl2bg(newX, newY);
+                }if(newY >= 400 && newY < 600){
+                  createLvl3bg(newX, newY);
+                }if(newY >= 600 && newY < 800){
+                  createLvl4bg(newX, newY);
+                }if(newY >= 800){
+                  createLvl5bg(newX, newY);
+                }
               }
             }
           })
@@ -222,12 +243,64 @@ export class Player extends Entity {
   }
 }
 
-function createNewBlock(x, y) {
+function createLvl1bg(x, y) {
   SceneManager.Instance.mine.TC.GetLayer(y).push(
     new Tile(
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
-    Images.tile2bg,
+    Images.lvl1bg,
+    1,
+    EntityTypes.BackGroundTile,
+    SceneManager.Instance.mine
+    )
+  )
+}
+
+function createLvl2bg(x, y) {
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+    new Vector2(0 + 100 * x, 100 * y),
+    new Vector2(100, 100),
+    Images.lvl2bg,
+    1,
+    EntityTypes.BackGroundTile,
+    SceneManager.Instance.mine
+    )
+  )
+}
+
+function createLvl3bg(x, y) {
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+    new Vector2(0 + 100 * x, 100 * y),
+    new Vector2(100, 100),
+    Images.lvl3bg,
+    1,
+    EntityTypes.BackGroundTile,
+    SceneManager.Instance.mine
+    )
+  )
+}
+
+function createLvl4bg(x, y) {
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+    new Vector2(0 + 100 * x, 100 * y),
+    new Vector2(100, 100),
+    Images.lvl4bg,
+    1,
+    EntityTypes.BackGroundTile,
+    SceneManager.Instance.mine
+    )
+  )
+}
+
+function createLvl5bg(x, y) {
+  SceneManager.Instance.mine.TC.GetLayer(y).push(
+    new Tile(
+    new Vector2(0 + 100 * x, 100 * y),
+    new Vector2(100, 100),
+    Images.lvl5bg,
     1,
     EntityTypes.BackGroundTile,
     SceneManager.Instance.mine

@@ -73,7 +73,7 @@ function village(){
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
-              Images.tile1,
+              Images.lvl1_grass,
               2,
               EntityTypes.SolidTile,
               SceneManager.Instance.town
@@ -85,7 +85,7 @@ function village(){
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
-              Images.tile2,
+              Images.lvl1,
               2,
               EntityTypes.SolidTile,
               SceneManager.Instance.town

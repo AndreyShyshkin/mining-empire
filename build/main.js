@@ -360,8 +360,8 @@
       this.Entities.forEach((entity) => {
         entity.Draw(Canvas.Instance.GetLayerContext(entity.Layer), Player.Camera);
       });
-      this.TC.LoadedLayers.forEach((layer4) => {
-        layer4.forEach((entity) => {
+      this.TC.LoadedLayers.forEach((layer) => {
+        layer.forEach((entity) => {
           entity.Draw(Canvas.Instance.GetLayerContext(entity.Layer), Player.Camera);
         });
       });
@@ -395,6 +395,50 @@
 
   // Source/Graphics/Images.js
   var Images = class {
+    static lvl1_grass = CreateImageByPath("Res/img/Lvl1/lvl1_grass.png");
+    static lvl1_res1 = CreateImageByPath("Res/img/Lvl1/lvl1_res1.png");
+    static lvl1_res2 = CreateImageByPath("Res/img/Lvl1/lvl1_res2.png");
+    static lvl1_res3 = CreateImageByPath("Res/img/Lvl1/lvl1_res3.png");
+    static lvl1_res4 = CreateImageByPath("Res/img/Lvl1/lvl1_res4.png");
+    static lvl1_res5 = CreateImageByPath("Res/img/Lvl1/lvl1_res5.png");
+    static lvl1_res6 = CreateImageByPath("Res/img/Lvl1/lvl1_res6.png");
+    static lvl1 = CreateImageByPath("Res/img/Lvl1/lvl1.png");
+    static lvl1bg = CreateImageByPath("Res/img/Lvl1/lvl1bg.png");
+    static lvl2_res1 = CreateImageByPath("Res/img/Lvl2/lvl2_res1.png");
+    static lvl2_res2 = CreateImageByPath("Res/img/Lvl2/lvl2_res2.png");
+    static lvl2_res3 = CreateImageByPath("Res/img/Lvl2/lvl2_res3.png");
+    static lvl2_res4 = CreateImageByPath("Res/img/Lvl2/lvl2_res4.png");
+    static lvl2_res5 = CreateImageByPath("Res/img/Lvl2/lvl2_res5.png");
+    static lvl2_res6 = CreateImageByPath("Res/img/Lvl2/lvl2_res6.png");
+    static lvl2 = CreateImageByPath("Res/img/Lvl2/lvl2.png");
+    static lvl2bg = CreateImageByPath("Res/img/Lvl2/lvl2bg.png");
+    static lvl3_res1 = CreateImageByPath("Res/img/Lvl3/lvl3_res1.png");
+    static lvl3_res2 = CreateImageByPath("Res/img/Lvl3/lvl3_res2.png");
+    static lvl3_res3 = CreateImageByPath("Res/img/Lvl3/lvl3_res3.png");
+    static lvl3_res4 = CreateImageByPath("Res/img/Lvl3/lvl3_res4.png");
+    static lvl3_res5 = CreateImageByPath("Res/img/Lvl3/lvl3_res5.png");
+    static lvl3_res6 = CreateImageByPath("Res/img/Lvl3/lvl3_res6.png");
+    static lvl3 = CreateImageByPath("Res/img/Lvl3/lvl3.png");
+    static lvl3bg = CreateImageByPath("Res/img/Lvl3/lvl3bg.png");
+    static lvl4_res1 = CreateImageByPath("Res/img/Lvl4/lvl4_res1.png");
+    static lvl4_res2 = CreateImageByPath("Res/img/Lvl4/lvl4_res2.png");
+    static lvl4_res3 = CreateImageByPath("Res/img/Lvl4/lvl4_res3.png");
+    static lvl4_res4 = CreateImageByPath("Res/img/Lvl4/lvl4_res4.png");
+    static lvl4_res5 = CreateImageByPath("Res/img/Lvl4/lvl4_res5.png");
+    static lvl4_res6 = CreateImageByPath("Res/img/Lvl4/lvl4_res6.png");
+    static lvl4 = CreateImageByPath("Res/img/Lvl4/lvl4.png");
+    static lvl4bg = CreateImageByPath("Res/img/Lvl4/lvl4bg.png");
+    static lvl5_res1 = CreateImageByPath("Res/img/Lvl5/lvl5_res1.png");
+    static lvl5_res2 = CreateImageByPath("Res/img/Lvl5/lvl5_res2.png");
+    static lvl5_res3 = CreateImageByPath("Res/img/Lvl5/lvl5_res3.png");
+    static lvl5_res4 = CreateImageByPath("Res/img/Lvl5/lvl5_res4.png");
+    static lvl5_res5 = CreateImageByPath("Res/img/Lvl5/lvl5_res5.png");
+    static lvl5_res6 = CreateImageByPath("Res/img/Lvl5/lvl5_res6.png");
+    static lvl5 = CreateImageByPath("Res/img/Lvl5/lvl5.png");
+    static lvl5bg = CreateImageByPath("Res/img/Lvl5/lvl5bg.png");
+    static chest = CreateImageByPath("Res/img/Structures/Chest.png");
+    static cross = CreateImageByPath("Res/img/Structures/Cross.png");
+    static ladder = CreateImageByPath("Res/img/Structures/Ladder.png");
     static tile1 = CreateImageByPath("Res/img/Grass.png");
     static tile2 = CreateImageByPath("Res/img/Tile2.png");
     static tile2bg = CreateImageByPath("Res/img/Dirt2bg.png");
@@ -404,8 +448,6 @@
     static layer3 = CreateImageByPath("Res/img/Cobblestone_purple.png");
     static iron = CreateImageByPath("Res/img/Iron.png");
     static coal = CreateImageByPath("Res/img/Coal.png");
-    static cross = CreateImageByPath("Res/img/Cross.png");
-    static chest = CreateImageByPath("Res/img/Chest.png");
     static cave = CreateImageByPath("Res/img/cave.png");
     static forge = CreateImageByPath("Res/img/forge.png");
     static home1 = CreateImageByPath("Res/img/home1.png");
@@ -470,8 +512,12 @@
 
   // Source/Logic/inventory.js
   var resurse = [
-    coal = 0,
-    iron = 0
+    res1 = 0,
+    res2 = 0,
+    res3 = 0,
+    res4 = 0,
+    res5 = 0,
+    res6 = 0
   ];
   var inventory_default = resurse;
 
@@ -500,7 +546,7 @@
     speed = 500;
     damage = 1;
     SM;
-    jumpForce = 600;
+    jumpForce = 700;
     attackDelay = 0.2;
     curAttackDelay = 0;
     constructor(position, size, Image2, Layer2, Camera, SM3) {
@@ -515,7 +561,6 @@
       }
       this.CollisionCheck(Entities);
       this.curAttackDelay -= Time.deltaTime;
-      console.log(this.curAttackDelay);
     }
     InputUpdate() {
       let stride = Vector2.Zero;
@@ -549,24 +594,54 @@
             col = this.GetColliderDot(Vector2.Up.Scale(100));
           }
           if (col.length == 2)
-            this.SM.currentScene.TC.LoadedLayers.forEach((layer4) => {
-              layer4.forEach((entity) => {
+            this.SM.currentScene.TC.LoadedLayers.forEach((layer) => {
+              layer.forEach((entity) => {
                 if (entity.Type === EntityTypes.SolidTile || entity.Type === EntityTypes.DestroyableTile) {
                   if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
                     entity.GetDamage(this.damage);
                     if (entity.curHp <= 0) {
-                      if (entity.Image == Images.coal) {
+                      if (entity.Image == Images.lvl1_res1 || entity.Image == Images.lvl2_res1 || entity.Image == Images.lvl3_res1 || entity.Image == Images.lvl4_res1 || entity.Image == Images.lvl5_res1) {
                         inventory_default[0] += 1;
-                        console.log("coal " + inventory_default[0]);
+                        console.log("res1 " + inventory_default[0]);
                       }
-                      if (entity.Image == Images.iron) {
+                      if (entity.Image == Images.lvl1_res2 || entity.Image == Images.lvl2_res2 || entity.Image == Images.lvl3_res2 || entity.Image == Images.lvl4_res2 || entity.Image == Images.lvl5_res2) {
                         inventory_default[1] += 1;
-                        console.log("iron " + inventory_default[1]);
+                        console.log("res2 " + inventory_default[1]);
                       }
-                      layer4.splice(layer4.indexOf(entity), 1);
+                      if (entity.Image == Images.lvl1_res3 || entity.Image == Images.lvl2_res3 || entity.Image == Images.lvl3_res3 || entity.Image == Images.lvl4_res3 || entity.Image == Images.lvl5_res3) {
+                        inventory_default[2] += 1;
+                        console.log("res3 " + inventory_default[2]);
+                      }
+                      if (entity.Image == Images.lvl1_res4 || entity.Image == Images.lvl2_res4 || entity.Image == Images.lvl3_res4 || entity.Image == Images.lvl4_res4 || entity.Image == Images.lvl5_res4) {
+                        inventory_default[3] += 1;
+                        console.log("res4 " + inventory_default[3]);
+                      }
+                      if (entity.Image == Images.lvl1_res5 || entity.Image == Images.lvl2_res5 || entity.Image == Images.lvl3_res5 || entity.Image == Images.lvl4_res5 || entity.Image == Images.lvl5_res5) {
+                        inventory_default[4] += 1;
+                        console.log("res5 " + inventory_default[4]);
+                      }
+                      if (entity.Image == Images.lvl1_res6 || entity.Image == Images.lvl2_res6 || entity.Image == Images.lvl3_res6 || entity.Image == Images.lvl4_res6 || entity.Image == Images.lvl5_res6) {
+                        inventory_default[5] += 1;
+                        console.log("res6 " + inventory_default[5]);
+                      }
+                      layer.splice(layer.indexOf(entity), 1);
                       let newX = Math.floor(entity.transform.Position.X / 100);
                       let newY = Math.floor(entity.transform.Position.Y / 100);
-                      createNewBlock(newX, newY);
+                      if (newY < 200) {
+                        createLvl1bg(newX, newY);
+                      }
+                      if (newY >= 200 && newY < 400) {
+                        createLvl2bg(newX, newY);
+                      }
+                      if (newY >= 400 && newY < 600) {
+                        createLvl3bg(newX, newY);
+                      }
+                      if (newY >= 600 && newY < 800) {
+                        createLvl4bg(newX, newY);
+                      }
+                      if (newY >= 800) {
+                        createLvl5bg(newX, newY);
+                      }
                     }
                   }
                 }
@@ -691,12 +766,60 @@
       );
     }
   };
-  function createNewBlock(x, y) {
+  function createLvl1bg(x, y) {
     SceneManager.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
-        Images.tile2bg,
+        Images.lvl1bg,
+        1,
+        EntityTypes.BackGroundTile,
+        SceneManager.Instance.mine
+      )
+    );
+  }
+  function createLvl2bg(x, y) {
+    SceneManager.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl2bg,
+        1,
+        EntityTypes.BackGroundTile,
+        SceneManager.Instance.mine
+      )
+    );
+  }
+  function createLvl3bg(x, y) {
+    SceneManager.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl3bg,
+        1,
+        EntityTypes.BackGroundTile,
+        SceneManager.Instance.mine
+      )
+    );
+  }
+  function createLvl4bg(x, y) {
+    SceneManager.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl4bg,
+        1,
+        EntityTypes.BackGroundTile,
+        SceneManager.Instance.mine
+      )
+    );
+  }
+  function createLvl5bg(x, y) {
+    SceneManager.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl5bg,
         1,
         EntityTypes.BackGroundTile,
         SceneManager.Instance.mine
@@ -743,9 +866,9 @@
           );
         }
         if (y == 6) {
-          title1(SceneManager, x, y);
+          lvl1_grass(SceneManager, x, y);
         } else if (y < 10) {
-          title2(SceneManager, x, y);
+          lvl1(SceneManager, x, y);
         } else {
           let r = Random(1, 100);
           let rd = Random(1, 2e3);
@@ -770,101 +893,125 @@
                 } else {
                   cross(SceneManager, x, y);
                 }
+                if (y >= 100 && y < 200) {
+                  lvl1bg(SceneManager, x, y);
+                } else if (y >= 200 && y < 400) {
+                  lvl2bg(SceneManager, x, y);
+                } else if (y >= 400 && y < 600) {
+                  lvl3bg(SceneManager, x, y);
+                } else if (y >= 600 && y < 800) {
+                  lvl4bg(SceneManager, x, y);
+                } else if (y >= 800) {
+                  lvl5bg(SceneManager, x, y);
+                }
               }
               x = xStart;
             }
             y = yStart;
           } else {
-            if (y >= 10 && y < 50) {
-              if (r < 5) {
-                coal2(SceneManager, x, y);
-              } else if (r < 7) {
-                iron2(SceneManager, x, y);
+            if (y >= 100 && y < 200) {
+              if (r < 2) {
+                lvl1_res2(SceneManager, x, y);
+              } else if (r < 5) {
+                lvl1_res1(SceneManager, x, y);
               } else
-                title2(SceneManager, x, y);
-            } else if (y >= 50 && y < 100) {
-              if (r < 5) {
-                iron2(SceneManager, x, y);
-              } else if (r < 7) {
-                coal2(SceneManager, x, y);
+                lvl1(SceneManager, x, y);
+            } else if (y >= 200 && y < 400) {
+              if (r < 2) {
+                lvl2_res3(SceneManager, x, y);
+              } else if (r < 5) {
+                lvl2_res1(SceneManager, x, y);
+              } else if (r < 10) {
+                lvl2_res2(SceneManager, x, y);
               } else
-                title2(SceneManager, x, y);
-            } else if (y >= 100 && y < 150) {
-              if (r < 5) {
-                iron2(SceneManager, x, y);
-              } else if (r < 7) {
-                coal2(SceneManager, x, y);
+                lvl2(SceneManager, x, y);
+            } else if (y >= 400 && y < 600) {
+              if (r < 2) {
+                lvl3_res4(SceneManager, x, y);
+              } else if (r < 5) {
+                lvl3_res3(SceneManager, x, y);
+              } else if (r < 10) {
+                lvl3_res2(SceneManager, x, y);
               } else
-                layer(SceneManager, x, y);
-            } else if (y >= 150 && y < 200) {
-              if (r < 5) {
-                iron2(SceneManager, x, y);
-              } else if (r < 7) {
-                coal2(SceneManager, x, y);
+                lvl3(SceneManager, x, y);
+            } else if (y >= 600 && y < 800) {
+              if (r < 2) {
+                lvl4_res5(SceneManager, x, y);
+              } else if (r < 5) {
+                lvl4_res4(SceneManager, x, y);
+              } else if (r < 10) {
+                lvl4_res3(SceneManager, x, y);
               } else
-                layer1(SceneManager, x, y);
-            } else if (y >= 200 && y < 250) {
-              if (r < 5) {
-                iron2(SceneManager, x, y);
-              } else if (r < 7) {
-                coal2(SceneManager, x, y);
+                lvl4(SceneManager, x, y);
+            } else if (y >= 800) {
+              if (r < 2) {
+                lvl5_res6(SceneManager, x, y);
+              } else if (r < 5) {
+                lvl5_res5(SceneManager, x, y);
+              } else if (r < 10) {
+                lvl5_res4(SceneManager, x, y);
               } else
-                layer2(SceneManager, x, y);
-            } else if (y >= 250) {
-              if (r < 5) {
-                iron2(SceneManager, x, y);
-              } else if (r < 7) {
-                coal2(SceneManager, x, y);
-              } else
-                layer3(SceneManager, x, y);
+                lvl5(SceneManager, x, y);
             }
           }
         }
       }
     }
   }
-  function title1(SceneManager2, x, y) {
+  function lvl1_grass(SceneManager2, x, y) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
-        Images.tile1,
+        Images.lvl1_grass,
         2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
     );
   }
-  function title2(SceneManager2, x, y) {
+  function lvl1(SceneManager2, x, y) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
-        Images.tile2,
+        Images.lvl1,
         2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
     );
   }
-  function coal2(SceneManager2, x, y) {
+  function lvl1bg(SceneManager2, x, y) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
-        Images.coal,
+        Images.lvl1bg,
+        1,
+        EntityTypes.BackGroundTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl1_res1(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl1_res1,
         2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
     );
   }
-  function iron2(SceneManager2, x, y) {
+  function lvl1_res2(SceneManager2, x, y) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
-        Images.iron,
+        Images.lvl1_res2,
         2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
@@ -877,7 +1024,7 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.chest,
-        1,
+        2,
         EntityTypes.DestroyableTile,
         SceneManager2.Instance.mine
       )
@@ -889,54 +1036,246 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.cross,
-        1,
+        2,
         EntityTypes.DestroyableTile,
         SceneManager2.Instance.mine
       )
     );
   }
-  function layer(SceneManager2, x, y) {
+  function lvl2(SceneManager2, x, y) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
-        Images.layer,
+        Images.lvl2,
         2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
     );
   }
-  function layer1(SceneManager2, x, y) {
+  function lvl2bg(SceneManager2, x, y) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
-        Images.layer1,
+        Images.lvl2bg,
+        1,
+        EntityTypes.BackGroundTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl2_res1(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl2_res1,
         2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
     );
   }
-  function layer2(SceneManager2, x, y) {
+  function lvl2_res2(SceneManager2, x, y) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
-        Images.layer2,
+        Images.lvl2_res2,
         2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
     );
   }
-  function layer3(SceneManager2, x, y) {
+  function lvl2_res3(SceneManager2, x, y) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
-        Images.layer3,
+        Images.lvl2_res3,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl3(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl3,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl3bg(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl3bg,
+        1,
+        EntityTypes.BackGroundTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl3_res2(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl3_res2,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl3_res3(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl3_res3,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl3_res4(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl3_res4,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl4(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl4,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl4bg(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl4bg,
+        1,
+        EntityTypes.BackGroundTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl4_res3(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl4_res3,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl4_res4(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl4_res4,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl4_res5(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl4_res5,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl5(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl5,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl5bg(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl5bg,
+        1,
+        EntityTypes.BackGroundTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl5_res4(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl5_res4,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl5_res5(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl5_res5,
+        2,
+        EntityTypes.SolidTile,
+        SceneManager2.Instance.mine
+      )
+    );
+  }
+  function lvl5_res6(SceneManager2, x, y) {
+    SceneManager2.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        Images.lvl5_res6,
         2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
@@ -949,11 +1288,11 @@
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
   function removeBlockAtCoordinates(x, y) {
-    const layer4 = SceneManager.Instance.mine.TC.GetLayer(y);
-    for (let i2 = 0; i2 < layer4.length; i2++) {
-      const block = layer4[i2];
+    const layer = SceneManager.Instance.mine.TC.GetLayer(y);
+    for (let i2 = 0; i2 < layer.length; i2++) {
+      const block = layer[i2];
       if (block.transform.Position.X === x * 100 && block.transform.Position.Y === y * 100) {
-        layer4.splice(i2, 1);
+        layer.splice(i2, 1);
         break;
       }
     }
@@ -1028,7 +1367,7 @@
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
-              Images.tile1,
+              Images.lvl1_grass,
               2,
               EntityTypes.SolidTile,
               SceneManager.Instance.town
@@ -1039,7 +1378,7 @@
             new Tile(
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
-              Images.tile2,
+              Images.lvl1,
               2,
               EntityTypes.SolidTile,
               SceneManager.Instance.town
@@ -1124,8 +1463,8 @@
     SceneManager.Instance.currentScene.Entities.forEach((element) => {
       entities.push(element);
     });
-    SM2.currentScene.TC.LoadedLayers.forEach((layer4) => {
-      layer4.forEach((entity) => {
+    SM2.currentScene.TC.LoadedLayers.forEach((layer) => {
+      layer.forEach((entity) => {
         entities.push(entity);
       });
     });
