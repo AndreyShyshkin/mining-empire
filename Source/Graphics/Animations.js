@@ -24,5 +24,9 @@ export class Animations{
     static PlayerIdleLeft = new Animation([
         new CreateImageByPath("Res/img/Player/IdleLeft/Player_idle1.png"),
         new CreateImageByPath("Res/img/Player/IdleLeft/Player_idle2.png"),
-    ], 0.30);  
+    ], 0.30);      
+    static PlayerAttackRight = new Animation([
+        new CreateImageByPath("Res/img/Player/Attack_right/Player_attack1.png"),
+        new CreateImageByPath("Res/img/Player/IdleLeft/Player_attack2.png"),
+    ], 0.10);  
 }

@@ -14,13 +14,11 @@ export class Animation{
         this.CurrentFrameTime -= Time.deltaTime;
         if(this.CurrentFrameTime <= 0){
             this.NextFrame();
-            console.log("next");
             this.CurrentFrameTime = this.FrameDuration;
         }
     }
     NextFrame(){
         let i = this.Frames.indexOf(this.CurrentFrame);
-        console.log(i);
         if(i < this.Frames.length - 1){
             this.CurrentFrame = this.Frames[i + 1]; 
         }

@@ -6,6 +6,7 @@ export class PlayerAnimationController{
     IdleRight = Animations.PlayerIdleRight;
     IdleLeft = Animations.PlayerIdleLeft;
     CurrentAnimation = Animations.PlayerIdleRight;
+    //CurrentAnimation = Animations.PlayerAttackRight;
     Update(){
         this.CurrentAnimation.Update();
     }

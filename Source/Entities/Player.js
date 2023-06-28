@@ -22,6 +22,7 @@ export class Player extends Entity {
   topCollision = false;
   leftCollision = false;
   rightCollision = false;
+  isAttack = false;
   velocityY = 0;
   speed = 500;
   damage = 1;
@@ -98,25 +99,31 @@ export class Player extends Entity {
   UpdateAttack(){
     if (Input.GetKeyState(66) && this.curAttackDelay <= 0){// B
       this.curAttackDelay = this.attackDelay;
+      let dir;//1 - right, 2 - left, 3 - top, 4 - down
       if (SceneManager.Instance.currentScene == SceneManager.Instance.mine){
         let col = []
         if(Input.GetKeyState(39)){//right
           col = this.GetColliderDot(Vector2.Right.Scale(100));
+          dir = 1;
         }
         else if(Input.GetKeyState(37)){//left
           col = this.GetColliderDot(Vector2.Left.Scale(100));
+          dir = 2;
         }
         else if(Input.GetKeyState(38)){//top
           col = this.GetColliderDot(Vector2.Down.Scale(100));
+          dir = 3;
         }
         else if(Input.GetKeyState(40)){//down
           col = this.GetColliderDot(Vector2.Up.Scale(100));
+          dir = 4;
         }
         if(col.length == 2)
         this.SM.currentScene.TC.LoadedLayers.forEach(layer => {
           layer.forEach(entity => {
             if(entity.Type === EntityTypes.SolidTile || entity.Type === EntityTypes.DestroyableTile)
             if(Collisions.AABBtoAABB(entity.GetCollider(), col)){//
+              this.PAC.ChangeAnimation();
               entity.GetDamage(this.damage);
               if(entity.curHp <= 0){
                 if(entity.Image == Images.lvl1_res1 || entity.Image == Images.lvl2_res1 || entity.Image == Images.lvl3_res1 || entity.Image == Images.lvl4_res1 || entity.Image == Images.lvl5_res1){

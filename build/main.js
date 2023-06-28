@@ -556,13 +556,11 @@
       this.CurrentFrameTime -= Time.deltaTime;
       if (this.CurrentFrameTime <= 0) {
         this.NextFrame();
-        console.log("next");
         this.CurrentFrameTime = this.FrameDuration;
       }
     }
     NextFrame() {
       let i2 = this.Frames.indexOf(this.CurrentFrame);
-      console.log(i2);
       if (i2 < this.Frames.length - 1) {
         this.CurrentFrame = this.Frames[i2 + 1];
       } else {
@@ -601,6 +599,10 @@
       new CreateImageByPath("Res/img/Player/IdleLeft/Player_idle1.png"),
       new CreateImageByPath("Res/img/Player/IdleLeft/Player_idle2.png")
     ], 0.3);
+    static PlayerAttackRight = new Animation([
+      new CreateImageByPath("Res/img/Player/Attack_right/Player_attack1.png"),
+      new CreateImageByPath("Res/img/Player/IdleLeft/Player_attack2.png")
+    ], 0.1);
   };
 
   // Source/Graphics/PlayerAnimationController.js
@@ -610,6 +612,7 @@
     IdleRight = Animations.PlayerIdleRight;
     IdleLeft = Animations.PlayerIdleLeft;
     CurrentAnimation = Animations.PlayerIdleRight;
+    //CurrentAnimation = Animations.PlayerAttackRight;
     Update() {
       this.CurrentAnimation.Update();
     }
@@ -630,6 +633,7 @@
     topCollision = false;
     leftCollision = false;
     rightCollision = false;
+    isAttack = false;
     velocityY = 0;
     speed = 500;
     damage = 1;
@@ -704,22 +708,28 @@
     UpdateAttack() {
       if (Input.GetKeyState(66) && this.curAttackDelay <= 0) {
         this.curAttackDelay = this.attackDelay;
+        let dir;
         if (SceneManager.Instance.currentScene == SceneManager.Instance.mine) {
           let col = [];
           if (Input.GetKeyState(39)) {
             col = this.GetColliderDot(Vector2.Right.Scale(100));
+            dir = 1;
           } else if (Input.GetKeyState(37)) {
             col = this.GetColliderDot(Vector2.Left.Scale(100));
+            dir = 2;
           } else if (Input.GetKeyState(38)) {
             col = this.GetColliderDot(Vector2.Down.Scale(100));
+            dir = 3;
           } else if (Input.GetKeyState(40)) {
             col = this.GetColliderDot(Vector2.Up.Scale(100));
+            dir = 4;
           }
           if (col.length == 2)
             this.SM.currentScene.TC.LoadedLayers.forEach((layer) => {
               layer.forEach((entity) => {
                 if (entity.Type === EntityTypes.SolidTile || entity.Type === EntityTypes.DestroyableTile) {
                   if (Collisions.AABBtoAABB(entity.GetCollider(), col)) {
+                    this.PAC.ChangeAnimation();
                     entity.GetDamage(this.damage);
                     if (entity.curHp <= 0) {
                       if (entity.Image == Images.lvl1_res1 || entity.Image == Images.lvl2_res1 || entity.Image == Images.lvl3_res1 || entity.Image == Images.lvl4_res1 || entity.Image == Images.lvl5_res1) {
