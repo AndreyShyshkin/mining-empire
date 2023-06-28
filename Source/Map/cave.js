@@ -15,7 +15,7 @@ function cave(){
             new Vector2(0 + 100 * x, 100 * (y-3)),
             new Vector2(300, 300),
             Images.cave,
-            1,
+            2,
             EntityTypes.Cave,
             SceneManager.Instance.mine
           )
@@ -120,7 +120,7 @@ function title1(SceneManager, x, y){
       new Vector2(0 + 100 * x, 100 * y),
       new Vector2(100, 100),
       Images.tile1,
-      1,
+      2,
       EntityTypes.SolidTile,
       SceneManager.Instance.mine
     )
@@ -132,7 +132,7 @@ function title2(SceneManager, x, y){
       new Vector2(0 + 100 * x, 100 * y),
       new Vector2(100, 100),
       Images.tile2,
-      1,
+      2,
       EntityTypes.SolidTile,
       SceneManager.Instance.mine
     )
@@ -145,7 +145,7 @@ function coal(SceneManager, x, y){
       new Vector2(0 + 100 * x, 100 * y),
       new Vector2(100, 100),
       Images.coal,
-      1,
+      2,
       EntityTypes.SolidTile,
       SceneManager.Instance.mine
     )
@@ -158,7 +158,7 @@ function iron(SceneManager, x, y){
       new Vector2(0 + 100 * x, 100 * y),
       new Vector2(100, 100),
       Images.iron,
-      1,
+      2,
       EntityTypes.SolidTile,
       SceneManager.Instance.mine
     )
@@ -197,7 +197,7 @@ function layer(SceneManager, x, y){
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
     Images.layer,
-    1,      
+    2,      
     EntityTypes.SolidTile,
     SceneManager.Instance.mine
     )
@@ -210,7 +210,7 @@ function layer1(SceneManager, x, y){
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
     Images.layer1,
-    1,
+    2,
     EntityTypes.SolidTile,
     SceneManager.Instance.mine
     )
@@ -223,7 +223,7 @@ function layer2(SceneManager, x, y){
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
     Images.layer2,
-    1,
+    2,
     EntityTypes.SolidTile,
     SceneManager.Instance.mine
     )
@@ -236,7 +236,7 @@ function layer3(SceneManager, x, y){
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
     Images.layer3,
-    1,
+    2,
     EntityTypes.SolidTile,
     SceneManager.Instance.mine
     )

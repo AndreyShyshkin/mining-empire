@@ -40,7 +40,7 @@ function village(){
               new Vector2(0 + 100 * x, 100 * (y-2)),
               new Vector2(300, 300),
               Images.cave,
-              1,
+              2,
               EntityTypes.Cave,
               SceneManager.Instance.town
             )
@@ -51,7 +51,7 @@ function village(){
               new Vector2(0 + 100 * x, 100 * (y-1)),
               new Vector2(200, 200),
               Images.market,
-              1,
+              2,
               EntityTypes.Market,
               SceneManager.Instance.town
             )
@@ -62,7 +62,7 @@ function village(){
               new Vector2(0 + 100 * x, 100 * (y-1)),
               new Vector2(200, 200),
               Images.forge,
-              1,
+              2,
               EntityTypes.Forge,
               SceneManager.Instance.town
             )
@@ -74,7 +74,7 @@ function village(){
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
               Images.tile1,
-              1,
+              2,
               EntityTypes.SolidTile,
               SceneManager.Instance.town
             )
@@ -86,7 +86,7 @@ function village(){
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
               Images.tile2,
-              1,
+              2,
               EntityTypes.SolidTile,
               SceneManager.Instance.town
             )
@@ -102,7 +102,7 @@ function home1(Entities, x, y){
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
       Images.home1,
-      1,
+      2,
       EntityTypes.Building,
       SceneManager.Instance.town
     )
@@ -115,7 +115,7 @@ function home2(Entities, x, y){
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
       Images.home2,
-      1,
+      2,
       EntityTypes.Building,
       SceneManager.Instance.town
     )
@@ -128,7 +128,7 @@ function home3(Entities, x, y){
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
       Images.home3,
-      1,
+      2,
       EntityTypes.Building,
       SceneManager.Instance.town
     )

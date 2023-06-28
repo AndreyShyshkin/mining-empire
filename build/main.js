@@ -16,7 +16,7 @@
 
   // Source/Graphics/Canvas/Canvas.js
   var Canvas = class _Canvas {
-    static Instance = new _Canvas(2);
+    static Instance = new _Canvas(3);
     Layers = [];
     constructor(LayersCount) {
       this.LayersCount = LayersCount;

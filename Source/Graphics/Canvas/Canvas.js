@@ -1,6 +1,6 @@
 import { Layer } from "./Layer"
 export class Canvas {
-  static Instance = new Canvas(2);
+  static Instance = new Canvas(3);
   Layers = []
   constructor(LayersCount) {
     this.LayersCount = LayersCount
