@@ -1,3 +1,4 @@
+import { Vector2 } from "../Math/Vector2"
 import { Entity } from "../Physics/Entity"
 import { Transform } from "../Physics/Transform"
 
@@ -15,9 +16,9 @@ export class Cave extends Entity {
         )
     }
     GetCollider(){
-        return [
-            this.transform.Position.Add(100,200),
-            this.transform.Position.Add(200,300)
-        ]
+      return [
+        this.transform.Position.Add(new Vector2(100, 200)),
+        this.transform.Position.Add(new Vector2(200, 300))
+      ]
     }
 }

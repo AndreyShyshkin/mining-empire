@@ -38,39 +38,19 @@ window.onload = () => game.Start()
 function Start() {
   Canvas.Instance.updateSize()
 }
-let changeSceneFlag = false;
-function UpdateInput() {
-  if (Input.GetKeyState(90)){// Z
-    const entranceTile = SceneManager.Instance.town.Entities.find(
-      (entity) => entity.Image === Images.cave
-    );
-  
-    if (entranceTile) {
-      const playerCollider = player.GetCollider();
-      const entranceCollider = entranceTile.GetCollider();
-  
-      if (Collisions.AABBtoAABB(playerCollider, entranceCollider)) {
-        if(!changeSceneFlag){
-          SM.ChangeScene();
-        }
-        changeSceneFlag = true;
-      }
-    }
-  }
-  else{
-    changeSceneFlag = false;
-  }
-}
 function Update() {
-  let tiles = []
+  console.log(Time.deltaTime);
+  let entities = [];
+  SceneManager.Instance.currentScene.Entities.forEach(element => {
+    entities.push(element);
+  });
   SM.currentScene.TC.LoadedLayers.forEach(layer => {
     layer.forEach(entity => {
-      tiles.push(entity);
+      entities.push(entity);
     })
   })
-  UpdateInput()
   SM.currentScene.TC.UpdateLoadted(Player.Camera.Y);
-  player.Update(tiles);
+  player.Update(entities);
   Canvas.Instance.GetLayerContext(1).clearRect(0, 0, 1920, 1080)
   //canvas.GetLayerContext(0)!.drawImage(img, 0, 0);
   SM.currentScene.Draw();

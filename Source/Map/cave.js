@@ -4,14 +4,15 @@ import { Vector2 } from "../Math/Vector2"
 import { Images } from "../Graphics/Images";
 import { SceneManager } from "../Logic/SceneManager";
 import { EntityTypes } from "../Physics/EntityTypes";
+import { Cave } from "../Entities/Cave";
 
 function cave(){
   for (let y = 6; y < 1000; y++) {
     for (let x = -50; x < 50; x++) {
       if( y == 6 && x == 6){
         SceneManager.Instance.mine.Entities.push(
-          new Tile(
-            new Vector2(0 + 100 * x, 100 * (y-2) + 50),
+          new Cave(
+            new Vector2(0 + 100 * x, 100 * (y-3)),
             new Vector2(300, 300),
             Images.cave,
             1,

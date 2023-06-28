@@ -4,6 +4,7 @@ import { Vector2 } from "../Math/Vector2"
 import { Images } from "../Graphics/Images";
 import { SceneManager } from "../Logic/SceneManager";
 import { EntityTypes } from "../Physics/EntityTypes";
+import { Cave } from "../Entities/Cave";
 function village(){
     for (let y = 5; y < 1000; y++) {
       for (let x = -10; x < 30; x++) {
@@ -35,9 +36,9 @@ function village(){
           }
         }else if( y == 5 && x == 6){
           SceneManager.Instance.town.Entities.push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * (y-1) + 50),
-              new Vector2(200, 200),
+            new Cave(
+              new Vector2(0 + 100 * x, 100 * (y-2)),
+              new Vector2(300, 300),
               Images.cave,
               1,
               EntityTypes.Cave,

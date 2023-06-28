@@ -9,11 +9,13 @@ import { SceneManager } from "../Logic/SceneManager"
 import { Images } from "../Graphics/Images";
 
 import resurse from "../Logic/inventory"
+import { EntityTypes } from "../Physics/EntityTypes"
 
 let SM = new SceneManager();
 
 export class Player extends Entity {
   static Camera;
+  changeSceneFlag = false;
   bottomCollision = false;
   topCollision = false;
   leftCollision = false;
@@ -95,9 +97,7 @@ export class Player extends Entity {
     let topFlag = false;
     let leftFlag = false;
     let rightFlag = false;
-    Entities.forEach(entity => {
-      if (!(entity === this)) {
-        let offset = 10;
+    let offset = 10;
         let Left = [
           new Vector2(this.transform.Position.X, this.transform.Position.Y + offset),
           new Vector2(
@@ -132,28 +132,33 @@ export class Player extends Entity {
             this.transform.Position.Y + this.transform.Size.Y
           )
         ]
-
-        if (Collisions.AABBtoAABB(entity.GetCollider(), Left)) {
-          this.leftCollision = true;
-          leftFlag = true;
-        }
-        if (Collisions.AABBtoAABB(entity.GetCollider(), Right)) {
-          this.rightCollision = true;
-          rightFlag = true;
-        }
-        if (Collisions.AABBtoAABB(entity.GetCollider(), Top)) {
-          topFlag = true;
-          this.topCollision = true;
-          if(this.velocityY > 0){
+    Entities.forEach(entity => {
+      if (!(entity === this)) {
+        if(entity.Type === EntityTypes.SolidTile){
+          
+          if (Collisions.AABBtoAABB(entity.GetCollider(), Left)) {
+            this.leftCollision = true;
+            leftFlag = true;
+          }
+          if (Collisions.AABBtoAABB(entity.GetCollider(), Right)) {
+            this.rightCollision = true;
+            rightFlag = true;
+          }
+          if (Collisions.AABBtoAABB(entity.GetCollider(), Top)) {
+            topFlag = true;
+            this.topCollision = true;
+            if(this.velocityY > 0){
+              this.velocityY = 0;
+            }
+          }
+          if (Collisions.AABBtoAABB(entity.GetCollider(), Bottom)) {
+            bottomFlag = true;
+            this.bottomCollision = true;
             this.velocityY = 0;
           }
         }
-        if (Collisions.AABBtoAABB(entity.GetCollider(), Bottom)) {
-          bottomFlag = true;
-          this.bottomCollision = true;
-          this.velocityY = 0;
-        }
       }
+      this.CaveCheck(entity);
     })
     if(!bottomFlag) {
       this.bottomCollision = false;
@@ -166,6 +171,21 @@ export class Player extends Entity {
     }
     if(!rightFlag){
       this.rightCollision = false;
+    }
+  }
+  CaveCheck(entity){
+    if(entity.Type === EntityTypes.Cave){
+      if (Input.GetKeyState(90)){// Z
+        if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+          if(!this.changeSceneFlag){
+            SceneManager.Instance.ChangeScene();
+          }
+          this.changeSceneFlag = true;
+        }
+      }
+      else{
+        this.changeSceneFlag = false;
+      }
     }
   }
   GetColliderDot(direction) {

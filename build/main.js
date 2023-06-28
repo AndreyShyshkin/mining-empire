@@ -420,10 +420,23 @@
   ];
   var inventory_default = resurse;
 
+  // Source/Physics/EntityTypes.js
+  var EntityTypes = class {
+    static Player = "Player";
+    static SolidTile = "SolidTile";
+    static BackGroundTile = "BackGroundTile";
+    static Forge = "Forge";
+    static Market = "Market";
+    static Building = "Building";
+    static Cave = "Cave";
+    static DestroyableTile = "DestroyableTile";
+  };
+
   // Source/Entities/Player.js
   var SM = new SceneManager();
   var Player = class _Player extends Entity {
     static Camera;
+    changeSceneFlag = false;
     bottomCollision = false;
     topCollision = false;
     leftCollision = false;
@@ -504,64 +517,67 @@
       let topFlag = false;
       let leftFlag = false;
       let rightFlag = false;
+      let offset = 10;
+      let Left = [
+        new Vector2(this.transform.Position.X, this.transform.Position.Y + offset),
+        new Vector2(
+          this.transform.Position.X,
+          this.transform.Position.Y + this.transform.Size.Y - offset
+        )
+      ];
+      let Right = [
+        new Vector2(
+          this.transform.Position.X + this.transform.Size.X,
+          this.transform.Position.Y + offset
+        ),
+        new Vector2(
+          this.transform.Position.X + this.transform.Size.X,
+          this.transform.Position.Y + this.transform.Size.Y - offset
+        )
+      ];
+      let Top = [
+        new Vector2(this.transform.Position.X + offset, this.transform.Position.Y),
+        new Vector2(
+          this.transform.Position.X + this.transform.Size.X - offset,
+          this.transform.Position.Y
+        )
+      ];
+      let Bottom = [
+        new Vector2(
+          this.transform.Position.X + offset,
+          this.transform.Position.Y + this.transform.Size.Y
+        ),
+        new Vector2(
+          this.transform.Position.X + this.transform.Size.X - offset,
+          this.transform.Position.Y + this.transform.Size.Y
+        )
+      ];
       Entities.forEach((entity) => {
         if (!(entity === this)) {
-          let offset = 10;
-          let Left = [
-            new Vector2(this.transform.Position.X, this.transform.Position.Y + offset),
-            new Vector2(
-              this.transform.Position.X,
-              this.transform.Position.Y + this.transform.Size.Y - offset
-            )
-          ];
-          let Right = [
-            new Vector2(
-              this.transform.Position.X + this.transform.Size.X,
-              this.transform.Position.Y + offset
-            ),
-            new Vector2(
-              this.transform.Position.X + this.transform.Size.X,
-              this.transform.Position.Y + this.transform.Size.Y - offset
-            )
-          ];
-          let Top = [
-            new Vector2(this.transform.Position.X + offset, this.transform.Position.Y),
-            new Vector2(
-              this.transform.Position.X + this.transform.Size.X - offset,
-              this.transform.Position.Y
-            )
-          ];
-          let Bottom = [
-            new Vector2(
-              this.transform.Position.X + offset,
-              this.transform.Position.Y + this.transform.Size.Y
-            ),
-            new Vector2(
-              this.transform.Position.X + this.transform.Size.X - offset,
-              this.transform.Position.Y + this.transform.Size.Y
-            )
-          ];
-          if (Collisions.AABBtoAABB(entity.GetCollider(), Left)) {
-            this.leftCollision = true;
-            leftFlag = true;
-          }
-          if (Collisions.AABBtoAABB(entity.GetCollider(), Right)) {
-            this.rightCollision = true;
-            rightFlag = true;
-          }
-          if (Collisions.AABBtoAABB(entity.GetCollider(), Top)) {
-            topFlag = true;
-            this.topCollision = true;
-            if (this.velocityY > 0) {
+          if (entity.Type === EntityTypes.SolidTile) {
+            if (Collisions.AABBtoAABB(entity.GetCollider(), Left)) {
+              this.leftCollision = true;
+              leftFlag = true;
+            }
+            if (Collisions.AABBtoAABB(entity.GetCollider(), Right)) {
+              this.rightCollision = true;
+              rightFlag = true;
+            }
+            if (Collisions.AABBtoAABB(entity.GetCollider(), Top)) {
+              topFlag = true;
+              this.topCollision = true;
+              if (this.velocityY > 0) {
+                this.velocityY = 0;
+              }
+            }
+            if (Collisions.AABBtoAABB(entity.GetCollider(), Bottom)) {
+              bottomFlag = true;
+              this.bottomCollision = true;
               this.velocityY = 0;
             }
           }
-          if (Collisions.AABBtoAABB(entity.GetCollider(), Bottom)) {
-            bottomFlag = true;
-            this.bottomCollision = true;
-            this.velocityY = 0;
-          }
         }
+        this.CaveCheck(entity);
       });
       if (!bottomFlag) {
         this.bottomCollision = false;
@@ -574,6 +590,20 @@
       }
       if (!rightFlag) {
         this.rightCollision = false;
+      }
+    }
+    CaveCheck(entity) {
+      if (entity.Type === EntityTypes.Cave) {
+        if (Input.GetKeyState(90)) {
+          if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+            if (!this.changeSceneFlag) {
+              SceneManager.Instance.ChangeScene();
+            }
+            this.changeSceneFlag = true;
+          }
+        } else {
+          this.changeSceneFlag = false;
+        }
       }
     }
     GetColliderDot(direction) {
@@ -609,16 +639,26 @@
     }
   };
 
-  // Source/Physics/EntityTypes.js
-  var EntityTypes = class {
-    static Player = "Player";
-    static SolidTile = "SolidTile";
-    static BackGroundTile = "BackGroundTile";
-    static Forge = "Forge";
-    static Market = "Market";
-    static Building = "Building";
-    static Cave = "Cave";
-    static DestroyableTile = "DestroyableTile";
+  // Source/Entities/Cave.js
+  var Cave = class extends Entity {
+    constructor(position, size, Image2, Layer2, Type, Scene2) {
+      super(new Transform(position, size), Image2, Layer2, Type, Scene2);
+    }
+    Draw(Context, Camera) {
+      Context.drawImage(
+        this.Image,
+        this.transform.Position.X + Camera.X,
+        this.transform.Position.Y - Camera.Y,
+        this.transform.Size.X,
+        this.transform.Size.Y
+      );
+    }
+    GetCollider() {
+      return [
+        this.transform.Position.Add(new Vector2(100, 200)),
+        this.transform.Position.Add(new Vector2(200, 300))
+      ];
+    }
   };
 
   // Source/Map/cave.js
@@ -627,8 +667,8 @@
       for (let x = -50; x < 50; x++) {
         if (y == 6 && x == 6) {
           SceneManager.Instance.mine.Entities.push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * (y - 2) + 50),
+            new Cave(
+              new Vector2(0 + 100 * x, 100 * (y - 3)),
               new Vector2(300, 300),
               Images.cave,
               1,
@@ -876,9 +916,9 @@
           }
         } else if (y == 5 && x == 6) {
           SceneManager.Instance.town.Entities.push(
-            new Tile(
-              new Vector2(0 + 100 * x, 100 * (y - 1) + 50),
-              new Vector2(200, 200),
+            new Cave(
+              new Vector2(0 + 100 * x, 100 * (y - 2)),
+              new Vector2(300, 300),
               Images.cave,
               1,
               EntityTypes.Cave,
@@ -1003,36 +1043,19 @@
   function Start() {
     Canvas.Instance.updateSize();
   }
-  var changeSceneFlag = false;
-  function UpdateInput() {
-    if (Input.GetKeyState(90)) {
-      const entranceTile = SceneManager.Instance.town.Entities.find(
-        (entity) => entity.Image === Images.cave
-      );
-      if (entranceTile) {
-        const playerCollider = player.GetCollider();
-        const entranceCollider = entranceTile.GetCollider();
-        if (Collisions.AABBtoAABB(playerCollider, entranceCollider)) {
-          if (!changeSceneFlag) {
-            SM2.ChangeScene();
-          }
-          changeSceneFlag = true;
-        }
-      }
-    } else {
-      changeSceneFlag = false;
-    }
-  }
   function Update() {
-    let tiles = [];
+    console.log(Time.deltaTime);
+    let entities = [];
+    SceneManager.Instance.currentScene.Entities.forEach((element) => {
+      entities.push(element);
+    });
     SM2.currentScene.TC.LoadedLayers.forEach((layer4) => {
       layer4.forEach((entity) => {
-        tiles.push(entity);
+        entities.push(entity);
       });
     });
-    UpdateInput();
     SM2.currentScene.TC.UpdateLoadted(Player.Camera.Y);
-    player.Update(tiles);
+    player.Update(entities);
     Canvas.Instance.GetLayerContext(1).clearRect(0, 0, 1920, 1080);
     SM2.currentScene.Draw();
     player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
