@@ -229,7 +229,7 @@ function createNewBlock(x, y) {
     new Vector2(100, 100),
     Images.tile2bg,
     1,
-    EntityTypes.DestroyableTile,
+    EntityTypes.BackGroundTile,
     SceneManager.Instance.mine
     )
   )

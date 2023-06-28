@@ -26,7 +26,7 @@ let player = new Player(
   new Vector2(900, 450),
   new Vector2(80, 80),
   playerImg,
-  1,
+  2,
   Vector2.Zero,
   SM
 )
@@ -51,6 +51,7 @@ function Update() {
   SM.currentScene.TC.UpdateLoadted(Player.Camera.Y);
   player.Update(entities);
   Canvas.Instance.GetLayerContext(1).clearRect(0, 0, 1920, 1080)
+  Canvas.Instance.GetLayerContext(2).clearRect(0, 0, 1920, 1080)
   //canvas.GetLayerContext(0)!.drawImage(img, 0, 0);
   SM.currentScene.Draw();
   player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera)

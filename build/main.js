@@ -698,7 +698,7 @@
         new Vector2(100, 100),
         Images.tile2bg,
         1,
-        EntityTypes.DestroyableTile,
+        EntityTypes.BackGroundTile,
         SceneManager.Instance.mine
       )
     );
@@ -736,7 +736,7 @@
               new Vector2(0 + 100 * x, 100 * (y - 3)),
               new Vector2(300, 300),
               Images.cave,
-              1,
+              2,
               EntityTypes.Cave,
               SceneManager.Instance.mine
             )
@@ -829,7 +829,7 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.tile1,
-        1,
+        2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
@@ -841,7 +841,7 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.tile2,
-        1,
+        2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
@@ -853,7 +853,7 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.coal,
-        1,
+        2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
@@ -865,7 +865,7 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.iron,
-        1,
+        2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
@@ -901,7 +901,7 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.layer,
-        1,
+        2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
@@ -913,7 +913,7 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.layer1,
-        1,
+        2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
@@ -925,7 +925,7 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.layer2,
-        1,
+        2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
@@ -937,7 +937,7 @@
         new Vector2(0 + 100 * x, 100 * y),
         new Vector2(100, 100),
         Images.layer3,
-        1,
+        2,
         EntityTypes.SolidTile,
         SceneManager2.Instance.mine
       )
@@ -996,7 +996,7 @@
               new Vector2(0 + 100 * x, 100 * (y - 2)),
               new Vector2(300, 300),
               Images.cave,
-              1,
+              2,
               EntityTypes.Cave,
               SceneManager.Instance.town
             )
@@ -1007,7 +1007,7 @@
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
               Images.market,
-              1,
+              2,
               EntityTypes.Market,
               SceneManager.Instance.town
             )
@@ -1018,7 +1018,7 @@
               new Vector2(0 + 100 * x, 100 * (y - 1)),
               new Vector2(200, 200),
               Images.forge,
-              1,
+              2,
               EntityTypes.Forge,
               SceneManager.Instance.town
             )
@@ -1029,7 +1029,7 @@
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
               Images.tile1,
-              1,
+              2,
               EntityTypes.SolidTile,
               SceneManager.Instance.town
             )
@@ -1040,7 +1040,7 @@
               new Vector2(0 + 100 * x, 100 * y),
               new Vector2(100, 100),
               Images.tile2,
-              1,
+              2,
               EntityTypes.SolidTile,
               SceneManager.Instance.town
             )
@@ -1055,7 +1055,7 @@
         new Vector2(0 + 100 * x, 100 * (y - 1)),
         new Vector2(200, 200),
         Images.home1,
-        1,
+        2,
         EntityTypes.Building,
         SceneManager.Instance.town
       )
@@ -1067,7 +1067,7 @@
         new Vector2(0 + 100 * x, 100 * (y - 1)),
         new Vector2(200, 200),
         Images.home2,
-        1,
+        2,
         EntityTypes.Building,
         SceneManager.Instance.town
       )
@@ -1079,7 +1079,7 @@
         new Vector2(0 + 100 * x, 100 * (y - 1)),
         new Vector2(200, 200),
         Images.home3,
-        1,
+        2,
         EntityTypes.Building,
         SceneManager.Instance.town
       )
@@ -1109,7 +1109,7 @@
     new Vector2(900, 450),
     new Vector2(80, 80),
     playerImg,
-    1,
+    2,
     Vector2.Zero,
     SM2
   );
@@ -1132,6 +1132,7 @@
     SM2.currentScene.TC.UpdateLoadted(Player.Camera.Y);
     player.Update(entities);
     Canvas.Instance.GetLayerContext(1).clearRect(0, 0, 1920, 1080);
+    Canvas.Instance.GetLayerContext(2).clearRect(0, 0, 1920, 1080);
     SM2.currentScene.Draw();
     player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
   }
