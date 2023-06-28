@@ -150,7 +150,7 @@ function lvlBg(lvlX, SceneManager, x, y){
       new Vector2(100, 100),
       lvlX,
       1,
-      EntityTypes.SolidTile,
+      EntityTypes.BackGroundTile,
       SceneManager.Instance.mine
     )
   )
