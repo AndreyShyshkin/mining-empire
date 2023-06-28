@@ -181,8 +181,10 @@ function cross(SceneManager, x, y){
     new Tile(
     new Vector2(0 + 100 * x, 100 * y),
     new Vector2(100, 100),
-    Images.DestroyableTile,
-    1
+    Images.cross,
+    1,
+    EntityTypes.DestroyableTile,
+    SceneManager.Instance.mine
     )
   )  
 }
