@@ -20,7 +20,16 @@ export class Tile extends Entity {
     )
     if(this.curHp < this.maxHp){
       let per = this.curHp / this.maxHp;
-      if(per <= 0.25){
+      if(per <= 0.2){
+        Context.drawImage(
+          Images.damage4,
+          this.transform.Position.X + Camera.X,
+          this.transform.Position.Y - Camera.Y,
+          this.transform.Size.X,
+          this.transform.Size.Y
+        )
+      }
+      else if(per <= 0.4){
         Context.drawImage(
           Images.damage3,
           this.transform.Position.X + Camera.X,
