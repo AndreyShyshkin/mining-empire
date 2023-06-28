@@ -510,6 +510,12 @@
     }
   };
 
+  // Source/Entities/PlayerStates.js
+  var PlayerStates = {
+    Idle: "Idle",
+    Walk: "Walk"
+  };
+
   // Source/Logic/inventory.js
   var resurse = [
     res1 = 0,
@@ -533,6 +539,87 @@
     static DestroyableTile = "DestroyableTile";
   };
 
+  // Source/Graphics/Animation.js
+  var Animation = class {
+    FrameDuration;
+    CurrentFrameTime;
+    Frames = [];
+    CurrentFrame;
+    constructor(Frames, FrameDuration) {
+      this.Frames = Frames;
+      this.FrameDuration = FrameDuration;
+      this.CurrentFrameTime = FrameDuration;
+      this.CurrentFrame = Frames[0];
+    }
+    Update() {
+      this.CurrentFrameTime -= Time.deltaTime;
+      if (this.CurrentFrameTime <= 0) {
+        this.NextFrame();
+        console.log("next");
+        this.CurrentFrameTime = this.FrameDuration;
+      }
+    }
+    NextFrame() {
+      let i2 = this.Frames.indexOf(this.CurrentFrame);
+      console.log(i2);
+      if (i2 < this.Frames.length - 1) {
+        this.CurrentFrame = this.Frames[i2 + 1];
+      } else {
+        this.CurrentFrame = this.Frames[0];
+      }
+    }
+    Reset() {
+      this.CurrentFrameTime = 0;
+      this.CurrentFrame = this.Frames[0];
+    }
+  };
+
+  // Source/Graphics/Animations.js
+  var Animations = class {
+    static PlayerWalkRight = new Animation([
+      new CreateImageByPath("Res/img/Player/WalkRight/Player_run1.png"),
+      new CreateImageByPath("Res/img/Player/WalkRight/Player_run2.png"),
+      new CreateImageByPath("Res/img/Player/WalkRight/Player_run3.png"),
+      new CreateImageByPath("Res/img/Player/WalkRight/Player_run4.png"),
+      new CreateImageByPath("Res/img/Player/WalkRight/Player_run5.png"),
+      new CreateImageByPath("Res/img/Player/WalkRight/Player_run6.png")
+    ], 0.15);
+    static PlayerWalkLeft = new Animation([
+      new CreateImageByPath("Res/img/Player/WalkLeft/Player_run1.png"),
+      new CreateImageByPath("Res/img/Player/WalkLeft/Player_run2.png"),
+      new CreateImageByPath("Res/img/Player/WalkLeft/Player_run3.png"),
+      new CreateImageByPath("Res/img/Player/WalkLeft/Player_run4.png"),
+      new CreateImageByPath("Res/img/Player/WalkLeft/Player_run5.png"),
+      new CreateImageByPath("Res/img/Player/WalkLeft/Player_run6.png")
+    ], 0.15);
+    static PlayerIdleRight = new Animation([
+      new CreateImageByPath("Res/img/Player/IdleRight/Player_idle1.png"),
+      new CreateImageByPath("Res/img/Player/IdleRight/Player_idle2.png")
+    ], 0.3);
+    static PlayerIdleLeft = new Animation([
+      new CreateImageByPath("Res/img/Player/IdleLeft/Player_idle1.png"),
+      new CreateImageByPath("Res/img/Player/IdleLeft/Player_idle2.png")
+    ], 0.3);
+  };
+
+  // Source/Graphics/PlayerAnimationController.js
+  var PlayerAnimationController = class {
+    WalkRight = Animations.PlayerWalkRight;
+    WalkLeft = Animations.PlayerWalkLeft;
+    IdleRight = Animations.PlayerIdleRight;
+    IdleLeft = Animations.PlayerIdleLeft;
+    CurrentAnimation = Animations.PlayerIdleRight;
+    Update() {
+      this.CurrentAnimation.Update();
+    }
+    ChangeAnimation(animation) {
+      if (animation == this.CurrentAnimation)
+        return;
+      this.CurrentAnimation.Reset();
+      this.CurrentAnimation = animation;
+    }
+  };
+
   // Source/Entities/Player.js
   var SM = new SceneManager();
   var Player = class _Player extends Entity {
@@ -544,11 +631,15 @@
     rightCollision = false;
     velocityY = 0;
     speed = 500;
-    damage = 100;
+    damage = 1;
     SM;
+    Direction = 1;
+    //1 - right, 2 - left
+    PAC = new PlayerAnimationController();
     jumpForce = 700;
     attackDelay = 0.2;
     curAttackDelay = 0;
+    State = PlayerStates.Idle;
     constructor(position, size, Image2, Layer2, Camera, SM3) {
       super(new Transform(position, size), Image2, Layer2);
       _Player.Camera = Camera;
@@ -556,6 +647,8 @@
     }
     Update(Entities) {
       this.InputUpdate();
+      this.UpdateAttack();
+      this.PAC.Update();
       if (!this.bottomCollision) {
         this.velocityY -= Physics.G * Time.DeltaTime;
       }
@@ -564,11 +657,16 @@
     }
     InputUpdate() {
       let stride = Vector2.Zero;
+      let walk = false;
       if (Input.GetKeyState(65) && !this.leftCollision) {
         stride = stride.Add(Vector2.Right.Scale(this.speed * Time.DeltaTime));
+        walk = true;
+        this.Direction = -1;
       }
       if (Input.GetKeyState(68) && !this.rightCollision) {
         stride = stride.Add(Vector2.Left.Scale(this.speed * Time.DeltaTime));
+        walk = true;
+        this.Direction = 1;
       }
       if (this.bottomCollision) {
         if (Input.GetKeyState(87) || Input.GetKeyState(32)) {
@@ -580,6 +678,29 @@
           stride = stride.Add(Vector2.Up.Scale(this.speed * Time.DeltaTime));
         }
       }
+      if (walk) {
+        this.State = PlayerStates.Walk;
+        if (this.Direction == 1) {
+          this.PAC.ChangeAnimation(this.PAC.WalkRight);
+        } else {
+          this.PAC.ChangeAnimation(this.PAC.WalkLeft);
+        }
+      } else {
+        this.State = PlayerStates.Idle;
+        if (this.Direction == 1) {
+          this.PAC.ChangeAnimation(this.PAC.IdleRight);
+        } else {
+          this.PAC.ChangeAnimation(this.PAC.IdleLeft);
+        }
+      }
+      stride = stride.Add(Vector2.Down.Scale(this.velocityY * Time.deltaTime));
+      stride = Vector2.Round(stride);
+      _Player.Camera = _Player.Camera.Add(stride);
+      this.transform.Position = this.transform.Position.Add(
+        new Vector2(-stride.X, stride.Y)
+      );
+    }
+    UpdateAttack() {
       if (Input.GetKeyState(66) && this.curAttackDelay <= 0) {
         this.curAttackDelay = this.attackDelay;
         if (SceneManager.Instance.currentScene == SceneManager.Instance.mine) {
@@ -649,12 +770,6 @@
             });
         }
       }
-      stride = stride.Add(Vector2.Down.Scale(this.velocityY * Time.deltaTime));
-      stride = Vector2.Round(stride);
-      _Player.Camera = _Player.Camera.Add(stride);
-      this.transform.Position = this.transform.Position.Add(
-        new Vector2(-stride.X, stride.Y)
-      );
     }
     CollisionCheck(Entities) {
       let bottomFlag = false;
@@ -758,7 +873,7 @@
     }
     Draw(Context, Camera) {
       Context.drawImage(
-        this.Image,
+        this.PAC.CurrentAnimation.CurrentFrame,
         this.transform.Position.X + Camera.X,
         this.transform.Position.Y - Camera.Y,
         this.transform.Size.X,
