@@ -51,7 +51,7 @@ export class Images{
     static cross = CreateImageByPath("Res/img/Structures/Cross.png");
     static ladder = CreateImageByPath("Res/img/Structures/Ladder.png");
 
-    static cave = CreateImageByPath("Res/img/cave.png");
+    static cave = CreateImageByPath("Res/img/Building/Cave.png");
     static forge = CreateImageByPath("Res/img/forge.png");
     static home1 = CreateImageByPath("Res/img/home1.png");
     static home2 = CreateImageByPath("Res/img/home2.png");

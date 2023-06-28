@@ -12,8 +12,8 @@ function cave(){
       if( y == 6 && x == 6){
         SceneManager.Instance.mine.Entities.push(
           new Cave(
-            new Vector2(0 + 100 * x, 100 * (y-3)),
-            new Vector2(300, 300),
+            new Vector2(0 + 100 * x, 100 * (y-2)),
+            new Vector2(300, 200),
             Images.cave,
             2,
             EntityTypes.Cave,

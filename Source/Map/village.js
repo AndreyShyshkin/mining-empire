@@ -37,8 +37,8 @@ function village(){
         }else if( y == 5 && x == 6){
           SceneManager.Instance.town.Entities.push(
             new Cave(
-              new Vector2(0 + 100 * x, 100 * (y-2)),
-              new Vector2(300, 300),
+              new Vector2(0 + 100 * x, 100 * (y-1)),
+              new Vector2(300, 200),
               Images.cave,
               2,
               EntityTypes.Cave,

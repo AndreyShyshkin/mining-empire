@@ -439,7 +439,7 @@
     static chest = CreateImageByPath("Res/img/Structures/Chest.png");
     static cross = CreateImageByPath("Res/img/Structures/Cross.png");
     static ladder = CreateImageByPath("Res/img/Structures/Ladder.png");
-    static cave = CreateImageByPath("Res/img/cave.png");
+    static cave = CreateImageByPath("Res/img/Building/Cave.png");
     static forge = CreateImageByPath("Res/img/forge.png");
     static home1 = CreateImageByPath("Res/img/home1.png");
     static home2 = CreateImageByPath("Res/img/home2.png");
@@ -816,6 +816,7 @@
                         createLvlBg(Images.lvl5bg, newX, newY);
                       }
                     }
+                    return;
                   }
                 }
                 if (!flag) {
@@ -983,8 +984,8 @@
         if (y == 6 && x == 6) {
           SceneManager.Instance.mine.Entities.push(
             new Cave(
-              new Vector2(0 + 100 * x, 100 * (y - 3)),
-              new Vector2(300, 300),
+              new Vector2(0 + 100 * x, 100 * (y - 2)),
+              new Vector2(300, 200),
               Images.cave,
               2,
               EntityTypes.Cave,
@@ -1208,8 +1209,8 @@
         } else if (y == 5 && x == 6) {
           SceneManager.Instance.town.Entities.push(
             new Cave(
-              new Vector2(0 + 100 * x, 100 * (y - 2)),
-              new Vector2(300, 300),
+              new Vector2(0 + 100 * x, 100 * (y - 1)),
+              new Vector2(300, 200),
               Images.cave,
               2,
               EntityTypes.Cave,
