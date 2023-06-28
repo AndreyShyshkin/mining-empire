@@ -439,15 +439,6 @@
     static chest = CreateImageByPath("Res/img/Structures/Chest.png");
     static cross = CreateImageByPath("Res/img/Structures/Cross.png");
     static ladder = CreateImageByPath("Res/img/Structures/Ladder.png");
-    static tile1 = CreateImageByPath("Res/img/Grass.png");
-    static tile2 = CreateImageByPath("Res/img/Tile2.png");
-    static tile2bg = CreateImageByPath("Res/img/Dirt2bg.png");
-    static layer = CreateImageByPath("Res/img/Cobblestone.png");
-    static layer1 = CreateImageByPath("Res/img/Cobblestone_blue.png");
-    static layer2 = CreateImageByPath("Res/img/Cobblestone_red.png");
-    static layer3 = CreateImageByPath("Res/img/Cobblestone_purple.png");
-    static iron = CreateImageByPath("Res/img/Iron.png");
-    static coal = CreateImageByPath("Res/img/Coal.png");
     static cave = CreateImageByPath("Res/img/cave.png");
     static forge = CreateImageByPath("Res/img/forge.png");
     static home1 = CreateImageByPath("Res/img/home1.png");
@@ -627,19 +618,19 @@
                       layer.splice(layer.indexOf(entity), 1);
                       let newX = Math.floor(entity.transform.Position.X / 100);
                       let newY = Math.floor(entity.transform.Position.Y / 100);
-                      if (newY < 200) {
+                      if (newY < 50) {
                         createLvl1bg(newX, newY);
                       }
-                      if (newY >= 200 && newY < 400) {
+                      if (newY >= 50 && newY < 150) {
                         createLvl2bg(newX, newY);
                       }
-                      if (newY >= 400 && newY < 600) {
+                      if (newY >= 150 && newY < 250) {
                         createLvl3bg(newX, newY);
                       }
-                      if (newY >= 600 && newY < 800) {
+                      if (newY >= 250 && newY < 350) {
                         createLvl4bg(newX, newY);
                       }
-                      if (newY >= 800) {
+                      if (newY >= 350) {
                         createLvl5bg(newX, newY);
                       }
                     }
@@ -893,15 +884,15 @@
                 } else {
                   cross(SceneManager, x, y);
                 }
-                if (y >= 10 && y < 200) {
+                if (y >= 10 && y < 50) {
                   lvl1bg(SceneManager, x, y);
-                } else if (y >= 200 && y < 400) {
+                } else if (y >= 50 && y < 150) {
                   lvl2bg(SceneManager, x, y);
-                } else if (y >= 400 && y < 600) {
+                } else if (y >= 150 && y < 250) {
                   lvl3bg(SceneManager, x, y);
-                } else if (y >= 600 && y < 800) {
+                } else if (y >= 250 && y < 350) {
                   lvl4bg(SceneManager, x, y);
-                } else if (y >= 800) {
+                } else if (y >= 350) {
                   lvl5bg(SceneManager, x, y);
                 }
               }
@@ -909,14 +900,14 @@
             }
             y = yStart;
           } else {
-            if (y >= 10 && y < 200) {
+            if (y >= 10 && y < 50) {
               if (r < 2) {
                 lvl1_res2(SceneManager, x, y);
               } else if (r < 5) {
                 lvl1_res1(SceneManager, x, y);
               } else
                 lvl1(SceneManager, x, y);
-            } else if (y >= 200 && y < 400) {
+            } else if (y >= 50 && y < 150) {
               if (r < 2) {
                 lvl2_res3(SceneManager, x, y);
               } else if (r < 5) {
@@ -925,7 +916,7 @@
                 lvl2_res2(SceneManager, x, y);
               } else
                 lvl2(SceneManager, x, y);
-            } else if (y >= 400 && y < 600) {
+            } else if (y >= 150 && y < 250) {
               if (r < 2) {
                 lvl3_res4(SceneManager, x, y);
               } else if (r < 5) {
@@ -934,7 +925,7 @@
                 lvl3_res2(SceneManager, x, y);
               } else
                 lvl3(SceneManager, x, y);
-            } else if (y >= 600 && y < 800) {
+            } else if (y >= 250 && y < 350) {
               if (r < 2) {
                 lvl4_res5(SceneManager, x, y);
               } else if (r < 5) {
@@ -943,7 +934,7 @@
                 lvl4_res3(SceneManager, x, y);
               } else
                 lvl4(SceneManager, x, y);
-            } else if (y >= 800) {
+            } else if (y >= 350) {
               if (r < 2) {
                 lvl5_res6(SceneManager, x, y);
               } else if (r < 5) {

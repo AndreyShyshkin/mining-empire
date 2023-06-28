@@ -107,15 +107,15 @@ export class Player extends Entity {
                 let newX = Math.floor(entity.transform.Position.X / 100);
                 let newY = Math.floor(entity.transform.Position.Y / 100);
 
-                if(newY < 200){
+                if(newY < 50){
                   createLvl1bg(newX, newY);
-                }if(newY >= 200 && newY < 400){
+                }if(newY >= 50 && newY < 150){
                   createLvl2bg(newX, newY);
-                }if(newY >= 400 && newY < 600){
+                }if(newY >= 150 && newY < 250){
                   createLvl3bg(newX, newY);
-                }if(newY >= 600 && newY < 800){
+                }if(newY >= 250 && newY < 350){
                   createLvl4bg(newX, newY);
-                }if(newY >= 800){
+                }if(newY >= 350){
                   createLvl5bg(newX, newY);
                 }
               }

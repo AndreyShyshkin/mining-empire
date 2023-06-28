@@ -51,15 +51,6 @@ export class Images{
     static cross = CreateImageByPath("Res/img/Structures/Cross.png");
     static ladder = CreateImageByPath("Res/img/Structures/Ladder.png");
 
-    static tile1 = CreateImageByPath("Res/img/Grass.png");
-    static tile2 = CreateImageByPath("Res/img/Tile2.png");
-    static tile2bg = CreateImageByPath("Res/img/Dirt2bg.png");
-    static layer = CreateImageByPath("Res/img/Cobblestone.png");
-    static layer1 = CreateImageByPath("Res/img/Cobblestone_blue.png");
-    static layer2 = CreateImageByPath("Res/img/Cobblestone_red.png");
-    static layer3 = CreateImageByPath("Res/img/Cobblestone_purple.png");
-    static iron = CreateImageByPath("Res/img/Iron.png");
-    static coal = CreateImageByPath("Res/img/Coal.png");
     static cave = CreateImageByPath("Res/img/cave.png");
     static forge = CreateImageByPath("Res/img/forge.png");
     static home1 = CreateImageByPath("Res/img/home1.png");

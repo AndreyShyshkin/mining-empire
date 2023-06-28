@@ -49,21 +49,21 @@ function cave(){
               } else {    
                 cross(SceneManager, x, y)
               }
-              if(y >= 10 && y < 200){
+              if(y >= 10 && y < 50){
                 lvl1bg(SceneManager, x, y)
-              }else if(y >= 200 && y < 400){
+              }else if(y >= 50 && y < 150){
                 lvl2bg(SceneManager, x, y)
-              }else if(y >= 400 && y < 600){
+              }else if(y >= 150 && y < 250){
                 lvl3bg(SceneManager, x, y)
-              }else if(y >= 600 && y < 800){
+              }else if(y >= 250 && y < 350){
                 lvl4bg(SceneManager, x, y)
-              }else if(y >= 800){
+              }else if(y >= 350){
                 lvl5bg(SceneManager, x, y)
               }
             } x = xStart;
           } y = yStart;
         }else{
-          if(y >= 10 && y < 200){
+          if(y >= 10 && y < 50){
             if(r < 2){
               lvl1_res2(SceneManager, x, y);
             }
@@ -72,7 +72,7 @@ function cave(){
             }
             else
             lvl1(SceneManager, x, y);
-          } else if (y >= 200 && y < 400){
+          } else if (y >= 50 && y < 150){
             if(r < 2){
               lvl2_res3(SceneManager, x, y)
             }
@@ -84,7 +84,7 @@ function cave(){
             }
             else
               lvl2(SceneManager, x, y);
-          } else if (y >= 400 && y < 600){
+          } else if (y >= 150 && y < 250){
             if(r < 2){
               lvl3_res4(SceneManager, x, y)
             }
@@ -96,7 +96,7 @@ function cave(){
             }
             else
             lvl3(SceneManager, x, y)
-          } else if (y >= 600 && y < 800){
+          } else if (y >= 250 && y < 350){
             if(r < 2){
               lvl4_res5(SceneManager, x, y)
             }
@@ -108,7 +108,7 @@ function cave(){
             }
             else
             lvl4(SceneManager, x, y)
-          } else if (y >= 800){
+          } else if (y >= 350){
             if(r < 2){
               lvl5_res6(SceneManager, x, y)
             }
