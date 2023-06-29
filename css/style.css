@@ -35,3 +35,14 @@ canvas{
     top: 20px;
     color: white;
 }
+
+.notification{
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    border: 1px solid white;
+    left: calc(50% - 50px);
+    top: calc(50% - 25px);
+    color: white;
+    display: none;
+}
