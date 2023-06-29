@@ -34,5 +34,8 @@ export class Entity {
     }
     GetDamage(Damage){
     }
+    OnDestroy(){
+
+    }
   }
   

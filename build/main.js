@@ -306,6 +306,8 @@
     }
     GetDamage(Damage) {
     }
+    OnDestroy() {
+    }
   };
 
   // Source/Physics/Transform.js
@@ -451,6 +453,31 @@
     static damage4 = CreateImageByPath("Res/img/BlockDamage/Block damage4.png");
   };
 
+  // Source/Physics/EntityTypes.js
+  var EntityTypes = class {
+    static Player = "Player";
+    static SolidTile = "SolidTile";
+    static BackGroundTile = "BackGroundTile";
+    static Forge = "Forge";
+    static Market = "Market";
+    static Building = "Building";
+    static Cave = "Cave";
+    static DestroyableTile = "DestroyableTile";
+    static Ladder = "Ladder";
+  };
+
+  // Source/Logic/inventory.js
+  var resurse = {
+    money: 0,
+    res1: 0,
+    res2: 0,
+    res3: 0,
+    res4: 0,
+    res5: 0,
+    res6: 0
+  };
+  var inventory_default = resurse;
+
   // Source/Entities/Tile.js
   var Tile = class extends Entity {
     curHp;
@@ -508,36 +535,79 @@
     GetDamage(damage) {
       this.curHp -= damage;
     }
+    OnDestroy() {
+      let newX = Math.floor(this.transform.Position.X / 100);
+      let newY = Math.floor(this.transform.Position.Y / 100);
+      if (newY < 50) {
+        createLvlBg(Images.lvl1bg, newX, newY);
+      }
+      if (newY >= 50 && newY < 150) {
+        createLvlBg(Images.lvl2bg, newX, newY);
+      }
+      if (newY >= 150 && newY < 250) {
+        createLvlBg(Images.lvl3bg, newX, newY);
+      }
+      if (newY >= 250 && newY < 350) {
+        createLvlBg(Images.lvl4bg, newX, newY);
+      }
+      if (newY >= 350) {
+        createLvlBg(Images.lvl5bg, newX, newY);
+      }
+      if (this.Image == Images.lvl1_res1 || this.Image == Images.lvl2_res1 || this.Image == Images.lvl3_res1 || this.Image == Images.lvl4_res1 || this.Image == Images.lvl5_res1) {
+        inventory_default.res1 += 1;
+        inventory_default.money += 1;
+        console.log("res1 " + inventory_default.res1);
+        console.log("money " + inventory_default.money);
+      }
+      if (this.Image == Images.lvl1_res2 || this.Image == Images.lvl2_res2 || this.Image == Images.lvl3_res2 || this.Image == Images.lvl4_res2 || this.Image == Images.lvl5_res2) {
+        inventory_default.res2 += 1;
+        inventory_default.money += 2;
+        console.log("res2 " + inventory_default.res2);
+        console.log("money " + inventory_default.money);
+      }
+      if (this.Image == Images.lvl1_res3 || this.Image == Images.lvl2_res3 || this.Image == Images.lvl3_res3 || this.Image == Images.lvl4_res3 || this.Image == Images.lvl5_res3) {
+        inventory_default.res3 += 1;
+        inventory_default.money += 3;
+        console.log("res3 " + inventory_default.res3);
+        console.log("money " + inventory_default.money);
+      }
+      if (this.Image == Images.lvl1_res4 || this.Image == Images.lvl2_res4 || this.Image == Images.lvl3_res4 || this.Image == Images.lvl4_res4 || this.Image == Images.lvl5_res4) {
+        inventory_default.res4 += 1;
+        inventory_default.money += 4;
+        console.log("res4 " + inventory_default.res4);
+        console.log("money " + inventory_default.money);
+      }
+      if (this.Image == Images.lvl1_res5 || this.Image == Images.lvl2_res5 || this.Image == Images.lvl3_res5 || this.Image == Images.lvl4_res5 || this.Image == Images.lvl5_res5) {
+        inventory_default.res5 += 1;
+        inventory_default.money += 5;
+        console.log("res5 " + inventory_default.res5);
+        console.log("money " + inventory_default.money);
+      }
+      if (this.Image == Images.lvl1_res6 || this.Image == Images.lvl2_res6 || this.Image == Images.lvl3_res6 || this.Image == Images.lvl4_res6 || this.Image == Images.lvl5_res6) {
+        inventory_default.res6 += 1;
+        inventory_default.money += 6;
+        console.log("res6 " + inventory_default.res6);
+        console.log("money " + inventory_default.money);
+      }
+    }
   };
+  function createLvlBg(lvlX, x, y) {
+    SceneManager.Instance.mine.TC.GetLayer(y).push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(100, 100),
+        lvlX,
+        1,
+        EntityTypes.BackGroundTile,
+        SceneManager.Instance.mine
+      )
+    );
+  }
 
   // Source/Entities/PlayerStates.js
   var PlayerStates = {
     Idle: "Idle",
     Walk: "Walk"
-  };
-
-  // Source/Logic/inventory.js
-  var resurse = {
-    money: 0,
-    res1: 0,
-    res2: 0,
-    res3: 0,
-    res4: 0,
-    res5: 0,
-    res6: 0
-  };
-  var inventory_default = resurse;
-
-  // Source/Physics/EntityTypes.js
-  var EntityTypes = class {
-    static Player = "Player";
-    static SolidTile = "SolidTile";
-    static BackGroundTile = "BackGroundTile";
-    static Forge = "Forge";
-    static Market = "Market";
-    static Building = "Building";
-    static Cave = "Cave";
-    static DestroyableTile = "DestroyableTile";
   };
 
   // Source/Graphics/Animation.js
@@ -761,62 +831,9 @@
                     this.curAttackDelay = this.attackDelay;
                     entity.GetDamage(this.damage);
                     if (entity.curHp <= 0) {
-                      if (entity.Image == Images.lvl1_res1 || entity.Image == Images.lvl2_res1 || entity.Image == Images.lvl3_res1 || entity.Image == Images.lvl4_res1 || entity.Image == Images.lvl5_res1) {
-                        inventory_default.res1 += 1;
-                        inventory_default.money += 1;
-                        console.log("res1 " + inventory_default.res1);
-                        console.log("money " + inventory_default.money);
-                      }
-                      if (entity.Image == Images.lvl1_res2 || entity.Image == Images.lvl2_res2 || entity.Image == Images.lvl3_res2 || entity.Image == Images.lvl4_res2 || entity.Image == Images.lvl5_res2) {
-                        inventory_default.res2 += 1;
-                        inventory_default.money += 2;
-                        console.log("res2 " + inventory_default.res2);
-                        console.log("money " + inventory_default.money);
-                      }
-                      if (entity.Image == Images.lvl1_res3 || entity.Image == Images.lvl2_res3 || entity.Image == Images.lvl3_res3 || entity.Image == Images.lvl4_res3 || entity.Image == Images.lvl5_res3) {
-                        inventory_default.res3 += 1;
-                        inventory_default.money += 3;
-                        console.log("res3 " + inventory_default.res3);
-                        console.log("money " + inventory_default.money);
-                      }
-                      if (entity.Image == Images.lvl1_res4 || entity.Image == Images.lvl2_res4 || entity.Image == Images.lvl3_res4 || entity.Image == Images.lvl4_res4 || entity.Image == Images.lvl5_res4) {
-                        inventory_default.res4 += 1;
-                        inventory_default.money += 4;
-                        console.log("res4 " + inventory_default.res4);
-                        console.log("money " + inventory_default.money);
-                      }
-                      if (entity.Image == Images.lvl1_res5 || entity.Image == Images.lvl2_res5 || entity.Image == Images.lvl3_res5 || entity.Image == Images.lvl4_res5 || entity.Image == Images.lvl5_res5) {
-                        inventory_default.res5 += 1;
-                        inventory_default.money += 5;
-                        console.log("res5 " + inventory_default.res5);
-                        console.log("money " + inventory_default.money);
-                      }
-                      if (entity.Image == Images.lvl1_res6 || entity.Image == Images.lvl2_res6 || entity.Image == Images.lvl3_res6 || entity.Image == Images.lvl4_res6 || entity.Image == Images.lvl5_res6) {
-                        inventory_default.res6 += 1;
-                        inventory_default.money += 6;
-                        console.log("res6 " + inventory_default.res6);
-                        console.log("money " + inventory_default.money);
-                      }
+                      entity.OnDestroy();
                       layer.splice(layer.indexOf(entity), 1);
-                      let newX = Math.floor(entity.transform.Position.X / 100);
-                      let newY = Math.floor(entity.transform.Position.Y / 100);
-                      if (newY < 50) {
-                        createLvlBg(Images.lvl1bg, newX, newY);
-                      }
-                      if (newY >= 50 && newY < 150) {
-                        createLvlBg(Images.lvl2bg, newX, newY);
-                      }
-                      if (newY >= 150 && newY < 250) {
-                        createLvlBg(Images.lvl3bg, newX, newY);
-                      }
-                      if (newY >= 250 && newY < 350) {
-                        createLvlBg(Images.lvl4bg, newX, newY);
-                      }
-                      if (newY >= 350) {
-                        createLvlBg(Images.lvl5bg, newX, newY);
-                      }
                     }
-                    return;
                   }
                 }
                 if (!flag) {
@@ -942,18 +959,6 @@
       );
     }
   };
-  function createLvlBg(lvlX, x, y) {
-    SceneManager.Instance.mine.TC.GetLayer(y).push(
-      new Tile(
-        new Vector2(0 + 100 * x, 100 * y),
-        new Vector2(100, 100),
-        lvlX,
-        1,
-        EntityTypes.BackGroundTile,
-        SceneManager.Instance.mine
-      )
-    );
-  }
 
   // Source/Entities/Cave.js
   var Cave = class extends Entity {

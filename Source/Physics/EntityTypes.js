@@ -7,4 +7,5 @@ export class EntityTypes{
     static Building = "Building";
     static Cave = "Cave";
     static DestroyableTile = "DestroyableTile";
+    static Ladder = "Ladder";
 }

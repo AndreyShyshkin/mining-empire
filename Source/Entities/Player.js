@@ -142,54 +142,8 @@ export class Player extends Entity {
               this.curAttackDelay = this.attackDelay;
               entity.GetDamage(this.damage);
               if(entity.curHp <= 0){
-                if(entity.Image == Images.lvl1_res1 || entity.Image == Images.lvl2_res1 || entity.Image == Images.lvl3_res1 || entity.Image == Images.lvl4_res1 || entity.Image == Images.lvl5_res1){
-                  resurse.res1 += 1
-                  resurse.money += 1
-                  console.log("res1 " + resurse.res1);
-                  console.log("money " + resurse.money);
-                }if(entity.Image == Images.lvl1_res2 || entity.Image == Images.lvl2_res2 || entity.Image == Images.lvl3_res2 || entity.Image == Images.lvl4_res2 || entity.Image == Images.lvl5_res2){
-                  resurse.res2 += 1
-                  resurse.money += 2
-                  console.log("res2 " + resurse.res2);
-                  console.log("money " + resurse.money);
-                }if(entity.Image == Images.lvl1_res3 || entity.Image == Images.lvl2_res3 || entity.Image == Images.lvl3_res3 || entity.Image == Images.lvl4_res3 || entity.Image == Images.lvl5_res3){
-                  resurse.res3 += 1
-                  resurse.money += 3
-                  console.log("res3 " + resurse.res3);
-                  console.log("money " + resurse.money);
-                }if(entity.Image == Images.lvl1_res4 || entity.Image == Images.lvl2_res4 || entity.Image == Images.lvl3_res4 || entity.Image == Images.lvl4_res4 || entity.Image == Images.lvl5_res4){
-                  resurse.res4 += 1
-                  resurse.money += 4
-                  console.log("res4 " + resurse.res4);
-                  console.log("money " + resurse.money);
-                }if(entity.Image == Images.lvl1_res5 || entity.Image == Images.lvl2_res5 || entity.Image == Images.lvl3_res5 || entity.Image == Images.lvl4_res5 || entity.Image == Images.lvl5_res5){
-                  resurse.res5 += 1
-                  resurse.money += 5
-                  console.log("res5 " + resurse.res5);
-                  console.log("money " + resurse.money);
-                }if(entity.Image == Images.lvl1_res6 || entity.Image == Images.lvl2_res6 || entity.Image == Images.lvl3_res6 || entity.Image == Images.lvl4_res6 || entity.Image == Images.lvl5_res6){
-                  resurse.res6 += 1
-                  resurse.money += 6
-                  console.log("res6 " + resurse.res6);
-                  console.log("money " + resurse.money);
-                }
+                entity.OnDestroy();
                 layer.splice(layer.indexOf(entity), 1);
-
-                 // Создание нового блока
-                let newX = Math.floor(entity.transform.Position.X / 100);
-                let newY = Math.floor(entity.transform.Position.Y / 100);
-
-                if(newY < 50){
-                  createLvlBg(Images.lvl1bg, newX, newY);
-                }if(newY >= 50 && newY < 150){
-                  createLvlBg(Images.lvl2bg, newX, newY);
-                }if(newY >= 150 && newY < 250){
-                  createLvlBg(Images.lvl3bg, newX, newY);
-                }if(newY >= 250 && newY < 350){
-                  createLvlBg(Images.lvl4bg, newX, newY);
-                }if(newY >= 350){
-                  createLvlBg(Images.lvl5bg, newX, newY);
-                }
               }
             }
             if(!flag){
@@ -318,17 +272,6 @@ export class Player extends Entity {
   }
 }
 
-function createLvlBg(lvlX, x, y) {
-  SceneManager.Instance.mine.TC.GetLayer(y).push(
-    new Tile(
-    new Vector2(0 + 100 * x, 100 * y),
-    new Vector2(100, 100),
-    lvlX,
-    1,
-    EntityTypes.BackGroundTile,
-    SceneManager.Instance.mine
-    )
-  )
-}
+
 
 
