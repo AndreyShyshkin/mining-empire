@@ -1404,6 +1404,23 @@
   );
   village_default(SM2.town.TC);
   cave_default();
+  var TextElement = class {
+    constructor(context, text, x, y, font, color, align = "left") {
+      this.context = context;
+      this.text = text;
+      this.x = x;
+      this.y = y;
+      this.font = font;
+      this.color = color;
+      this.align = align;
+    }
+    draw() {
+      this.context.font = this.font;
+      this.context.fillStyle = this.color;
+      this.context.textAlign = this.align;
+      this.context.fillText(this.text, this.x, this.y);
+    }
+  };
   window.onload = () => game.Start();
   function Start() {
     Canvas.Instance.updateSize();
@@ -1420,9 +1437,25 @@
     });
     SM2.currentScene.TC.UpdateLoadted(Player.Camera.Y);
     player.Update(entities);
-    Canvas.Instance.GetLayerContext(1).clearRect(0, 0, 1920, 1080);
-    Canvas.Instance.GetLayerContext(2).clearRect(0, 0, 1920, 1080);
+    const layer1Context = Canvas.Instance.GetLayerContext(1);
+    const layer2Context = Canvas.Instance.GetLayerContext(2);
+    layer1Context.clearRect(0, 0, 1920, 1080);
+    layer2Context.clearRect(0, 0, 1920, 1080);
     SM2.currentScene.Draw();
     player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
+    const moneyText = new TextElement(layer2Context, `Money: ${inventory_default.money}`, 10, 20, "20px Arial", "white", "left");
+    const res1Text = new TextElement(layer2Context, `Res1: ${inventory_default.res1}`, 10, 50, "20px Arial", "white", "left");
+    const res2Text = new TextElement(layer2Context, `Res2: ${inventory_default.res2}`, 10, 80, "20px Arial", "white", "left");
+    const res3Text = new TextElement(layer2Context, `Res3: ${inventory_default.res3}`, 10, 110, "20px Arial", "white", "left");
+    const res4Text = new TextElement(layer2Context, `Res4: ${inventory_default.res4}`, 10, 140, "20px Arial", "white", "left");
+    const res5Text = new TextElement(layer2Context, `Res5: ${inventory_default.res5}`, 10, 170, "20px Arial", "white", "left");
+    const res6Text = new TextElement(layer2Context, `Res6: ${inventory_default.res6}`, 10, 200, "20px Arial", "white", "left");
+    moneyText.draw();
+    res1Text.draw();
+    res2Text.draw();
+    res3Text.draw();
+    res4Text.draw();
+    res5Text.draw();
+    res6Text.draw();
   }
 })();
