@@ -35,25 +35,6 @@ let player = new Player(
 village(SM.town.TC);
 cave();
 
-class TextElement {
-  constructor(context, text, x, y, font, color, align = "left") {
-    this.context = context;
-    this.text = text;
-    this.x = x;
-    this.y = y;
-    this.font = font;
-    this.color = color;
-    this.align = align;
-  }
-
-  draw() {
-    this.context.font = this.font;
-    this.context.fillStyle = this.color;
-    this.context.textAlign = this.align;
-    this.context.fillText(this.text, this.x, this.y);
-  }
-}
-
 window.onload = () => game.Start()
 function Start() {
   Canvas.Instance.updateSize()
@@ -78,21 +59,21 @@ function Update() {
   SM.currentScene.Draw();
   player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
 
-  const moneyText = new TextElement(layer2Context, `Money: ${resurse.money}`, 10, 20, "20px Arial", "white", "left");
-  const res1Text = new TextElement(layer2Context, `Res1: ${resurse.res1}`, 10, 50, "20px Arial", "white", "left");
-  const res2Text = new TextElement(layer2Context, `Res2: ${resurse.res2}`, 10, 80, "20px Arial", "white", "left");
-  const res3Text = new TextElement(layer2Context, `Res3: ${resurse.res3}`, 10, 110, "20px Arial", "white", "left");
-  const res4Text = new TextElement(layer2Context, `Res4: ${resurse.res4}`, 10, 140, "20px Arial", "white", "left");
-  const res5Text = new TextElement(layer2Context, `Res5: ${resurse.res5}`, 10, 170, "20px Arial", "white", "left");
-  const res6Text = new TextElement(layer2Context, `Res6: ${resurse.res6}`, 10, 200, "20px Arial", "white", "left");
+  let money = document.querySelector(".money span");
+  let res1 = document.querySelector(".res1 span");
+  let res2 = document.querySelector(".res2 span");
+  let res3 = document.querySelector(".res3 span");
+  let res4 = document.querySelector(".res4 span");
+  let res5 = document.querySelector(".res5 span");
+  let res6 = document.querySelector(".res6 span");
 
-  moneyText.draw();
-  res1Text.draw();
-  res2Text.draw();
-  res3Text.draw();
-  res4Text.draw();
-  res5Text.draw();
-  res6Text.draw();
+  money.innerHTML = resurse.money;
+  res1.innerHTML = resurse.res1;
+  res2.innerHTML = resurse.res2;
+  res3.innerHTML = resurse.res3;
+  res4.innerHTML = resurse.res4;
+  res5.innerHTML = resurse.res5;
+  res6.innerHTML = resurse.res6;
 }
 
 function drawText(context, text, x, y, font, color, align = "left") {

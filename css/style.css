@@ -28,3 +28,10 @@ canvas{
 #game .layer *{
     position: absolute;
 }
+
+.res{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    color: white;
+}
