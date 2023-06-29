@@ -12,8 +12,15 @@ import { PlayerStates } from "./PlayerStates"
 import resurse from "../Logic/inventory"
 import { EntityTypes } from "../Physics/EntityTypes"
 import { PlayerAnimationController } from "../Graphics/PlayerAnimationController"
+import marketLogic from "./market"
 
 let SM = new SceneManager();
+let lastPressTime = 0;
+let market = document.querySelector(".market")
+let sell = document.querySelector(".sell")
+let buy = document.querySelector(".buy")
+let sellBlock = document.querySelector(".sellBlock")
+let buyBlock = document.querySelector(".buyBlock")
 
 export class Player extends Entity {
   static Camera;
@@ -39,6 +46,7 @@ export class Player extends Entity {
     super(new Transform(position, size), Image, Layer)
     Player.Camera = Camera;
     this.SM = SM;
+    marketLogic()
   }
   Update(Entities) {
     this.InputUpdate();
@@ -164,7 +172,7 @@ export class Player extends Entity {
         }
       }
     })
-    }   
+    }  
   }
   UpdateAttack(){
     if (Input.GetKeyState(75) && this.curAttackDelay <= 0 && (this.bottomCollision || this.isLadder)){// K
@@ -292,6 +300,7 @@ export class Player extends Entity {
         }
       }
       this.CaveCheck(entity);
+      this.MarketCheck(entity);
     })
     if(!bottomFlag) {
       this.bottomCollision = false;
@@ -323,6 +332,29 @@ export class Player extends Entity {
       }
     }
   }
+
+MarketCheck(entity){
+    if(entity.Type === EntityTypes.Market){
+      if (Input.GetKeyState(69) && (Date.now() - lastPressTime) >= 500){// E
+        if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+        if(market.style.display == "none" || market.style.display == ""){
+          market.style.display = "block";
+          sell.style.display = "block";
+          buy.style.display = "block";
+          sellBlock.style.display = "none";
+          buyBlock.style.display = "none";
+        }else{
+          market.style.display = "none";
+          sell.style.display = "none";
+          buy.style.display = "none";
+          sellBlock.style.display = "block";
+          buyBlock.style.display = "block";
+        }
+        lastPressTime = Date.now();
+        }
+    }
+  }
+}
   CreateLadder(){
     let layer = SceneManager.Instance.mine.TC.GetLayerByPos(this.transform.Position.Y);
     let x = this.transform.Position.X + 40;

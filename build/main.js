@@ -573,39 +573,21 @@
       }
       if (this.Image == Images.lvl1_res1 || this.Image == Images.lvl2_res1 || this.Image == Images.lvl3_res1 || this.Image == Images.lvl4_res1 || this.Image == Images.lvl5_res1) {
         inventory_default.res1 += 1;
-        inventory_default.money += 1;
-        console.log("res1 " + inventory_default.res1);
-        console.log("money " + inventory_default.money);
       }
       if (this.Image == Images.lvl1_res2 || this.Image == Images.lvl2_res2 || this.Image == Images.lvl3_res2 || this.Image == Images.lvl4_res2 || this.Image == Images.lvl5_res2) {
         inventory_default.res2 += 1;
-        inventory_default.money += 2;
-        console.log("res2 " + inventory_default.res2);
-        console.log("money " + inventory_default.money);
       }
       if (this.Image == Images.lvl1_res3 || this.Image == Images.lvl2_res3 || this.Image == Images.lvl3_res3 || this.Image == Images.lvl4_res3 || this.Image == Images.lvl5_res3) {
         inventory_default.res3 += 1;
-        inventory_default.money += 3;
-        console.log("res3 " + inventory_default.res3);
-        console.log("money " + inventory_default.money);
       }
       if (this.Image == Images.lvl1_res4 || this.Image == Images.lvl2_res4 || this.Image == Images.lvl3_res4 || this.Image == Images.lvl4_res4 || this.Image == Images.lvl5_res4) {
         inventory_default.res4 += 1;
-        inventory_default.money += 4;
-        console.log("res4 " + inventory_default.res4);
-        console.log("money " + inventory_default.money);
       }
       if (this.Image == Images.lvl1_res5 || this.Image == Images.lvl2_res5 || this.Image == Images.lvl3_res5 || this.Image == Images.lvl4_res5 || this.Image == Images.lvl5_res5) {
         inventory_default.res5 += 1;
-        inventory_default.money += 5;
-        console.log("res5 " + inventory_default.res5);
-        console.log("money " + inventory_default.money);
       }
       if (this.Image == Images.lvl1_res6 || this.Image == Images.lvl2_res6 || this.Image == Images.lvl3_res6 || this.Image == Images.lvl4_res6 || this.Image == Images.lvl5_res6) {
         inventory_default.res6 += 1;
-        inventory_default.money += 6;
-        console.log("res6 " + inventory_default.res6);
-        console.log("money " + inventory_default.money);
       }
     }
   };
@@ -725,8 +707,94 @@
     }
   };
 
+  // Source/Entities/market.js
+  var market = document.querySelector(".market");
+  var sell = document.querySelector(".sell");
+  var buy = document.querySelector(".buy");
+  var sellBlock = document.querySelector(".sellBlock");
+  var sellRes1 = document.querySelector(".sellRes1");
+  var sellRes2 = document.querySelector(".sellRes2");
+  var sellRes3 = document.querySelector(".sellRes3");
+  var sellRes4 = document.querySelector(".sellRes4");
+  var sellRes5 = document.querySelector(".sellRes5");
+  var sellRes6 = document.querySelector(".sellRes6");
+  var buyBlock = document.querySelector(".buyBlock");
+  var buyRes1 = document.querySelector(".buyRes1");
+  var buyRes2 = document.querySelector(".buyRes2");
+  var buyRes3 = document.querySelector(".buyRes3");
+  var buyRes4 = document.querySelector(".buyRes4");
+  var buyRes5 = document.querySelector(".buyRes5");
+  var buyRes6 = document.querySelector(".buyRes6");
+  var coefficientsSell = {
+    res1: 1,
+    res2: 2,
+    res3: 3,
+    res4: 4,
+    res5: 5,
+    res6: 6
+  };
+  var coefficientsBuy = {
+    res1: 2,
+    res2: 4,
+    res3: 6,
+    res4: 8,
+    res5: 10,
+    res6: 12
+  };
+  function marketLogic() {
+    sell.addEventListener("click", (event) => {
+      sell.style.display = "none";
+      buy.style.display = "none";
+      sellBlock.style.display = "block";
+    });
+    buy.addEventListener("click", (event) => {
+      sell.style.display = "none";
+      buy.style.display = "none";
+      buyBlock.style.display = "block";
+    });
+    const sellResButtons = [sellRes1, sellRes2, sellRes3, sellRes4, sellRes5, sellRes6];
+    sellResButtons.forEach((button, index) => {
+      button.addEventListener("click", (event) => {
+        sellRes(`res${index + 1}`);
+      });
+    });
+    const buyResButtons = [buyRes1, buyRes2, buyRes3, buyRes4, buyRes5, buyRes6];
+    buyResButtons.forEach((button, index) => {
+      button.addEventListener("click", (event) => {
+        buyRes(`res${index + 1}`);
+      });
+    });
+  }
+  function sellRes(resKey) {
+    let res = prompt("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E:");
+    if (inventory_default[resKey] < res) {
+      alert("\u0423 \u0432\u0430\u0441 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442 \u0440\u0435\u0441\u0443\u0440\u0441\u043E\u0432!");
+    } else {
+      inventory_default[resKey] -= res;
+      res = res * coefficientsSell[resKey];
+      inventory_default.money += res * 10;
+    }
+  }
+  function buyRes(resKey) {
+    let res = prompt("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E:");
+    if (inventory_default.money < res * 20) {
+      alert("\u0423 \u0432\u0430\u0441 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442 \u0434\u0435\u043D\u0435\u0433!");
+    } else {
+      inventory_default[resKey] += res;
+      res = res * coefficientsBuy[resKey];
+      inventory_default.money -= res * 20;
+    }
+  }
+  var market_default = marketLogic;
+
   // Source/Entities/Player.js
   var SM = new SceneManager();
+  var lastPressTime = 0;
+  var market2 = document.querySelector(".market");
+  var sell2 = document.querySelector(".sell");
+  var buy2 = document.querySelector(".buy");
+  var sellBlock2 = document.querySelector(".sellBlock");
+  var buyBlock2 = document.querySelector(".buyBlock");
   var Player = class _Player extends Entity {
     static Camera;
     changeSceneFlag = false;
@@ -752,6 +820,7 @@
       super(new Transform(position, size), Image2, Layer2);
       _Player.Camera = Camera;
       this.SM = SM3;
+      market_default();
     }
     Update(Entities) {
       this.InputUpdate();
@@ -994,6 +1063,7 @@
           }
         }
         this.CaveCheck(entity);
+        this.MarketCheck(entity);
       });
       if (!bottomFlag) {
         this.bottomCollision = false;
@@ -1022,6 +1092,28 @@
           }
         } else {
           this.changeSceneFlag = false;
+        }
+      }
+    }
+    MarketCheck(entity) {
+      if (entity.Type === EntityTypes.Market) {
+        if (Input.GetKeyState(69) && Date.now() - lastPressTime >= 500) {
+          if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+            if (market2.style.display == "none" || market2.style.display == "") {
+              market2.style.display = "block";
+              sell2.style.display = "block";
+              buy2.style.display = "block";
+              sellBlock2.style.display = "none";
+              buyBlock2.style.display = "none";
+            } else {
+              market2.style.display = "none";
+              sell2.style.display = "none";
+              buy2.style.display = "none";
+              sellBlock2.style.display = "block";
+              buyBlock2.style.display = "block";
+            }
+            lastPressTime = Date.now();
+          }
         }
       }
     }
@@ -1477,13 +1569,13 @@
     layer2Context.clearRect(0, 0, 1920, 1080);
     SM2.currentScene.Draw();
     player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
-    let money = document.querySelector(".money span");
-    let res1 = document.querySelector(".res1 span");
-    let res2 = document.querySelector(".res2 span");
-    let res3 = document.querySelector(".res3 span");
-    let res4 = document.querySelector(".res4 span");
-    let res5 = document.querySelector(".res5 span");
-    let res6 = document.querySelector(".res6 span");
+    let money = document.querySelector(".money");
+    let res1 = document.querySelector(".res1");
+    let res2 = document.querySelector(".res2");
+    let res3 = document.querySelector(".res3");
+    let res4 = document.querySelector(".res4");
+    let res5 = document.querySelector(".res5");
+    let res6 = document.querySelector(".res6");
     money.innerHTML = inventory_default.money;
     res1.innerHTML = inventory_default.res1;
     res2.innerHTML = inventory_default.res2;

@@ -59,13 +59,13 @@ function Update() {
   SM.currentScene.Draw();
   player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
 
-  let money = document.querySelector(".money span");
-  let res1 = document.querySelector(".res1 span");
-  let res2 = document.querySelector(".res2 span");
-  let res3 = document.querySelector(".res3 span");
-  let res4 = document.querySelector(".res4 span");
-  let res5 = document.querySelector(".res5 span");
-  let res6 = document.querySelector(".res6 span");
+  let money = document.querySelector(".money");
+  let res1 = document.querySelector(".res1");
+  let res2 = document.querySelector(".res2");
+  let res3 = document.querySelector(".res3");
+  let res4 = document.querySelector(".res4");
+  let res5 = document.querySelector(".res5");
+  let res6 = document.querySelector(".res6");
 
   money.innerHTML = resurse.money;
   res1.innerHTML = resurse.res1;

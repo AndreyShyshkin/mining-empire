@@ -6,6 +6,7 @@ body{
     justify-content: center;
     align-items: center;
     background-color: black;
+    font-size: min(2vh, 2vw)
 }
 #game{
     width: 100%;
@@ -24,9 +25,31 @@ body{
 }
 canvas{
     background: rgba(0, 0, 0, 0);
+    z-index: -9999;
+}
+#game{
+    z-index: -999;
 }
 #game .layer *{
     position: absolute;
+}
+
+.frame {
+    position: absolute;
+    max-width: 50px;
+    max-height: 50px;
+    padding: 20px;
+    top: 5%;
+    background-image: url("../Res/img/frame.png");
+    background-size: contain;
+}
+
+.Num{
+    position: absolute;
+    max-width: 50px;
+    max-height: 50px;
+    padding: 20px;
+    top: 10px;
 }
 
 .res{
@@ -34,6 +57,17 @@ canvas{
     left: 20px;
     top: 20px;
     color: white;
+}
+
+.market{
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    left: calc(50% - 25px);
+    top: calc(50% - 25px);
+    color: white;
+    display: none;
+    background-color: black;
 }
 
 .notification{

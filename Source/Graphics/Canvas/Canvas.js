@@ -14,7 +14,7 @@ export class Canvas {
     }    
     this.UI = document.createElement("div");
     this.canvas.append(this.UI);
-    window.addEventListener("resize", () => this.updateSize());
+    window.addEventListener("resize", () => this.updateSize()); 
   }
   updateSize() {
     let w = window.innerWidth / this.WScale

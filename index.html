@@ -7,19 +7,39 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="game"></div>
-    <div class="res">
-        <p class="money">Money: <span>0</span></p>
-        <p class="res1">Res1: <span>0</span></p>
-        <p class="res2">Res2: <span>0</span></p>
-        <p class="res3">Res3: <span>0</span></p>
-        <p class="res4">Res4: <span>0</span></p>
-        <p class="res5">Res5: <span>0</span></p>
-        <p class="res6">Res6: <span>0</span></p>
-    </div>
     <div class="notification">
         <p></p>
     </div>
+    <div class="res">
+        <img src="./Res/img/Structures/Chest.png" class="frame moneyImg" style="left: 10px;"><span class="money Num"  style="left: 10px;">0</span>
+        <img src="./Res/img/Lvl1/lvl1_res1.png" class="frame res1Img" style="left: 110px;"><span class="res1 Num" style="left: 110px;">0</span>
+        <img src="./Res/img/Lvl1/lvl1_res2.png" class="frame res2Img" style="left: 210px;"><span class="res2 Num" style="left: 210px;">0</span>
+        <img src="./Res/img/Lvl1/lvl1_res3.png" class="frame res3Img" style="left: 310px;"><span class="res3 Num" style="left: 310px;">0</span>
+        <img src="./Res/img/Lvl1/lvl1_res4.png" class="frame res4Img" style="left: 410px;"><span class="res4 Num" style="left: 410px;">0</span>
+        <img src="./Res/img/Lvl1/lvl1_res5.png" class="frame res5Img" style="left: 510px;"><span class="res5 Num" style="left: 510px;">0</span>
+        <img src="./Res/img/Lvl1/lvl1_res6.png" class="frame res6Img" style="left: 610px;"><span class="res6 Num" style="left: 610px;">0</span>
+    </div>
+    <div class="market">
+        <div class="sell">Sell</div>
+            <div class="sellBlock" style="display: none;">
+                <p>res1 = 10</p><p class="sellRes1">sell</p>
+                <p>res2 = 20</p><p class="sellRes2">sell</p>
+                <p>res3 = 30</p><p class="sellRes3">sell</p>
+                <p>res4 = 40</p><p class="sellRes4">sell</p>
+                <p>res5 = 50</p><p class="sellRes5">sell</p>
+                <p>res6 = 60</p><p class="sellRes6">sell</p> 
+            </div>
+        <div class="buy">Buy</div>
+            <div class="buyBlock" style="display: none;">
+                <p>res1 = 20</p><p class="buyRes1">buy</p>
+                <p>res2 = 40</p><p class="buyRes2">buy</p>
+                <p>res3 = 60</p><p class="buyRes3">buy</p>
+                <p>res4 = 80</p><p class="buyRes4">buy</p>
+                <p>res5 = 100</p><p class="buyRes5">buy</p>
+                <p>res6 = 120</p><p class="buyRes6">buy</p>
+            </div>
+    </div>
+    <div id="game"></div>
     <script src="build/main.js"></script>
 </body>
 </html>
