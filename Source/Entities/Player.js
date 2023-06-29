@@ -26,7 +26,7 @@ export class Player extends Entity {
   isAttack = false;
   velocityY = 0;
   speed = 500;
-  damage = 1;
+  damage = 10;
   SM;
   Direction = 1; //1 - right, 2 - left
   PAC = new PlayerAnimationController();
@@ -52,8 +52,7 @@ export class Player extends Entity {
       }
     }
     this.CollisionCheck(Entities);
-    console.log(this.isLadder);
-    this.curAttackDelay -= Time.deltaTime;
+    this.curAttackDelay -= Time.deltaTime; 
   }
   InputUpdate(){
     let stride = Vector2.Zero
@@ -117,6 +116,48 @@ export class Player extends Entity {
     if(Input.GetKeyState(88)){
       this.CreateLadder();
     }
+    if (Input.GetKeyState(69)) {// "E"
+      this.SM.currentScene.TC.LoadedLayers.forEach(layer => {
+      const blockX = Math.floor(this.transform.Position.X / 100) * 100;
+      const blockY = Math.floor(this.transform.Position.Y / 100) * 100;
+    
+      const blockIndex = layer.findIndex(entity => entity.transform.Position.X === blockX && entity.transform.Position.Y === blockY);
+    
+      if (blockIndex !== -1) {
+        const block = layer[blockIndex];
+    
+        if (block.Image === Images.chest) {
+          let r = Random(1, 10);
+          if (this.transform.Position.Y >= 10 * 100 && this.transform.Position.Y < 50 * 100) {
+            resurse.res1 += r;
+            resurse.res2 += r - 1;
+            resurse.money += r;
+          } else if (this.transform.Position.Y >= 50 * 100 && this.transform.Position.Y < 150 * 100) {
+            resurse.res1 += r;
+            resurse.res2 += r - 1;
+            resurse.res3 += r - 2;
+            resurse.money += r * 2;
+          } else if (this.transform.Position.Y >= 150 * 100 && this.transform.Position.Y < 250 * 100) {
+            resurse.res2 += r;
+            resurse.res3 += r - 1;
+            resurse.res4 += r - 2;
+            resurse.money += r * 3;
+          } else if (this.transform.Position.Y >= 250 * 100 && this.transform.Position.Y < 350 * 100) {
+            resurse.res3 += r;
+            resurse.res4 += r - 1;
+            resurse.res5 += r - 2;
+            resurse.money += r * 4;
+          } else if (this.transform.Position.Y >= 350 * 100) {
+            resurse.res4 += r;
+            resurse.res5 += r - 1;
+            resurse.res6 += r - 2;
+            resurse.money += r * 5;
+          }
+          layer.splice(blockIndex, 1);
+        }
+      }
+    })
+    }   
   }
   UpdateAttack(){
     if (Input.GetKeyState(75) && this.curAttackDelay <= 0 && (this.bottomCollision || this.isLadder)){// K
@@ -270,8 +311,7 @@ export class Player extends Entity {
           }
           this.changeSceneFlag = true;
         }
-      }
-      else{
+      }else{
         this.changeSceneFlag = false;
       }
     }
@@ -324,4 +364,10 @@ export class Player extends Entity {
       this.transform.Size.Y
     )
   }
+}
+
+function Random(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }

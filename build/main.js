@@ -735,7 +735,7 @@
     isAttack = false;
     velocityY = 0;
     speed = 500;
-    damage = 1;
+    damage = 10;
     SM;
     Direction = 1;
     //1 - right, 2 - left
@@ -761,7 +761,6 @@
         }
       }
       this.CollisionCheck(Entities);
-      console.log(this.isLadder);
       this.curAttackDelay -= Time.deltaTime;
     }
     InputUpdate() {
@@ -822,6 +821,45 @@
       );
       if (Input.GetKeyState(88)) {
         this.CreateLadder();
+      }
+      if (Input.GetKeyState(69)) {
+        this.SM.currentScene.TC.LoadedLayers.forEach((layer) => {
+          const blockX = Math.floor(this.transform.Position.X / 100) * 100;
+          const blockY = Math.floor(this.transform.Position.Y / 100) * 100;
+          const blockIndex = layer.findIndex((entity) => entity.transform.Position.X === blockX && entity.transform.Position.Y === blockY);
+          if (blockIndex !== -1) {
+            const block = layer[blockIndex];
+            if (block.Image === Images.chest) {
+              let r = Random(1, 10);
+              if (this.transform.Position.Y >= 10 * 100 && this.transform.Position.Y < 50 * 100) {
+                inventory_default.res1 += r;
+                inventory_default.res2 += r - 1;
+                inventory_default.money += r;
+              } else if (this.transform.Position.Y >= 50 * 100 && this.transform.Position.Y < 150 * 100) {
+                inventory_default.res1 += r;
+                inventory_default.res2 += r - 1;
+                inventory_default.res3 += r - 2;
+                inventory_default.money += r * 2;
+              } else if (this.transform.Position.Y >= 150 * 100 && this.transform.Position.Y < 250 * 100) {
+                inventory_default.res2 += r;
+                inventory_default.res3 += r - 1;
+                inventory_default.res4 += r - 2;
+                inventory_default.money += r * 3;
+              } else if (this.transform.Position.Y >= 250 * 100 && this.transform.Position.Y < 350 * 100) {
+                inventory_default.res3 += r;
+                inventory_default.res4 += r - 1;
+                inventory_default.res5 += r - 2;
+                inventory_default.money += r * 4;
+              } else if (this.transform.Position.Y >= 350 * 100) {
+                inventory_default.res4 += r;
+                inventory_default.res5 += r - 1;
+                inventory_default.res6 += r - 2;
+                inventory_default.money += r * 5;
+              }
+              layer.splice(blockIndex, 1);
+            }
+          }
+        });
       }
     }
     UpdateAttack() {
@@ -1027,6 +1065,11 @@
       );
     }
   };
+  function Random(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
 
   // Source/Entities/Cave.js
   var Cave = class extends Entity {
@@ -1071,8 +1114,8 @@
         } else if (y < 10) {
           lvl(Images.lvl1, SceneManager, x, y);
         } else {
-          let r = Random(1, 100);
-          let rd = Random(1, 2e3);
+          let r = Random2(1, 100);
+          let rd = Random2(1, 2e3);
           if (rd == 1 && y > 15 && x > -40 && x < 40) {
             let yStart = y;
             let xStart = x;
@@ -1090,7 +1133,6 @@
                 }
                 removeBlockAtCoordinates(x, y);
                 if (a == 0 && i == 3) {
-                  cross(SceneManager, x, y);
                   chest(SceneManager, x, y);
                 } else {
                   cross(SceneManager, x, y);
@@ -1215,7 +1257,7 @@
         new Vector2(100, 100),
         Images.chest,
         2,
-        EntityTypes.DestroyableTile,
+        EntityTypes.BackGroundTile,
         SceneManager2.Instance.mine
       )
     );
@@ -1227,12 +1269,12 @@
         new Vector2(100, 100),
         Images.cross,
         2,
-        EntityTypes.DestroyableTile,
+        EntityTypes.BackGroundTile,
         SceneManager2.Instance.mine
       )
     );
   }
-  function Random(min, max) {
+  function Random2(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -1254,7 +1296,7 @@
     for (let y = 5; y < 1e3; y++) {
       for (let x = -10; x < 30; x++) {
         if (y == 5 && x % 2 == 0 && x < 6) {
-          let r = Random2(1, 3);
+          let r = Random3(1, 3);
           switch (r) {
             case 1:
               home1(SceneManager.Instance.town.Entities, x, y);
@@ -1267,7 +1309,7 @@
               break;
           }
         } else if (y == 5 && x % 2 == 0 && x > 14) {
-          let r = Random2(1, 3);
+          let r = Random3(1, 3);
           switch (r) {
             case 1:
               home1(SceneManager.Instance.town.Entities, x, y);
@@ -1374,7 +1416,7 @@
       )
     );
   }
-  function Random2(min, max) {
+  function Random3(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);

@@ -45,7 +45,6 @@ function cave(){
               }
               removeBlockAtCoordinates(x, y);
               if (a == 0 && i == 3){
-                cross(SceneManager, x, y)
                 chest(SceneManager, x, y)
               } else {    
                 cross(SceneManager, x, y)
@@ -189,7 +188,7 @@ function chest(SceneManager, x, y){
     new Vector2(100, 100),
     Images.chest,
     2,
-    EntityTypes.DestroyableTile,
+    EntityTypes.BackGroundTile,
     SceneManager.Instance.mine
     )
   )
@@ -202,7 +201,7 @@ function cross(SceneManager, x, y){
     new Vector2(100, 100),
     Images.cross,
     2,
-    EntityTypes.DestroyableTile,
+    EntityTypes.BackGroundTile,
     SceneManager.Instance.mine
     )
   )  
