@@ -24,6 +24,7 @@ export class Player extends Entity {
   rightCollision = false;
   isLadder = false;
   isAttack = false;
+  ladderUpFlag = false;
   velocityY = 0;
   speed = 500;
   damage = 1;
@@ -43,7 +44,7 @@ export class Player extends Entity {
     this.InputUpdate();
     this.UpdateAttack();
     this.PAC.Update();
-    if(!this.bottomCollision && !this.isLadder){
+    if(!this.bottomCollision && !this.isLadder || this.velocityY > 0){
       this.velocityY -= Physics.G * Time.DeltaTime;
     }
     else{
@@ -68,19 +69,25 @@ export class Player extends Entity {
         walk = true;
         this.Direction = 1;
       }
-      if(this.bottomCollision || this.isLadder){
+      if(this.bottomCollision){
         if (Input.GetKeyState(32)) {
           console.log("t");
           this.velocityY = this.jumpForce;
         }
       }
       if(this.isLadder){
-        if(Input.GetKeyState(87)){
-          stride = stride.Add(Vector2.Down.Scale(this.speed * Time.DeltaTime))
-        }
         if(Input.GetKeyState(83) && !this.bottomCollision){
           stride = stride.Add(Vector2.Up.Scale(this.speed * Time.DeltaTime))
         }
+      }
+      if(Input.GetKeyState(87)){
+        if(this.isLadder && !this.ladderUpFlag && !this.topCollision)
+          stride = stride.Add(Vector2.Down.Scale(this.speed * Time.DeltaTime));
+        else
+          this.ladderUpFlag = true;
+      }
+      else{
+        this.ladderUpFlag = false;
       }
       if(walk){
         this.State = PlayerStates.Walk;
@@ -101,7 +108,7 @@ export class Player extends Entity {
         }
       }
     }
-    if(!this.bottomCollision && !this.isLadder){
+    if(this.velocityY != 0){
       if(this.Direction == 1)
         this.PAC.ChangeAnimation(this.PAC.JumpRight);
       else

@@ -2,7 +2,8 @@ import { Layer } from "./Layer"
 export class Canvas {
   static Instance = new Canvas(3);
   Layers = []
-  constructor(LayersCount) {
+  UI
+  constructor(LayersCount, UILayersCount) {
     this.LayersCount = LayersCount
     this.canvas = document.querySelector("#game")
     this.WScale = 16
@@ -10,7 +11,9 @@ export class Canvas {
     this.updateSize()
     for (let i = 0; i < LayersCount; i++) {
       this.Layers.push(new Layer(this.canvas))
-    }
+    }    
+    this.UI = document.createElement("div");
+    this.canvas.append(this.UI);
     window.addEventListener("resize", () => this.updateSize());
   }
   updateSize() {
