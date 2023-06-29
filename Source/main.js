@@ -23,7 +23,7 @@ let SM = new SceneManager();
 
 let playerImg = CreateImageByPath("Res/img/player1.png");
 let player = new Player(
-  new Vector2(900, 450),
+  new Vector2(920, 500),
   new Vector2(80, 80),
   playerImg,
   2,
