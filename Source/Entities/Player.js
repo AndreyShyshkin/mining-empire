@@ -69,7 +69,7 @@ export class Player extends Entity {
         walk = true;
         this.Direction = 1;
       }
-      if(this.bottomCollision){
+      if(this.velocityY == 0){
         if (Input.GetKeyState(32)) {
           console.log("t");
           this.velocityY = this.jumpForce;
