@@ -47,7 +47,9 @@ export class Player extends Entity {
       this.velocityY -= Physics.G * Time.DeltaTime;
     }
     else{
-      this.velocityY = 0;
+      if(this.velocityY < 0){
+        this.velocityY = 0;
+      }
     }
     this.CollisionCheck(Entities);
     console.log(this.isLadder);
