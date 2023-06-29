@@ -731,6 +731,7 @@
     topCollision = false;
     leftCollision = false;
     rightCollision = false;
+    isLadder = false;
     isAttack = false;
     velocityY = 0;
     speed = 500;
@@ -752,10 +753,13 @@
       this.InputUpdate();
       this.UpdateAttack();
       this.PAC.Update();
-      if (!this.bottomCollision) {
+      if (!this.bottomCollision && !this.isLadder) {
         this.velocityY -= Physics.G * Time.DeltaTime;
+      } else {
+        this.velocityY = 0;
       }
       this.CollisionCheck(Entities);
+      console.log(this.isLadder);
       this.curAttackDelay -= Time.deltaTime;
     }
     InputUpdate() {
@@ -772,9 +776,18 @@
           walk = true;
           this.Direction = 1;
         }
-        if (this.bottomCollision) {
-          if (Input.GetKeyState(87) || Input.GetKeyState(32)) {
+        if (this.bottomCollision || this.isLadder) {
+          if (Input.GetKeyState(32)) {
+            console.log("t");
             this.velocityY = this.jumpForce;
+          }
+        }
+        if (this.isLadder) {
+          if (Input.GetKeyState(87)) {
+            stride = stride.Add(Vector2.Down.Scale(this.speed * Time.DeltaTime));
+          }
+          if (Input.GetKeyState(83) && !this.bottomCollision) {
+            stride = stride.Add(Vector2.Up.Scale(this.speed * Time.DeltaTime));
           }
         }
         if (walk) {
@@ -793,7 +806,7 @@
           }
         }
       }
-      if (!this.bottomCollision) {
+      if (!this.bottomCollision && !this.isLadder) {
         if (this.Direction == 1)
           this.PAC.ChangeAnimation(this.PAC.JumpRight);
         else
@@ -810,7 +823,7 @@
       }
     }
     UpdateAttack() {
-      if (Input.GetKeyState(75) && this.curAttackDelay <= 0 && this.bottomCollision) {
+      if (Input.GetKeyState(75) && this.curAttackDelay <= 0 && (this.bottomCollision || this.isLadder)) {
         if (SceneManager.Instance.currentScene == SceneManager.Instance.mine) {
           let col = [];
           if (Input.GetKeyState(68)) {
@@ -864,6 +877,7 @@
       let topFlag = false;
       let leftFlag = false;
       let rightFlag = false;
+      let ladderFlag = false;
       let offset = 10;
       let Left = [
         new Vector2(this.transform.Position.X, this.transform.Position.Y + offset),
@@ -923,6 +937,12 @@
               this.velocityY = 0;
             }
           }
+          if (entity.Type === EntityTypes.Ladder) {
+            if (Collisions.AABBtoAABB(entity.GetCollider(), this.GetCollider())) {
+              ladderFlag = true;
+              this.isLadder = true;
+            }
+          }
         }
         this.CaveCheck(entity);
       });
@@ -937,6 +957,9 @@
       }
       if (!rightFlag) {
         this.rightCollision = false;
+      }
+      if (!ladderFlag) {
+        this.isLadder = false;
       }
     }
     CaveCheck(entity) {
@@ -955,14 +978,11 @@
     }
     CreateLadder() {
       let layer = SceneManager.Instance.mine.TC.GetLayerByPos(this.transform.Position.Y);
-      console.log(layer);
       let x = this.transform.Position.X + 40;
       let y = this.transform.Position.Y + 40;
       x /= SceneManager.Instance.mine.TC.tileSize;
       x = Math.floor(x);
       x *= SceneManager.Instance.mine.TC.tileSize;
-      console.log(x);
-      console.log(this.transform.Position.ToString());
       y /= SceneManager.Instance.mine.TC.tileSize;
       y = Math.floor(y);
       y *= SceneManager.Instance.mine.TC.tileSize;
