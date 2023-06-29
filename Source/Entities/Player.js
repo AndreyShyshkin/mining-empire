@@ -98,6 +98,9 @@ export class Player extends Entity {
     this.transform.Position = this.transform.Position.Add(
       new Vector2(-stride.X, stride.Y)
     )
+    if(Input.GetKeyState(88)){
+      this.CreateLadder();
+    }
   }
   UpdateAttack(){
     if (Input.GetKeyState(75) && this.curAttackDelay <= 0 && this.bottomCollision){// K
@@ -245,6 +248,42 @@ export class Player extends Entity {
       else{
         this.changeSceneFlag = false;
       }
+    }
+  }
+  CreateLadder(){
+    let layer = SceneManager.Instance.mine.TC.GetLayerByPos(this.transform.Position.Y);
+    console.log(layer);
+    let x = this.transform.Position.X + 40;
+    let y = this.transform.Position.Y + 40;
+    x /= SceneManager.Instance.mine.TC.tileSize;
+    x = Math.floor(x);
+    x *= SceneManager.Instance.mine.TC.tileSize;
+    console.log(x);
+    console.log(this.transform.Position.ToString());
+    y /= SceneManager.Instance.mine.TC.tileSize;
+    y = Math.floor(y);
+    y *= SceneManager.Instance.mine.TC.tileSize;
+    let flag = false;
+    if(layer != null && SceneManager.Instance.currentScene == SceneManager.Instance.mine){
+      let col = [new Vector2(x,y).Add(50,50), new Vector2(x,y).Add(new Vector2(50, 50))];
+      layer.forEach(element => {
+        if(element.Type === EntityTypes.Ladder || element.Type === EntityTypes.DestroyableTile || element.Type === EntityTypes.SolidTile){
+          if(element.transform.Position.X == x && element.transform.Position.Y == y){
+            flag = true;
+          }
+        }
+      });
+      if(!flag)
+        layer.push(
+          new Tile(
+            new Vector2(x, y),
+            new Vector2(100, 100),
+            Images.ladder,
+            2,
+            EntityTypes.Ladder,
+            SceneManager.Instance.mine
+          )
+        )
     }
   }
   GetColliderDot(direction) {

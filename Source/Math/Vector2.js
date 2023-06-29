@@ -25,7 +25,7 @@ export class Vector2 {
   Equals(vector) {
     return Vector2.Equals(this, vector)
   }
-  ToSting() {
+  ToString() {
     return `X: ${this.X}; Y: ${this.Y}`
   }
   Scale(number) {
