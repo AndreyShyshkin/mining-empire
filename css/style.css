@@ -89,6 +89,17 @@ canvas{
     background-color: black;
 }
 
+.forge{
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    left: calc(50% - 25px);
+    top: calc(50% - 25px);
+    color: white;
+    display: none;
+    background-color: black;
+}
+
 .notification{
     position: absolute;
     width: 100px;

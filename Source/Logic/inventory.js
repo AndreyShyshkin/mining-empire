@@ -1,4 +1,5 @@
 let resurse = {
+    lvlPick: 1,
     money: 0,
     res1: 0,
     res2: 0,

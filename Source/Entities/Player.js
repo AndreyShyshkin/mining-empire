@@ -13,6 +13,7 @@ import resurse from "../Logic/inventory"
 import { EntityTypes } from "../Physics/EntityTypes"
 import { PlayerAnimationController } from "../Graphics/PlayerAnimationController"
 import marketLogic from "./market"
+import forgeLogic from "./forge"
 
 let SM = new SceneManager();
 let lastPressTime = 0;
@@ -21,6 +22,7 @@ let sell = document.querySelector(".sell")
 let buy = document.querySelector(".buy")
 let sellBlock = document.querySelector(".sellBlock")
 let buyBlock = document.querySelector(".buyBlock")
+let forge = document.querySelector(".forge")
 
 export class Player extends Entity {
   static Camera;
@@ -47,6 +49,7 @@ export class Player extends Entity {
     Player.Camera = Camera;
     this.SM = SM;
     marketLogic()
+    forgeLogic()
   }
   Update(Entities) {
     this.InputUpdate();
@@ -292,9 +295,14 @@ export class Player extends Entity {
             this.bottomCollision = true;
             this.velocityY = 0;
             this.transform.Position.Y = entity.transform.Position.Y - this.transform.Size.Y;
-            if(entity.transform.Position.Y < this.transform.Position.Y){
-              
+            let d =  this.transform.Position.Y - (entity.transform.Position.Y - this.transform.Size.Y);
+            if (d > 0) {
+              d = Math.floor(d)
+            } else if (d < 0) {
+              d = Math.ceil(d)
             }
+            this.transform.Position.Y += d;
+            Player.Camera.Y += d;
           }
         }
         if(entity.Type === EntityTypes.Ladder){
@@ -306,6 +314,7 @@ export class Player extends Entity {
       }
       this.CaveCheck(entity);
       this.MarketCheck(entity);
+      this.ForgeCheck(entity);
     })
     if(!bottomFlag) {
       this.bottomCollision = false;
@@ -348,17 +357,36 @@ MarketCheck(entity){
           buy.style.display = "block";
           sellBlock.style.display = "none";
           buyBlock.style.display = "none";
+          forge.style.display = "none";
         }else{
           market.style.display = "none";
           sell.style.display = "none";
           buy.style.display = "none";
           sellBlock.style.display = "block";
           buyBlock.style.display = "block";
+          forge.style.display = "none";
         }
         lastPressTime = Date.now();
         }
     }
   }
+}
+
+ForgeCheck(entity){
+  if(entity.Type === EntityTypes.Forge){
+    if (Input.GetKeyState(69) && (Date.now() - lastPressTime) >= 500){// E
+      if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+      if(forge.style.display == "none" || forge.style.display == ""){
+        forge.style.display = "block";
+        market.style.display = "none";
+      } else {
+        forge.style.display = "none";
+        market.style.display = "none";
+      }
+      lastPressTime = Date.now();
+      }
+  }
+}
 }
   CreateLadder(){
     let layer = SceneManager.Instance.mine.TC.GetLayerByPos(this.transform.Position.Y);

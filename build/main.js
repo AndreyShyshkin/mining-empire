@@ -485,6 +485,7 @@
 
   // Source/Logic/inventory.js
   var resurse = {
+    lvlPick: 1,
     money: 0,
     res1: 0,
     res2: 0,
@@ -786,6 +787,60 @@
   }
   var market_default = marketLogic;
 
+  // Source/Entities/forge.js
+  var resurse1 = document.querySelector(".resurse1");
+  var resurse2 = document.querySelector(".resurse2");
+  var resurse3 = document.querySelector(".resurse3");
+  var createPick = document.querySelector(".createPick");
+  function forgeLogic() {
+    if (inventory_default.lvlPick == 1) {
+      resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
+      resurse2.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 30";
+    }
+    createPick.addEventListener("click", (event) => {
+      if (inventory_default.lvlPick == 1 && inventory_default.res1 >= 10 && inventory_default.res2 >= 30) {
+        inventory_default.lvlPick += 1;
+        inventory_default.res1 -= 10;
+        inventory_default.res2 -= 30;
+        resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
+        resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 30";
+        resurse3.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 50";
+      } else if (inventory_default.lvlPick == 2 && inventory_default.res1 >= 10 && inventory_default.res2 >= 30 && inventory_default.res3 >= 50) {
+        inventory_default.lvlPick += 1;
+        inventory_default.res1 -= 10;
+        inventory_default.res2 -= 30;
+        inventory_default.res3 -= 50;
+        resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
+        resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 30";
+        resurse3.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 50";
+      } else if (inventory_default.lvlPick == 3 && inventory_default.res1 >= 10 && inventory_default.res3 >= 30 && inventory_default.res4 >= 50) {
+        inventory_default.lvlPick += 1;
+        inventory_default.res1 -= 10;
+        inventory_default.res3 -= 30;
+        inventory_default.res4 -= 50;
+        resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
+        resurse2.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 30";
+        resurse3.innerHTML = "\u0422\u0438\u0442\u0430\u043D 50";
+      } else if (inventory_default.lvlPick == 4 && inventory_default.res1 >= 10 && inventory_default.res4 >= 30 && inventory_default.res5 >= 50) {
+        inventory_default.lvlPick += 1;
+        inventory_default.res1 -= 10;
+        inventory_default.res4 -= 30;
+        inventory_default.res5 -= 50;
+        resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
+        resurse2.innerHTML = "\u0422\u0438\u0442\u0430\u043D 30";
+        resurse3.innerHTML = "\u0414\u0440\u0430\u0433\u043E\u0446\u0456\u0439\u043D\u0438\u0439 \u043A\u0430\u043C\u0456\u043D\u044C 50";
+      } else if (inventory_default.lvlPick == 5 && inventory_default.res1 >= 10 && inventory_default.res5 >= 30 && inventory_default.res6 >= 50) {
+        inventory_default.lvlPick += 1;
+        inventory_default.res1 -= 10;
+        inventory_default.res5 -= 30;
+        inventory_default.res6 -= 50;
+      } else {
+        alert("\u0423 \u0432\u0430\u0441 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442 \u0440\u0435\u0441\u0443\u0440\u0441\u043E\u0432!");
+      }
+    });
+  }
+  var forge_default = forgeLogic;
+
   // Source/Entities/Player.js
   var SM = new SceneManager();
   var lastPressTime = 0;
@@ -794,6 +849,7 @@
   var buy2 = document.querySelector(".buy");
   var sellBlock2 = document.querySelector(".sellBlock");
   var buyBlock2 = document.querySelector(".buyBlock");
+  var forge = document.querySelector(".forge");
   var Player = class _Player extends Entity {
     static Camera;
     changeSceneFlag = false;
@@ -820,6 +876,7 @@
       _Player.Camera = Camera;
       this.SM = SM3;
       market_default();
+      forge_default();
     }
     Update(Entities) {
       this.InputUpdate();
@@ -1054,8 +1111,14 @@
               this.bottomCollision = true;
               this.velocityY = 0;
               this.transform.Position.Y = entity.transform.Position.Y - this.transform.Size.Y;
-              if (entity.transform.Position.Y < this.transform.Position.Y) {
+              let d = this.transform.Position.Y - (entity.transform.Position.Y - this.transform.Size.Y);
+              if (d > 0) {
+                d = Math.floor(d);
+              } else if (d < 0) {
+                d = Math.ceil(d);
               }
+              this.transform.Position.Y += d;
+              _Player.Camera.Y += d;
             }
           }
           if (entity.Type === EntityTypes.Ladder) {
@@ -1067,6 +1130,7 @@
         }
         this.CaveCheck(entity);
         this.MarketCheck(entity);
+        this.ForgeCheck(entity);
       });
       if (!bottomFlag) {
         this.bottomCollision = false;
@@ -1108,12 +1172,30 @@
               buy2.style.display = "block";
               sellBlock2.style.display = "none";
               buyBlock2.style.display = "none";
+              forge.style.display = "none";
             } else {
               market2.style.display = "none";
               sell2.style.display = "none";
               buy2.style.display = "none";
               sellBlock2.style.display = "block";
               buyBlock2.style.display = "block";
+              forge.style.display = "none";
+            }
+            lastPressTime = Date.now();
+          }
+        }
+      }
+    }
+    ForgeCheck(entity) {
+      if (entity.Type === EntityTypes.Forge) {
+        if (Input.GetKeyState(69) && Date.now() - lastPressTime >= 500) {
+          if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+            if (forge.style.display == "none" || forge.style.display == "") {
+              forge.style.display = "block";
+              market2.style.display = "none";
+            } else {
+              forge.style.display = "none";
+              market2.style.display = "none";
             }
             lastPressTime = Date.now();
           }
