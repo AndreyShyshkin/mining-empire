@@ -10,10 +10,9 @@ export class Canvas {
     this.HScale = 9
     this.updateSize()
     for (let i = 0; i < LayersCount; i++) {
-      this.Layers.push(new Layer(this.canvas))
+      this.Layers.push(new Layer(document.querySelector("#game")))
     }    
-    this.UI = document.createElement("div");
-    this.canvas.append(this.UI);
+    this.UI = document.querySelector("#game div");
     window.addEventListener("resize", () => this.updateSize()); 
   }
   updateSize() {

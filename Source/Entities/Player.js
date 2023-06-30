@@ -77,7 +77,7 @@ export class Player extends Entity {
         walk = true;
         this.Direction = 1;
       }
-      if(this.velocityY == 0){
+      if(this.velocityY == 0 && !this.topCollision){
         if (Input.GetKeyState(32)) {
           console.log("t");
           this.velocityY = this.jumpForce;
@@ -122,6 +122,7 @@ export class Player extends Entity {
       else
         this.PAC.ChangeAnimation(this.PAC.JumpLeft);
     }
+    if(this.velocityY < 0 || !this.topCollision)
     stride = stride.Add(Vector2.Down.Scale(this.velocityY * Time.deltaTime));
     stride = Vector2.Round(stride);
     Player.Camera = Player.Camera.Add(stride)

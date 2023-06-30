@@ -5,7 +5,7 @@ export class Layer {
         "style",
         "position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
       )
-      parent.append(this.Canvas);
+      parent.insertBefore(this.Canvas, document.querySelector("#game div"));
       this.Canvas.width = 1920;
       this.Canvas.height = 1080;
       this.Context = this.Canvas.getContext("2d");

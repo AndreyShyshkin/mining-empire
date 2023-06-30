@@ -7,7 +7,7 @@
         "style",
         "position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
       );
-      parent.append(this.Canvas);
+      parent.insertBefore(this.Canvas, document.querySelector("#game div"));
       this.Canvas.width = 1920;
       this.Canvas.height = 1080;
       this.Context = this.Canvas.getContext("2d");
@@ -26,10 +26,9 @@
       this.HScale = 9;
       this.updateSize();
       for (let i2 = 0; i2 < LayersCount; i2++) {
-        this.Layers.push(new Layer(this.canvas));
+        this.Layers.push(new Layer(document.querySelector("#game")));
       }
-      this.UI = document.createElement("div");
-      this.canvas.append(this.UI);
+      this.UI = document.querySelector("#game div");
       window.addEventListener("resize", () => this.updateSize());
     }
     updateSize() {
@@ -850,7 +849,7 @@
           walk = true;
           this.Direction = 1;
         }
-        if (this.velocityY == 0) {
+        if (this.velocityY == 0 && !this.topCollision) {
           if (Input.GetKeyState(32)) {
             console.log("t");
             this.velocityY = this.jumpForce;
@@ -891,7 +890,8 @@
         else
           this.PAC.ChangeAnimation(this.PAC.JumpLeft);
       }
-      stride = stride.Add(Vector2.Down.Scale(this.velocityY * Time.deltaTime));
+      if (this.velocityY < 0 || !this.topCollision)
+        stride = stride.Add(Vector2.Down.Scale(this.velocityY * Time.deltaTime));
       stride = Vector2.Round(stride);
       _Player.Camera = _Player.Camera.Add(stride);
       this.transform.Position = this.transform.Position.Add(
