@@ -15,7 +15,6 @@ import { PlayerAnimationController } from "../Graphics/PlayerAnimationController
 import marketLogic from "./market"
 import forgeLogic from "./forge"
 
-let SM = new SceneManager();
 let lastPressTime = 0;
 let market = document.querySelector(".market")
 let sell = document.querySelector(".sell")
@@ -67,6 +66,7 @@ export class Player extends Entity {
     }
     this.CollisionCheck(Entities);
     this.curAttackDelay -= Time.deltaTime; 
+    Player.Camera = new Vector2(-this.transform.Position.X + 920, this.transform.Position.Y - 500);
   }
   InputUpdate(){
     let stride = Vector2.Zero

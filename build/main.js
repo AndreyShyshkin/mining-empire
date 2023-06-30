@@ -851,7 +851,6 @@
   var forge_default = forgeLogic;
 
   // Source/Entities/Player.js
-  var SM = new SceneManager();
   var lastPressTime = 0;
   var market2 = document.querySelector(".market");
   var sell2 = document.querySelector(".sell");
@@ -881,10 +880,10 @@
     attackDelay = 0.2;
     curAttackDelay = 0;
     State = PlayerStates.Idle;
-    constructor(position, size, Image2, Layer2, Camera, SM3) {
+    constructor(position, size, Image2, Layer2, Camera, SM2) {
       super(new Transform(position, size), Image2, Layer2);
       _Player.Camera = Camera;
-      this.SM = SM3;
+      this.SM = SM2;
       _Player.Instance = this;
       market_default();
       forge_default();
@@ -902,6 +901,7 @@
       }
       this.CollisionCheck(Entities);
       this.curAttackDelay -= Time.deltaTime;
+      _Player.Camera = new Vector2(-this.transform.Position.X + 920, this.transform.Position.Y - 500);
     }
     InputUpdate() {
       let stride = Vector2.Zero;
@@ -1635,7 +1635,7 @@
     () => {
     }
   );
-  var SM2 = new SceneManager();
+  var SM = new SceneManager();
   var playerImg = CreateImageByPath("Res/img/player1.png");
   var player = new Player(
     new Vector2(920, 500),
@@ -1643,9 +1643,9 @@
     playerImg,
     2,
     Vector2.Zero,
-    SM2
+    SM
   );
-  village_default(SM2.town.TC);
+  village_default(SM.town.TC);
   cave_default();
   window.onload = () => game.Start();
   function Start() {
@@ -1656,18 +1656,18 @@
     SceneManager.Instance.currentScene.Entities.forEach((element) => {
       entities.push(element);
     });
-    SM2.currentScene.TC.LoadedLayers.forEach((layer) => {
+    SM.currentScene.TC.LoadedLayers.forEach((layer) => {
       layer.forEach((entity) => {
         entities.push(entity);
       });
     });
-    SM2.currentScene.TC.UpdateLoadted(Player.Camera.Y);
+    SM.currentScene.TC.UpdateLoadted(Player.Camera.Y);
     player.Update(entities);
     const layer1Context = Canvas.Instance.GetLayerContext(1);
     const layer2Context = Canvas.Instance.GetLayerContext(2);
     layer1Context.clearRect(0, 0, 1920, 1080);
     layer2Context.clearRect(0, 0, 1920, 1080);
-    SM2.currentScene.Draw();
+    SM.currentScene.Draw();
     player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
     let money = document.querySelector(".money");
     let res1 = document.querySelector(".res1");
