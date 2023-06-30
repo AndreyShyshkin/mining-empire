@@ -26,6 +26,7 @@ let forge = document.querySelector(".forge")
 
 export class Player extends Entity {
   static Camera;
+  static Instance;
   changeSceneFlag = false;
   bottomCollision = false;
   topCollision = false;
@@ -48,6 +49,7 @@ export class Player extends Entity {
     super(new Transform(position, size), Image, Layer)
     Player.Camera = Camera;
     this.SM = SM;
+    Player.Instance = this;
     marketLogic()
     forgeLogic()
   }
