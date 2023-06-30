@@ -1175,8 +1175,8 @@
     }
     MarketCheck(entity) {
       if (entity.Type === EntityTypes.Market) {
-        if (Input.GetKeyState(69) && Date.now() - lastPressTime >= 500) {
-          if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+        if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+          if (Input.GetKeyState(69) && Date.now() - lastPressTime >= 500) {
             if (market2.style.display == "none" || market2.style.display == "") {
               market2.style.display = "block";
               sell2.style.display = "block";
@@ -1194,13 +1194,15 @@
             }
             lastPressTime = Date.now();
           }
+        } else {
+          market2.style.display = "none";
         }
       }
     }
     ForgeCheck(entity) {
       if (entity.Type === EntityTypes.Forge) {
-        if (Input.GetKeyState(69) && Date.now() - lastPressTime >= 500) {
-          if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+        if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+          if (Input.GetKeyState(69) && Date.now() - lastPressTime >= 500) {
             if (forge.style.display == "none" || forge.style.display == "") {
               forge.style.display = "block";
               market2.style.display = "none";
@@ -1210,6 +1212,8 @@
             }
             lastPressTime = Date.now();
           }
+        } else {
+          forge.style.display = "none";
         }
       }
     }
