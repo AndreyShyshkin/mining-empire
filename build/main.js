@@ -917,7 +917,7 @@
           walk = true;
           this.Direction = 1;
         }
-        if (this.velocityY == 0 && !this.topCollision) {
+        if (this.velocityY == 0 && !this.topCollision && (this.isLadder || this.bottomCollision)) {
           if (Input.GetKeyState(32)) {
             console.log("t");
             this.velocityY = this.jumpForce;
@@ -952,7 +952,7 @@
           }
         }
       }
-      if (this.velocityY != 0) {
+      if (!this.bottomCollision && !this.isLadder) {
         if (this.Direction == 1)
           this.PAC.ChangeAnimation(this.PAC.JumpRight);
         else
