@@ -104,12 +104,20 @@ canvas{
     padding: 10px;
 }
 
+.sell:hover{
+    cursor: pointer;
+}
+
 .buy{
     margin: 20px;
     background-color: goldenrod;
     border: 5px solid sienna;
     border-radius: 20px;
     padding: 10px;
+}
+
+.buy:hover{
+    cursor: pointer;
 }
 
 .sellBlock p{
@@ -133,6 +141,12 @@ canvas{
     border: 5px solid sienna;
     border-radius: 20px;
     width: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.sellBtn:hover{
+    cursor: pointer;
 }
 
 .buyBtn{
@@ -140,6 +154,12 @@ canvas{
     border: 5px solid sienna;
     border-radius: 20px;
     width: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.buyBtn:hover{
+    cursor: pointer;
 }
 
 .frameMarket{
@@ -165,7 +185,8 @@ canvas{
     border: 5px solid sienna;
     border-radius: 20px;
     color: black;
-    font-size: 20px;
+    font-size: 30px;
+    text-align: center;
     padding: 10px;
 }
 
@@ -174,8 +195,14 @@ canvas{
     border: 5px solid sienna;
     border-radius: 20px;
     color: black;
-    font-size: 20px;
+    font-size: 40px;
     padding: 10px;
+    margin: 20px;
+    text-align: center;
+}
+
+.createPick:hover{
+    cursor: pointer;
 }
 
 .forge h2{
