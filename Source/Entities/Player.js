@@ -260,11 +260,11 @@ export class Player extends Entity {
         ]
         let Bottom = [
           new Vector2(
-            this.transform.Position.X + offset,
+            this.transform.Position.X + offset * 1.5,
             this.transform.Position.Y + this.transform.Size.Y
           ),
           new Vector2(
-            this.transform.Position.X + this.transform.Size.X - offset,
+            this.transform.Position.X + this.transform.Size.X - offset * 1.5,
             this.transform.Position.Y + this.transform.Size.Y
           )
         ]
@@ -291,6 +291,10 @@ export class Player extends Entity {
             bottomFlag = true;
             this.bottomCollision = true;
             this.velocityY = 0;
+            this.transform.Position.Y = entity.transform.Position.Y - this.transform.Size.Y;
+            if(entity.transform.Position.Y < this.transform.Position.Y){
+              
+            }
           }
         }
         if(entity.Type === EntityTypes.Ladder){
