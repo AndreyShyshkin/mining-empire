@@ -37,7 +37,7 @@ export class Player extends Entity {
   ladderUpFlag = false;
   velocityY = 0;
   speed = 500;
-  damage = 0.5;
+  damage = 1;
   SM;
   Direction = 1; //1 - right, 2 - left
   PAC = new PlayerAnimationController();
