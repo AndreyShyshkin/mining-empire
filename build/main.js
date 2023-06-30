@@ -553,8 +553,8 @@
       }
       if (SceneManager.Instance.currentScene == SceneManager.Instance.mine) {
         let fill = 0;
-        let xDelta = Math.abs(this.transform.Position.X - Player.Instance.transform.Position.X);
-        let yDelta = Math.abs(this.transform.Position.Y - Player.Instance.transform.Position.Y);
+        let xDelta = Math.abs(this.transform.Position.X + this.transform.Size.X / 2 - (Player.Instance.transform.Position.X + Player.Instance.transform.Size.X / 2));
+        let yDelta = Math.abs(this.transform.Position.Y + this.transform.Size.Y / 2 - (Player.Instance.transform.Position.Y + Player.Instance.transform.Size.Y / 2));
         if (xDelta < 100 && xDelta > -100) {
           console.log(xDelta);
           console.log(this.transform.Position.ToString());
@@ -569,15 +569,15 @@
           fill = 0.8;
         if (this.transform.Position.Y >= 1300)
           fill = 1;
-        if (xDelta + yDelta >= 700) {
+        if (xDelta + yDelta >= 600) {
           fill = Math.min(1, fill);
-        } else if (xDelta + yDelta >= 600) {
-          fill = Math.min(0.8, fill);
         } else if (xDelta + yDelta >= 500) {
-          fill = Math.min(0.6, fill);
+          fill = Math.min(0.8, fill);
         } else if (xDelta + yDelta >= 400) {
-          fill = Math.min(0.4, fill);
+          fill = Math.min(0.6, fill);
         } else if (xDelta + yDelta >= 300) {
+          fill = Math.min(0.4, fill);
+        } else if (xDelta + yDelta >= 200) {
           fill = Math.min(0.2, fill);
         } else {
           fill = 0;
@@ -1112,7 +1112,10 @@
       let ladderFlag = false;
       let offset = 10;
       let Left = [
-        new Vector2(this.transform.Position.X, this.transform.Position.Y + offset),
+        new Vector2(
+          this.transform.Position.X,
+          this.transform.Position.Y + offset
+        ),
         new Vector2(
           this.transform.Position.X,
           this.transform.Position.Y + this.transform.Size.Y - offset

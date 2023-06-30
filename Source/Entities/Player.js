@@ -240,7 +240,9 @@ export class Player extends Entity {
     let ladderFlag = false;
     let offset = 10;
         let Left = [
-          new Vector2(this.transform.Position.X, this.transform.Position.Y + offset),
+          new Vector2(
+            this.transform.Position.X, 
+            this.transform.Position.Y + offset),
           new Vector2(
             this.transform.Position.X,
             this.transform.Position.Y + this.transform.Size.Y - offset

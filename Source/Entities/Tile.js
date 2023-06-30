@@ -65,8 +65,8 @@ export class Tile extends Entity {
     }
     if(SceneManager.Instance.currentScene == SceneManager.Instance.mine){
       let fill = 0;
-      let xDelta = Math.abs(this.transform.Position.X - Player.Instance.transform.Position.X);
-      let yDelta = Math.abs(this.transform.Position.Y - Player.Instance.transform.Position.Y);
+      let xDelta = Math.abs(this.transform.Position.X + this.transform.Size.X/2 - (Player.Instance.transform.Position.X + (Player.Instance.transform.Size.X / 2)));
+      let yDelta = Math.abs(this.transform.Position.Y + this.transform.Size.Y/2 - (Player.Instance.transform.Position.Y + (Player.Instance.transform.Size.Y / 2)));
       if(xDelta < 100 && xDelta > -100){
         console.log(xDelta)
         console.log(this.transform.Position.ToString())
@@ -81,19 +81,19 @@ export class Tile extends Entity {
       fill = 0.8;       
       if(this.transform.Position.Y >= 1300)
       fill = 1;
-      if(xDelta + yDelta >= 700){
+      if(xDelta + yDelta >= 600){
         fill = Math.min(1, fill);
       }
-      else if(xDelta + yDelta >= 600){
+      else if(xDelta + yDelta >= 500){
         fill = Math.min(0.8, fill);
       }     
-      else if(xDelta + yDelta >= 500){
+      else if(xDelta + yDelta >= 400){
         fill = Math.min(0.6, fill);
       } 
-      else if(xDelta + yDelta >= 400){
+      else if(xDelta + yDelta >= 300){
         fill = Math.min(0.4, fill);
       }      
-      else if(xDelta + yDelta >= 300){
+      else if(xDelta + yDelta >= 200){
         fill =  Math.min(0.2, fill);
       }
       else{
