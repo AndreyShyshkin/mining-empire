@@ -5,6 +5,7 @@ import { Transform } from "../Physics/Transform"
 import { SceneManager } from "../Logic/SceneManager";
 import { Vector2 } from "../Math/Vector2";
 import resurse from "../Logic/inventory";
+import { Player } from "./Player";
 export class Tile extends Entity {
   curHp;
   maxHp;
@@ -58,6 +59,55 @@ export class Tile extends Entity {
           this.transform.Size.X,
           this.transform.Size.Y
         )
+      }
+    }
+    if(SceneManager.Instance.currentScene == SceneManager.Instance.mine){
+      let fill = 0;
+      let xDelta = Math.abs(this.transform.Position.X - Player.Instance.transform.Position.X);
+      let yDelta = Math.abs(this.transform.Position.Y - Player.Instance.transform.Position.Y);
+      if(xDelta < 100 && xDelta > -100){
+        console.log(xDelta)
+        console.log(this.transform.Position.ToString())
+      }
+      if(this.transform.Position.Y >= 900)
+      fill = 0.2;       
+      if(this.transform.Position.Y >= 1000)
+      fill = 0.4;       
+      if(this.transform.Position.Y >= 1100)
+      fill = 0.6;       
+      if(this.transform.Position.Y >= 1200)
+      fill = 0.8;       
+      if(this.transform.Position.Y >= 1300)
+      fill = 1;
+      if(xDelta + yDelta >= 700){
+        fill = Math.min(1, fill);
+      }
+      else if(xDelta + yDelta >= 600){
+        fill = Math.min(0.8, fill);
+      }     
+      else if(xDelta + yDelta >= 500){
+        fill = Math.min(0.6, fill);
+      } 
+      else if(xDelta + yDelta >= 400){
+        fill = Math.min(0.4, fill);
+      }      
+      else if(xDelta + yDelta >= 300){
+        fill =  Math.min(0.2, fill);
+      }
+      else{
+        fill = 0;
+      }      
+      if(fill != 0){
+        Context.beginPath();
+        Context.rect(
+          this.transform.Position.X + Camera.X, 
+          this.transform.Position.Y - Camera.Y, 
+          this.transform.Size.X, 
+          this.transform.Size.Y
+        );
+      Context.fillStyle = `rgba(0, 0, 0, ${fill})`; 
+      Context.fill();
+      Context.closePath();
       }
     }
   }
