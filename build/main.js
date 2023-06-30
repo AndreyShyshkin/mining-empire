@@ -793,6 +793,7 @@
   var resurse3 = document.querySelector(".resurse3");
   var createPick = document.querySelector(".createPick");
   function forgeLogic() {
+    console.log(Player.Instance.damage);
     if (inventory_default.lvlPick == 1) {
       resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
       resurse2.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 30";
@@ -805,6 +806,7 @@
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 30";
         resurse3.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 50";
+        Player.Instance.damage += 0.5;
       } else if (inventory_default.lvlPick == 2 && inventory_default.res1 >= 10 && inventory_default.res2 >= 30 && inventory_default.res3 >= 50) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
@@ -813,6 +815,7 @@
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 30";
         resurse3.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 50";
+        Player.Instance.damage += 0.5;
       } else if (inventory_default.lvlPick == 3 && inventory_default.res1 >= 10 && inventory_default.res3 >= 30 && inventory_default.res4 >= 50) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
@@ -821,6 +824,7 @@
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 30";
         resurse3.innerHTML = "\u0422\u0438\u0442\u0430\u043D 50";
+        Player.Instance.damage += 0.5;
       } else if (inventory_default.lvlPick == 4 && inventory_default.res1 >= 10 && inventory_default.res4 >= 30 && inventory_default.res5 >= 50) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
@@ -829,11 +833,16 @@
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0422\u0438\u0442\u0430\u043D 30";
         resurse3.innerHTML = "\u0414\u0440\u0430\u0433\u043E\u0446\u0456\u0439\u043D\u0438\u0439 \u043A\u0430\u043C\u0456\u043D\u044C 50";
+        Player.Instance.damage += 0.5;
       } else if (inventory_default.lvlPick == 5 && inventory_default.res1 >= 10 && inventory_default.res5 >= 30 && inventory_default.res6 >= 50) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
         inventory_default.res5 -= 30;
         inventory_default.res6 -= 50;
+        resurse1.innerHTML = "";
+        resurse2.innerHTML = "";
+        resurse3.innerHTML = "";
+        Player.Instance.damage += 0.5;
       } else {
         alert("\u0423 \u0432\u0430\u0441 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442 \u0440\u0435\u0441\u0443\u0440\u0441\u043E\u0432!");
       }
@@ -852,6 +861,7 @@
   var forge = document.querySelector(".forge");
   var Player = class _Player extends Entity {
     static Camera;
+    static Instance;
     changeSceneFlag = false;
     bottomCollision = false;
     topCollision = false;
@@ -862,7 +872,7 @@
     ladderUpFlag = false;
     velocityY = 0;
     speed = 500;
-    damage = 1;
+    damage = 0.5;
     SM;
     Direction = 1;
     //1 - right, 2 - left
@@ -875,6 +885,7 @@
       super(new Transform(position, size), Image2, Layer2);
       _Player.Camera = Camera;
       this.SM = SM3;
+      _Player.Instance = this;
       market_default();
       forge_default();
     }
