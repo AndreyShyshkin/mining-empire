@@ -24,7 +24,7 @@ function cave(){
       if (y == 6) {
         lvl1_grass(SceneManager, x, y)
       } else if (y < 10){
-        lvl(Images.lvl1, SceneManager, x, y);
+        lvl(Images.lvl1, SceneManager, x, y, 5);
       } else {
         let r = Random(1, 100);
         let rd = Random(1, 2000);
@@ -65,61 +65,61 @@ function cave(){
         }else{
           if(y >= 10 && y < 50){
             if(r < 2){
-              lvlRes(Images.lvl1_res2, SceneManager, x, y);
+              lvlRes(Images.lvl1_res2, SceneManager, x, y, 6);
             }
             else if(r < 5){
-              lvlRes(Images.lvl1_res1, SceneManager, x, y);
+              lvlRes(Images.lvl1_res1, SceneManager, x, y, 7);
             }
             else
-              lvl(Images.lvl1, SceneManager, x, y);
+              lvl(Images.lvl1, SceneManager, x, y, 5);
           } else if (y >= 50 && y < 150){
             if(r < 2){
-              lvlRes(Images.lvl2_res3, SceneManager, x, y);
+              lvlRes(Images.lvl2_res3, SceneManager, x, y, 18);
             }
             else if(r < 5){
-              lvlRes(Images.lvl2_res1, SceneManager, x, y);
+              lvlRes(Images.lvl2_res1, SceneManager, x, y, 16);
             }
             else if(r < 10){
-              lvlRes(Images.lvl2_res2, SceneManager, x, y);
+              lvlRes(Images.lvl2_res2, SceneManager, x, y, 17);
             }
             else
-              lvl(Images.lvl2, SceneManager, x, y);
+              lvl(Images.lvl2, SceneManager, x, y, 15);
           } else if (y >= 150 && y < 250){
             if(r < 2){
-              lvlRes(Images.lvl3_res4, SceneManager, x, y);
+              lvlRes(Images.lvl3_res4, SceneManager, x, y, 28);
             }
             else if(r < 5){
-              lvlRes(Images.lvl3_res3, SceneManager, x, y);
+              lvlRes(Images.lvl3_res3, SceneManager, x, y, 27);
             }
             else if(r < 10){
-              lvlRes(Images.lvl3_res2, SceneManager, x, y);
+              lvlRes(Images.lvl3_res2, SceneManager, x, y, 26);
             }
             else
-              lvl(Images.lvl3, SceneManager, x, y);
+              lvl(Images.lvl3, SceneManager, x, y, 25);
           } else if (y >= 250 && y < 350){
             if(r < 2){
-              lvlRes(Images.lvl4_res5, SceneManager, x, y);
+              lvlRes(Images.lvl4_res5, SceneManager, x, y, 38);
             }
             else if(r < 5){
-              lvlRes(Images.lvl4_res4, SceneManager, x, y);
+              lvlRes(Images.lvl4_res4, SceneManager, x, y, 37);
             }
             else if(r < 10){
-              lvlRes(Images.lvl4_res3, SceneManager, x, y);
+              lvlRes(Images.lvl4_res3, SceneManager, x, y, 36);
             }
             else
-              lvl(Images.lvl4, SceneManager, x, y);
+              lvl(Images.lvl4, SceneManager, x, y, 35);
           } else if (y >= 350){
             if(r < 2){
-              lvlRes(Images.lvl5_res6, SceneManager, x, y);
+              lvlRes(Images.lvl5_res6, SceneManager, x, y, 48);
             }
             else if(r < 5){
-              lvlRes(Images.lvl5_res5, SceneManager, x, y);
+              lvlRes(Images.lvl5_res5, SceneManager, x, y, 47);
             }
             else if(r < 10){
-              lvlRes(Images.lvl5_res4, SceneManager, x, y);
+              lvlRes(Images.lvl5_res4, SceneManager, x, y, 46);
             }
             else
-              lvl(Images.lvl5, SceneManager, x, y);
+              lvl(Images.lvl5, SceneManager, x, y, 45);
           }
         }
       }
@@ -129,7 +129,7 @@ function cave(){
 
 
 
-function lvl(lvlX, SceneManager, x, y){
+function lvl(lvlX, SceneManager, x, y, Hp){
   SceneManager.Instance.mine.TC.GetLayer(y).push(
     new Tile(
       new Vector2(0 + 100 * x, 100 * y),
@@ -137,7 +137,8 @@ function lvl(lvlX, SceneManager, x, y){
       lvlX,
       2,
       EntityTypes.SolidTile,
-      SceneManager.Instance.mine
+      SceneManager.Instance.mine,
+      Hp
     )
   )
 }
@@ -155,7 +156,7 @@ function lvlBg(lvlX, SceneManager, x, y){
   )
 }
 
-function lvlRes(lvlX, SceneManager, x, y){
+function lvlRes(lvlX, SceneManager, x, y, Hp){
   SceneManager.Instance.mine.TC.GetLayer(y).push(
     new Tile(
       new Vector2(0 + 100 * x, 100 * y),
@@ -163,7 +164,8 @@ function lvlRes(lvlX, SceneManager, x, y){
       lvlX,
       2,
       EntityTypes.SolidTile,
-      SceneManager.Instance.mine
+      SceneManager.Instance.mine,
+      Hp
     )
   )
 }

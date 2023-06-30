@@ -806,7 +806,7 @@
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 30";
         resurse3.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 50";
-        Player.Instance.damage += 0.5;
+        Player.Instance.damage += 1;
       } else if (inventory_default.lvlPick == 2 && inventory_default.res1 >= 10 && inventory_default.res2 >= 30 && inventory_default.res3 >= 50) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
@@ -815,7 +815,7 @@
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 30";
         resurse3.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 50";
-        Player.Instance.damage += 0.5;
+        Player.Instance.damage += 1;
       } else if (inventory_default.lvlPick == 3 && inventory_default.res1 >= 10 && inventory_default.res3 >= 30 && inventory_default.res4 >= 50) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
@@ -824,7 +824,7 @@
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 30";
         resurse3.innerHTML = "\u0422\u0438\u0442\u0430\u043D 50";
-        Player.Instance.damage += 0.5;
+        Player.Instance.damage += 1;
       } else if (inventory_default.lvlPick == 4 && inventory_default.res1 >= 10 && inventory_default.res4 >= 30 && inventory_default.res5 >= 50) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
@@ -833,7 +833,7 @@
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0422\u0438\u0442\u0430\u043D 30";
         resurse3.innerHTML = "\u0414\u0440\u0430\u0433\u043E\u0446\u0456\u0439\u043D\u0438\u0439 \u043A\u0430\u043C\u0456\u043D\u044C 50";
-        Player.Instance.damage += 0.5;
+        Player.Instance.damage += 1;
       } else if (inventory_default.lvlPick == 5 && inventory_default.res1 >= 10 && inventory_default.res5 >= 30 && inventory_default.res6 >= 50) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
@@ -842,7 +842,7 @@
         resurse1.innerHTML = "";
         resurse2.innerHTML = "";
         resurse3.innerHTML = "";
-        Player.Instance.damage += 0.5;
+        Player.Instance.damage += 1;
       } else {
         alert("\u0423 \u0432\u0430\u0441 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442 \u0440\u0435\u0441\u0443\u0440\u0441\u043E\u0432!");
       }
@@ -871,7 +871,7 @@
     ladderUpFlag = false;
     velocityY = 0;
     speed = 500;
-    damage = 0.5;
+    damage = 1;
     SM;
     Direction = 1;
     //1 - right, 2 - left
@@ -1313,7 +1313,7 @@
         if (y == 6) {
           lvl1_grass(SceneManager, x, y);
         } else if (y < 10) {
-          lvl(Images.lvl1, SceneManager, x, y);
+          lvl(Images.lvl1, SceneManager, x, y, 5);
         } else {
           let r = Random2(1, 100);
           let rd = Random2(1, 2e3);
@@ -1356,54 +1356,54 @@
           } else {
             if (y >= 10 && y < 50) {
               if (r < 2) {
-                lvlRes(Images.lvl1_res2, SceneManager, x, y);
+                lvlRes(Images.lvl1_res2, SceneManager, x, y, 6);
               } else if (r < 5) {
-                lvlRes(Images.lvl1_res1, SceneManager, x, y);
+                lvlRes(Images.lvl1_res1, SceneManager, x, y, 7);
               } else
-                lvl(Images.lvl1, SceneManager, x, y);
+                lvl(Images.lvl1, SceneManager, x, y, 5);
             } else if (y >= 50 && y < 150) {
               if (r < 2) {
-                lvlRes(Images.lvl2_res3, SceneManager, x, y);
+                lvlRes(Images.lvl2_res3, SceneManager, x, y, 18);
               } else if (r < 5) {
-                lvlRes(Images.lvl2_res1, SceneManager, x, y);
+                lvlRes(Images.lvl2_res1, SceneManager, x, y, 16);
               } else if (r < 10) {
-                lvlRes(Images.lvl2_res2, SceneManager, x, y);
+                lvlRes(Images.lvl2_res2, SceneManager, x, y, 17);
               } else
-                lvl(Images.lvl2, SceneManager, x, y);
+                lvl(Images.lvl2, SceneManager, x, y, 15);
             } else if (y >= 150 && y < 250) {
               if (r < 2) {
-                lvlRes(Images.lvl3_res4, SceneManager, x, y);
+                lvlRes(Images.lvl3_res4, SceneManager, x, y, 28);
               } else if (r < 5) {
-                lvlRes(Images.lvl3_res3, SceneManager, x, y);
+                lvlRes(Images.lvl3_res3, SceneManager, x, y, 27);
               } else if (r < 10) {
-                lvlRes(Images.lvl3_res2, SceneManager, x, y);
+                lvlRes(Images.lvl3_res2, SceneManager, x, y, 26);
               } else
-                lvl(Images.lvl3, SceneManager, x, y);
+                lvl(Images.lvl3, SceneManager, x, y, 25);
             } else if (y >= 250 && y < 350) {
               if (r < 2) {
-                lvlRes(Images.lvl4_res5, SceneManager, x, y);
+                lvlRes(Images.lvl4_res5, SceneManager, x, y, 38);
               } else if (r < 5) {
-                lvlRes(Images.lvl4_res4, SceneManager, x, y);
+                lvlRes(Images.lvl4_res4, SceneManager, x, y, 37);
               } else if (r < 10) {
-                lvlRes(Images.lvl4_res3, SceneManager, x, y);
+                lvlRes(Images.lvl4_res3, SceneManager, x, y, 36);
               } else
-                lvl(Images.lvl4, SceneManager, x, y);
+                lvl(Images.lvl4, SceneManager, x, y, 35);
             } else if (y >= 350) {
               if (r < 2) {
-                lvlRes(Images.lvl5_res6, SceneManager, x, y);
+                lvlRes(Images.lvl5_res6, SceneManager, x, y, 48);
               } else if (r < 5) {
-                lvlRes(Images.lvl5_res5, SceneManager, x, y);
+                lvlRes(Images.lvl5_res5, SceneManager, x, y, 47);
               } else if (r < 10) {
-                lvlRes(Images.lvl5_res4, SceneManager, x, y);
+                lvlRes(Images.lvl5_res4, SceneManager, x, y, 46);
               } else
-                lvl(Images.lvl5, SceneManager, x, y);
+                lvl(Images.lvl5, SceneManager, x, y, 45);
             }
           }
         }
       }
     }
   }
-  function lvl(lvlX, SceneManager2, x, y) {
+  function lvl(lvlX, SceneManager2, x, y, Hp) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
@@ -1411,7 +1411,8 @@
         lvlX,
         2,
         EntityTypes.SolidTile,
-        SceneManager2.Instance.mine
+        SceneManager2.Instance.mine,
+        Hp
       )
     );
   }
@@ -1427,7 +1428,7 @@
       )
     );
   }
-  function lvlRes(lvlX, SceneManager2, x, y) {
+  function lvlRes(lvlX, SceneManager2, x, y, Hp) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
@@ -1435,7 +1436,8 @@
         lvlX,
         2,
         EntityTypes.SolidTile,
-        SceneManager2.Instance.mine
+        SceneManager2.Instance.mine,
+        Hp
       )
     );
   }
