@@ -35,6 +35,10 @@ let player = new Player(
 village(SM.town.TC);
 cave();
 
+window.onbeforeunload = function() {
+  return "Вы уверены, что хотите перезагрузить страницу?";
+};
+
 window.onload = () => game.Start()
 function Start() {
   Canvas.Instance.updateSize()
