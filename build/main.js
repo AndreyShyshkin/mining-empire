@@ -506,6 +506,8 @@
       this.maxHp = maxHp;
     }
     Draw(Context, Camera) {
+      if (this.transform.Position.X + this.transform.Size.X + Camera.X < 0 || this.transform.Position.X - this.transform.Size.X + Camera.X > 1920)
+        return;
       Context.drawImage(
         this.Image,
         this.transform.Position.X + Camera.X,
