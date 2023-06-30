@@ -776,12 +776,12 @@
   }
   function buyRes(resKey) {
     let res = prompt("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E:");
-    if (inventory_default.money < res * 20) {
+    if (inventory_default.money < res * coefficientsBuy[resKey] * 10) {
       alert("\u0423 \u0432\u0430\u0441 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442 \u0434\u0435\u043D\u0435\u0433!");
     } else {
       inventory_default[resKey] += res;
-      res = res * coefficientsBuy[resKey];
-      inventory_default.money -= res * 20;
+      res = res * coefficientsBuy[resKey] * 10;
+      inventory_default.money -= res;
     }
   }
   var market_default = marketLogic;

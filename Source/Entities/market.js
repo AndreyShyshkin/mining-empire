@@ -80,12 +80,12 @@ function sellRes(resKey) {
 
 function buyRes(resKey) {
     let res = prompt("Введите количество:");
-    if (resurse.money < res * 20) {
+    if (resurse.money < res * coefficientsBuy[resKey] * 10) {
         alert("У вас не хватает денег!");
     } else {
         resurse[resKey] += res
-        res = res * coefficientsBuy[resKey];
-        resurse.money -= res * 20;
+        res = res * coefficientsBuy[resKey] * 10;
+        resurse.money -= res;
     }
 }
 
