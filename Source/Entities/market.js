@@ -2,6 +2,7 @@ import resurse from "../Logic/inventory"
 let market = document.querySelector(".market")
 let sell = document.querySelector(".sell")
 let buy = document.querySelector(".buy")
+let selector = document.querySelector(".selector")
 let sellBlock = document.querySelector(".sellBlock")
 let sellRes1 = document.querySelector(".sellRes1")
 let sellRes2 = document.querySelector(".sellRes2")
@@ -41,12 +42,14 @@ function marketLogic(){
         sell.style.display = "none";
         buy.style.display = "none";
         sellBlock.style.display = "block";
+        selector.style.display = "none";
     });
     
     buy.addEventListener("click", (event) => {
         sell.style.display = "none";
         buy.style.display = "none";
         buyBlock.style.display = "block";
+        selector.style.display = "none";
     }); 
 
     const sellResButtons = [sellRes1, sellRes2, sellRes3, sellRes4, sellRes5, sellRes6];

@@ -9,46 +9,46 @@ function forgeLogic(){
     console.log(Player.Instance.damage)
     if(resurse.lvlPick == 1){
         resurse1.innerHTML = "Уголь 10"
-        resurse2.innerHTML = "Железо 30"
+        resurse2.innerHTML = "Железо 10"
     }
 
     createPick.addEventListener("click", (event) => {
-        if(resurse.lvlPick == 1 && resurse.res1 >= 10 && resurse.res2 >= 30){
+        if(resurse.lvlPick == 1 && resurse.res1 >= 10 && resurse.res2 >= 10){
             resurse.lvlPick += 1
             resurse.res1 -= 10
-            resurse.res2 -= 30
+            resurse.res2 -= 10
             resurse1.innerHTML = "Уголь 10"
-            resurse2.innerHTML = "Золото 30"
-            resurse3.innerHTML = "Железо 50"
+            resurse2.innerHTML = "Золото 20"
+            resurse3.innerHTML = "Железо 30"
             Player.Instance.damage += 1
-        }else if(resurse.lvlPick == 2 && resurse.res1 >= 10 && resurse.res2 >= 30 && resurse.res3 >= 50){
+        }else if(resurse.lvlPick == 2 && resurse.res1 >= 10 && resurse.res2 >= 20 && resurse.res3 >= 30){
             resurse.lvlPick += 1
             resurse.res1 -= 10
-            resurse.res2 -= 30
-            resurse.res3 -= 50
+            resurse.res2 -= 20
+            resurse.res3 -= 30
             resurse1.innerHTML = "Уголь 10"
             resurse2.innerHTML = "Золото 30"
-            resurse3.innerHTML = "Вольфрам 50"
+            resurse3.innerHTML = "Вольфрам 20"
             Player.Instance.damage += 1
-        }else if(resurse.lvlPick == 3 && resurse.res1 >= 10 && resurse.res3 >= 30 && resurse.res4 >= 50){
+        }else if(resurse.lvlPick == 3 && resurse.res1 >= 10 && resurse.res3 >= 30 && resurse.res4 >= 20){
             resurse.lvlPick += 1
             resurse.res1 -= 10
             resurse.res3 -= 30
-            resurse.res4 -= 50
+            resurse.res4 -= 20
             resurse1.innerHTML = "Уголь 10"
             resurse2.innerHTML = "Вольфрам 30"
-            resurse3.innerHTML = "Титан 50"
+            resurse3.innerHTML = "Титан 20"
             Player.Instance.damage += 1
-        }else if(resurse.lvlPick == 4 && resurse.res1 >= 10 && resurse.res4 >= 30 && resurse.res5 >= 50){
+        }else if(resurse.lvlPick == 4 && resurse.res1 >= 10 && resurse.res4 >= 30 && resurse.res5 >= 20){
             resurse.lvlPick += 1
             resurse.res1 -= 10
             resurse.res4 -= 30
-            resurse.res5 -= 50
+            resurse.res5 -= 20
             resurse1.innerHTML = "Уголь 10"
             resurse2.innerHTML = "Титан 30"
-            resurse3.innerHTML = "Драгоційний камінь 50"
+            resurse3.innerHTML = "Драгоційний камінь 20"
             Player.Instance.damage += 1
-        }else if(resurse.lvlPick == 5 && resurse.res1 >= 10 && resurse.res5 >= 30 && resurse.res6 >= 50){
+        }else if(resurse.lvlPick == 5 && resurse.res1 >= 10 && resurse.res5 >= 30 && resurse.res6 >= 20){
             resurse.lvlPick += 1
             resurse.res1 -= 10
             resurse.res5 -= 30

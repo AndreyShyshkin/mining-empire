@@ -82,22 +82,104 @@ canvas{
     position: absolute;
     width: 500px;
     height: 500px;
-    left: calc(50% - 25px);
-    top: calc(50% - 25px);
+    left: calc(50% - 250px);
+    top: calc(50% - 250px);
     color: white;
     display: none;
-    background-color: black;
+}
+
+.selector{
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    color: black;
+    font-size: 50px;
+}
+
+.sell{
+    margin: 20px;
+    background-color: goldenrod;
+    border: 5px solid sienna;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.buy{
+    margin: 20px;
+    background-color: goldenrod;
+    border: 5px solid sienna;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.sellBlock p{
+    font-size: 20px;
+    vertical-align: middle;
+    text-align: middle;
+}
+
+.cost{
+    display: flex;
+}
+
+.Settings{
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+}
+
+.sellBtn{
+    background-color: goldenrod;
+    border: 5px solid sienna;
+    border-radius: 20px;
+    width: 50px;
+}
+
+.buyBtn{
+    background-color: goldenrod;
+    border: 5px solid sienna;
+    border-radius: 20px;
+    width: 50px;
+}
+
+.frameMarket{
+    background-image: url("../Res/img/UI/Frame.png");
+    background-size: contain;
+    width: 75px;
+    height: 75px;
+    margin: 10px 0 10px 0;
 }
 
 .forge{
     position: absolute;
     width: 500px;
     height: 500px;
-    left: calc(50% - 25px);
-    top: calc(50% - 25px);
+    left: calc(50% - 250px);
+    top: calc(50% - 250px);
     color: white;
     display: none;
-    background-color: black;
+}
+
+.resurse{
+    background-color: goldenrod;
+    border: 5px solid sienna;
+    border-radius: 20px;
+    color: black;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.createPick{
+    background-color: goldenrod;
+    border: 5px solid sienna;
+    border-radius: 20px;
+    color: black;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.forge h2{
+    text-align: center;
 }
 
 .notification{

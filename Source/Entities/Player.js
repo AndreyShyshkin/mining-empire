@@ -22,6 +22,7 @@ let buy = document.querySelector(".buy")
 let sellBlock = document.querySelector(".sellBlock")
 let buyBlock = document.querySelector(".buyBlock")
 let forge = document.querySelector(".forge")
+let selector = document.querySelector(".selector")
 
 export class Player extends Entity {
   static Camera;
@@ -362,6 +363,7 @@ MarketCheck(entity){
           sellBlock.style.display = "none";
           buyBlock.style.display = "none";
           forge.style.display = "none";
+          selector.style.display = "flex";
         }else{
           market.style.display = "none";
           sell.style.display = "none";

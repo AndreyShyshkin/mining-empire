@@ -757,6 +757,7 @@
   var market = document.querySelector(".market");
   var sell = document.querySelector(".sell");
   var buy = document.querySelector(".buy");
+  var selector = document.querySelector(".selector");
   var sellBlock = document.querySelector(".sellBlock");
   var sellRes1 = document.querySelector(".sellRes1");
   var sellRes2 = document.querySelector(".sellRes2");
@@ -792,11 +793,13 @@
       sell.style.display = "none";
       buy.style.display = "none";
       sellBlock.style.display = "block";
+      selector.style.display = "none";
     });
     buy.addEventListener("click", (event) => {
       sell.style.display = "none";
       buy.style.display = "none";
       buyBlock.style.display = "block";
+      selector.style.display = "none";
     });
     const sellResButtons = [sellRes1, sellRes2, sellRes3, sellRes4, sellRes5, sellRes6];
     sellResButtons.forEach((button, index) => {
@@ -842,45 +845,45 @@
     console.log(Player.Instance.damage);
     if (inventory_default.lvlPick == 1) {
       resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
-      resurse2.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 30";
+      resurse2.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 10";
     }
     createPick.addEventListener("click", (event) => {
-      if (inventory_default.lvlPick == 1 && inventory_default.res1 >= 10 && inventory_default.res2 >= 30) {
+      if (inventory_default.lvlPick == 1 && inventory_default.res1 >= 10 && inventory_default.res2 >= 10) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
-        inventory_default.res2 -= 30;
+        inventory_default.res2 -= 10;
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
-        resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 30";
-        resurse3.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 50";
+        resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 20";
+        resurse3.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 30";
         Player.Instance.damage += 1;
-      } else if (inventory_default.lvlPick == 2 && inventory_default.res1 >= 10 && inventory_default.res2 >= 30 && inventory_default.res3 >= 50) {
+      } else if (inventory_default.lvlPick == 2 && inventory_default.res1 >= 10 && inventory_default.res2 >= 20 && inventory_default.res3 >= 30) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
-        inventory_default.res2 -= 30;
-        inventory_default.res3 -= 50;
+        inventory_default.res2 -= 20;
+        inventory_default.res3 -= 30;
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 30";
-        resurse3.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 50";
+        resurse3.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 20";
         Player.Instance.damage += 1;
-      } else if (inventory_default.lvlPick == 3 && inventory_default.res1 >= 10 && inventory_default.res3 >= 30 && inventory_default.res4 >= 50) {
+      } else if (inventory_default.lvlPick == 3 && inventory_default.res1 >= 10 && inventory_default.res3 >= 30 && inventory_default.res4 >= 20) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
         inventory_default.res3 -= 30;
-        inventory_default.res4 -= 50;
+        inventory_default.res4 -= 20;
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 30";
-        resurse3.innerHTML = "\u0422\u0438\u0442\u0430\u043D 50";
+        resurse3.innerHTML = "\u0422\u0438\u0442\u0430\u043D 20";
         Player.Instance.damage += 1;
-      } else if (inventory_default.lvlPick == 4 && inventory_default.res1 >= 10 && inventory_default.res4 >= 30 && inventory_default.res5 >= 50) {
+      } else if (inventory_default.lvlPick == 4 && inventory_default.res1 >= 10 && inventory_default.res4 >= 30 && inventory_default.res5 >= 20) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
         inventory_default.res4 -= 30;
-        inventory_default.res5 -= 50;
+        inventory_default.res5 -= 20;
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0422\u0438\u0442\u0430\u043D 30";
-        resurse3.innerHTML = "\u0414\u0440\u0430\u0433\u043E\u0446\u0456\u0439\u043D\u0438\u0439 \u043A\u0430\u043C\u0456\u043D\u044C 50";
+        resurse3.innerHTML = "\u0414\u0440\u0430\u0433\u043E\u0446\u0456\u0439\u043D\u0438\u0439 \u043A\u0430\u043C\u0456\u043D\u044C 20";
         Player.Instance.damage += 1;
-      } else if (inventory_default.lvlPick == 5 && inventory_default.res1 >= 10 && inventory_default.res5 >= 30 && inventory_default.res6 >= 50) {
+      } else if (inventory_default.lvlPick == 5 && inventory_default.res1 >= 10 && inventory_default.res5 >= 30 && inventory_default.res6 >= 20) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
         inventory_default.res5 -= 30;
@@ -904,6 +907,7 @@
   var sellBlock2 = document.querySelector(".sellBlock");
   var buyBlock2 = document.querySelector(".buyBlock");
   var forge = document.querySelector(".forge");
+  var selector2 = document.querySelector(".selector");
   var Player = class _Player extends Entity {
     static Camera;
     static Instance;
@@ -1233,6 +1237,7 @@
               sellBlock2.style.display = "none";
               buyBlock2.style.display = "none";
               forge.style.display = "none";
+              selector2.style.display = "flex";
             } else {
               market2.style.display = "none";
               sell2.style.display = "none";
