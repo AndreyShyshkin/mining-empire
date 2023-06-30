@@ -853,14 +853,14 @@
         inventory_default.res1 -= 10;
         inventory_default.res2 -= 10;
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
-        resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 20";
-        resurse3.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 30";
+        resurse2.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 30";
+        resurse3.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 20";
         Player.Instance.damage += 1;
-      } else if (inventory_default.lvlPick == 2 && inventory_default.res1 >= 10 && inventory_default.res2 >= 20 && inventory_default.res3 >= 30) {
+      } else if (inventory_default.lvlPick == 2 && inventory_default.res1 >= 10 && inventory_default.res2 >= 30 && inventory_default.res3 >= 20) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
-        inventory_default.res2 -= 20;
-        inventory_default.res3 -= 30;
+        inventory_default.res2 -= 30;
+        inventory_default.res3 -= 20;
         resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
         resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 30";
         resurse3.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 20";
