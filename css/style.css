@@ -1,4 +1,6 @@
 body{
+    z-index: -9999;
+    pointer-events: none;
     margin: 0;
     width: 100vw;
     height: 100vh;
@@ -7,6 +9,9 @@ body{
     align-items: center;
     background-color: black;
     font-size: min(2vh, 2vw)
+}
+body *{
+    pointer-events:all;
 }
 #game{
     width: 100%;
@@ -33,7 +38,9 @@ canvas{
 #game .layer *{
     position: absolute;
 }
-
+#game .UI{
+    z-index: 9999;
+}
 .frame {
     position: absolute;
     max-width: 50px;
