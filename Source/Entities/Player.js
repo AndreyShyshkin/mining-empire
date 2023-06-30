@@ -351,8 +351,8 @@ export class Player extends Entity {
 
 MarketCheck(entity){
     if(entity.Type === EntityTypes.Market){
+      if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
       if (Input.GetKeyState(69) && (Date.now() - lastPressTime) >= 500){// E
-        if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
         if(market.style.display == "none" || market.style.display == ""){
           market.style.display = "block";
           sell.style.display = "block";
@@ -370,14 +370,16 @@ MarketCheck(entity){
         }
         lastPressTime = Date.now();
         }
+    }else{
+      market.style.display = "none";
     }
   }
 }
 
 ForgeCheck(entity){
   if(entity.Type === EntityTypes.Forge){
-    if (Input.GetKeyState(69) && (Date.now() - lastPressTime) >= 500){// E
-      if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+    if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
+      if (Input.GetKeyState(69) && (Date.now() - lastPressTime) >= 500){// E
       if(forge.style.display == "none" || forge.style.display == ""){
         forge.style.display = "block";
         market.style.display = "none";
@@ -387,6 +389,8 @@ ForgeCheck(entity){
       }
       lastPressTime = Date.now();
       }
+  }else{
+    forge.style.display = "none";
   }
 }
 }

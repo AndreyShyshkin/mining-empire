@@ -64,7 +64,6 @@ function marketLogic(){
             buyRes(`res${index + 1}`);
         });
     })
-    
 }
 
 function sellRes(resKey) {
