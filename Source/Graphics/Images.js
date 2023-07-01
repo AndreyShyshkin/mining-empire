@@ -57,6 +57,7 @@ export class Images{
     static home2 = CreateImageByPath("Res/img/home2.png");
     static home3 = CreateImageByPath("Res/img/home3.png");
     static market = CreateImageByPath("Res/img/market.png");
+    static tree = CreateImageByPath("Res/img/tree.png");
 
     static damage1 = CreateImageByPath("Res/img/BlockDamage/Block damage1.png");
     static damage2 = CreateImageByPath("Res/img/BlockDamage/Block damage2.png");

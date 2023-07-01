@@ -7,7 +7,7 @@ import { EntityTypes } from "../Physics/EntityTypes";
 import { Cave } from "../Entities/Cave";
 function village(){
     for (let y = 5; y < 1000; y++) {
-      for (let x = -10; x < 30; x++) {
+      for (let x = -62; x < 62; x++) {
         if( y == 5 && x % 2 == 0 && x < 6){
           let r = Random(1, 3);
           switch (r){
@@ -34,7 +34,10 @@ function village(){
               home3(SceneManager.Instance.town.Entities, x, y);
               break;
           }
-        }else if( y == 5 && x == 6){
+        }else if(y == 5 && x % 5 == 0){ 
+          tree(SceneManager.Instance.town.Entities, x, y);
+        }
+        else if( y == 5 && x == 6){
           SceneManager.Instance.town.Entities.push(
             new Cave(
               new Vector2(0 + 100 * x, 100 * (y-1)),
@@ -102,7 +105,7 @@ function home1(Entities, x, y){
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
       Images.home1,
-      2,
+      1,
       EntityTypes.Building,
       SceneManager.Instance.town
     )
@@ -115,7 +118,7 @@ function home2(Entities, x, y){
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
       Images.home2,
-      2,
+      1,
       EntityTypes.Building,
       SceneManager.Instance.town
     )
@@ -128,6 +131,19 @@ function home3(Entities, x, y){
       new Vector2(0 + 100 * x, 100 * (y-1)),
       new Vector2(200, 200),
       Images.home3,
+      1,
+      EntityTypes.Building,
+      SceneManager.Instance.town
+    )
+  )
+}
+
+function tree(Entities, x, y){
+  Entities.push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * (y-1)),
+      new Vector2(200, 200),
+      Images.tree,
       2,
       EntityTypes.Building,
       SceneManager.Instance.town
