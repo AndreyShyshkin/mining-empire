@@ -241,8 +241,8 @@ function cross(SceneManager, x, y){
 function tree(Entities, x, y){
   Entities.push(
     new Tile(
-      new Vector2(0 + 100 * x, 100 * (y-1)),
-      new Vector2(400, 400),
+      new Vector2(0 + 100 * x, 100 * y),
+      new Vector2(200, 300),
       Images.tree,
       2,
       EntityTypes.Building,

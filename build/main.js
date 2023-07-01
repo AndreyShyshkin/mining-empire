@@ -1551,8 +1551,8 @@
   function tree(Entities, x, y) {
     Entities.push(
       new Tile(
-        new Vector2(0 + 100 * x, 100 * (y - 1)),
-        new Vector2(400, 400),
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(200, 300),
         Images.tree,
         2,
         EntityTypes.Building,
@@ -1581,6 +1581,13 @@
   function village() {
     for (let y = 3; y < 1e3; y++) {
       for (let x = -62; x < 62; x++) {
+        if (y == 3 && x % 5 == 0 && (x < 4 || x > 16)) {
+          tree2(SceneManager.Instance.town.Entities, x, y);
+        } else if (y == 3 && (x == 7 || x == 10)) {
+          tree2(SceneManager.Instance.town.Entities, x, y);
+        } else if (y == 3 && x == 15) {
+          tree2(SceneManager.Instance.town.Entities, x - 0.25, y);
+        }
         if (y == 3 && x % 4 == 0 && x < 5) {
           let r = Random3(1, 3);
           switch (r) {
@@ -1607,10 +1614,6 @@
               home3(SceneManager.Instance.town.Entities, x, y);
               break;
           }
-        } else if (y == 3 && x % 5 == 0 && (x < 4 || x > 16)) {
-          tree2(SceneManager.Instance.town.Entities, x, y);
-        } else if (y == 3 && (x == 6 || x == 9 || x == 14)) {
-          tree2(SceneManager.Instance.town.Entities, x, y);
         } else if (y == 5 && x == 8) {
           SceneManager.Instance.town.Entities.push(
             new Cave(
@@ -1709,8 +1712,8 @@
   function tree2(Entities, x, y) {
     Entities.push(
       new Tile(
-        new Vector2(0 + 100 * x, 100 * (y - 1)),
-        new Vector2(400, 400),
+        new Vector2(0 + 100 * x, 100 * y),
+        new Vector2(200, 300),
         Images.tree,
         2,
         EntityTypes.Building,
