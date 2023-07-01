@@ -113,9 +113,13 @@ canvas{
     margin: 0 auto;
 }
 
-.k img{
+.breaking{
     display: flex;
-    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.breaking span{
+    font-size: 50px;
 }
 
 .warning{
