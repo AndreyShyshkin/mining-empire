@@ -19,7 +19,7 @@
     static Instance = new _Canvas(3);
     Layers = [];
     UI;
-    constructor(LayersCount, UILayersCount) {
+    constructor(LayersCount) {
       this.LayersCount = LayersCount;
       this.canvas = document.querySelector("#game");
       this.WScale = 16;
@@ -601,22 +601,24 @@
       this.curHp -= damage;
     }
     OnDestroy() {
-      let newX = Math.floor(this.transform.Position.X / 100);
-      let newY = Math.floor(this.transform.Position.Y / 100);
-      if (newY < 50) {
-        createLvlBg(Images.lvl1bg, newX, newY);
+      this.Type = EntityTypes.BackGroundTile;
+      this.maxHp = 0;
+      this.curHp = 0;
+      let y = this.transform.Position.Y / 100;
+      if (y < 50) {
+        this.Image = Images.lvl1bg;
       }
-      if (newY >= 50 && newY < 150) {
-        createLvlBg(Images.lvl2bg, newX, newY);
+      if (y >= 50 && y < 150) {
+        this.Image = Images.lvl2bg;
       }
-      if (newY >= 150 && newY < 250) {
-        createLvlBg(Images.lvl3bg, newX, newY);
+      if (y >= 150 && y < 250) {
+        this.Image = Images.lvl3bg;
       }
-      if (newY >= 250 && newY < 350) {
-        createLvlBg(Images.lvl4bg, newX, newY);
+      if (y >= 250 && y < 350) {
+        this.Image = Images.lvl4bg;
       }
-      if (newY >= 350) {
-        createLvlBg(Images.lvl5bg, newX, newY);
+      if (y >= 350) {
+        this.Image = Images.lvl5bg;
       }
       if (this.Image == Images.lvl1_res1 || this.Image == Images.lvl2_res1 || this.Image == Images.lvl3_res1 || this.Image == Images.lvl4_res1 || this.Image == Images.lvl5_res1) {
         inventory_default.res1 += 1;
@@ -638,18 +640,6 @@
       }
     }
   };
-  function createLvlBg(lvlX, x, y) {
-    SceneManager.Instance.mine.TC.GetLayer(y).push(
-      new Tile(
-        new Vector2(0 + 100 * x, 100 * y),
-        new Vector2(100, 100),
-        lvlX,
-        1,
-        EntityTypes.BackGroundTile,
-        SceneManager.Instance.mine
-      )
-    );
-  }
 
   // Source/Entities/PlayerStates.js
   var PlayerStates = {
@@ -1086,7 +1076,6 @@
                       entity.GetDamage(this.damage);
                       if (entity.curHp <= 0) {
                         entity.OnDestroy();
-                        layer.splice(layer.indexOf(entity), 1);
                       }
                     }
                   }

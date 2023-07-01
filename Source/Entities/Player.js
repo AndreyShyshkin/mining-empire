@@ -215,7 +215,6 @@ export class Player extends Entity {
               entity.GetDamage(this.damage);
               if(entity.curHp <= 0){
                 entity.OnDestroy();
-                layer.splice(layer.indexOf(entity), 1);
               }
             }
           })

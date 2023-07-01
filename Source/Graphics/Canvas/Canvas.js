@@ -3,7 +3,7 @@ export class Canvas {
   static Instance = new Canvas(3);
   Layers = []
   UI
-  constructor(LayersCount, UILayersCount) {
+  constructor(LayersCount) {
     this.LayersCount = LayersCount
     this.canvas = document.querySelector("#game")
     this.WScale = 16
