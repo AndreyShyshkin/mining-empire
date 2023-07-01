@@ -8,7 +8,7 @@ import { Cave } from "../Entities/Cave";
 function cave(){
   for (let y = 6; y < 1000; y++) {
     for (let x = -62; x < 62; x++) {
-      if( y == 6 && x == 6){
+      if( y == 6 && x == 8){
         SceneManager.Instance.mine.Entities.push(
           new Cave(
             new Vector2(0 + 100 * x, 100 * (y-2)),
@@ -19,9 +19,16 @@ function cave(){
             SceneManager.Instance.mine
           )
       )
-    }
+    } 
       if (y == 6) {
-        lvl1_grass(SceneManager, x, y)
+        if(x % 4 == 0 && x != 8){
+          tree(SceneManager.Instance.mine.Entities, x, y-3);
+        }
+        if(x >= -50 && x <= 50){
+          lvl1_grass(SceneManager, x, y, 5)
+        }else{
+          lvl1_grass(SceneManager, x, y, 10000);
+        }
       } else if (y < 10){
         if(x >= -50 && x <= 50){
           lvl(Images.lvl1, SceneManager, x, y, 5);
@@ -191,7 +198,7 @@ function lvlRes(lvlX, SceneManager, x, y, Hp){
   )
 }
 
-function lvl1_grass(SceneManager, x, y){
+function lvl1_grass(SceneManager, x, y, Hp){
   SceneManager.Instance.mine.TC.GetLayer(y).push(
     new Tile(
       new Vector2(0 + 100 * x, 100 * y),
@@ -199,7 +206,8 @@ function lvl1_grass(SceneManager, x, y){
       Images.lvl1_grass,
       2,
       EntityTypes.SolidTile,
-      SceneManager.Instance.mine
+      SceneManager.Instance.mine,
+      Hp
     )
   )
 }
@@ -230,6 +238,19 @@ function cross(SceneManager, x, y){
   )  
 }
 
+function tree(Entities, x, y){
+  Entities.push(
+    new Tile(
+      new Vector2(0 + 100 * x, 100 * (y-1)),
+      new Vector2(400, 400),
+      Images.tree,
+      2,
+      EntityTypes.Building,
+      SceneManager.Instance.town
+    )
+  )
+}
+
 function Random(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -241,7 +262,7 @@ function removeBlockAtCoordinates(x, y) {
   for (let i = 0; i < layer.length; i++) {
     const block = layer[i];
     if (block.transform.Position.X === x * 100 && block.transform.Position.Y === y * 100) {
-      layer.splice(i, 1); // Удаление блока из массива
+      layer.splice(i, 1);
       break;
     }
   }

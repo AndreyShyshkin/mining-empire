@@ -6,9 +6,9 @@ import { SceneManager } from "../Logic/SceneManager";
 import { EntityTypes } from "../Physics/EntityTypes";
 import { Cave } from "../Entities/Cave";
 function village(){
-    for (let y = 5; y < 1000; y++) {
+    for (let y = 3; y < 1000; y++) {
       for (let x = -62; x < 62; x++) {
-        if( y == 5 && x % 2 == 0 && x < 6){
+        if( y == 3 && x % 4 == 0 && x < 5){
           let r = Random(1, 3);
           switch (r){
             case 1:
@@ -21,7 +21,7 @@ function village(){
               home3(SceneManager.Instance.town.Entities, x, y);
               break;
           }
-        }else if( y == 5 && x % 2 == 0 && x > 14){
+        }else if( y == 3 && x % 4 == 0 && x > 16){
           let r = Random(1, 3);
           switch (r){
             case 1:
@@ -34,10 +34,13 @@ function village(){
               home3(SceneManager.Instance.town.Entities, x, y);
               break;
           }
-        }else if(y == 5 && x % 5 == 0){ 
+        }else if(y == 3 && x % 5 == 0 && (x < 4 || x > 16)){ 
           tree(SceneManager.Instance.town.Entities, x, y);
         }
-        else if( y == 5 && x == 6){
+        else if(y == 3 && (x == 6 || x == 9 || x == 14)){
+          tree(SceneManager.Instance.town.Entities, x, y);
+        }
+        else if( y == 5 && x == 8){
           SceneManager.Instance.town.Entities.push(
             new Cave(
               new Vector2(0 + 100 * x, 100 * (y-1)),
@@ -48,22 +51,22 @@ function village(){
               SceneManager.Instance.town
             )
           )
-        }else if( y == 5 && x == 12){
+        }else if( y == 3 && x == 12){
           SceneManager.Instance.town.Entities.push(
             new Tile(
-              new Vector2(0 + 100 * x, 100 * (y-1)),
-              new Vector2(200, 200),
+              new Vector2(0 + 100 * (x - 0.5), 100 * (y-1)),
+              new Vector2(400, 400),
               Images.market,
               2,
               EntityTypes.Market,
               SceneManager.Instance.town
             )
           )
-        }else if( y == 5 && x == 14){
+        }else if( y == 3 && x == 16){
           SceneManager.Instance.town.Entities.push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y-1)),
-              new Vector2(200, 200),
+              new Vector2(400, 400),
               Images.forge,
               2,
               EntityTypes.Forge,
@@ -103,7 +106,7 @@ function home1(Entities, x, y){
   Entities.push(
     new Tile(
       new Vector2(0 + 100 * x, 100 * (y-1)),
-      new Vector2(200, 200),
+      new Vector2(400, 400),
       Images.home1,
       1,
       EntityTypes.Building,
@@ -116,7 +119,7 @@ function home2(Entities, x, y){
   Entities.push(
     new Tile(
       new Vector2(0 + 100 * x, 100 * (y-1)),
-      new Vector2(200, 200),
+      new Vector2(400, 400),
       Images.home2,
       1,
       EntityTypes.Building,
@@ -129,7 +132,7 @@ function home3(Entities, x, y){
   Entities.push(
     new Tile(
       new Vector2(0 + 100 * x, 100 * (y-1)),
-      new Vector2(200, 200),
+      new Vector2(400, 400),
       Images.home3,
       1,
       EntityTypes.Building,
@@ -142,7 +145,7 @@ function tree(Entities, x, y){
   Entities.push(
     new Tile(
       new Vector2(0 + 100 * x, 100 * (y-1)),
-      new Vector2(200, 200),
+      new Vector2(400, 400),
       Images.tree,
       2,
       EntityTypes.Building,

@@ -1337,7 +1337,7 @@
   function cave() {
     for (let y = 6; y < 1e3; y++) {
       for (let x = -62; x < 62; x++) {
-        if (y == 6 && x == 6) {
+        if (y == 6 && x == 8) {
           SceneManager.Instance.mine.Entities.push(
             new Cave(
               new Vector2(0 + 100 * x, 100 * (y - 2)),
@@ -1350,7 +1350,14 @@
           );
         }
         if (y == 6) {
-          lvl1_grass(SceneManager, x, y);
+          if (x % 4 == 0 && x != 8) {
+            tree(SceneManager.Instance.mine.Entities, x, y - 3);
+          }
+          if (x >= -50 && x <= 50) {
+            lvl1_grass(SceneManager, x, y, 5);
+          } else {
+            lvl1_grass(SceneManager, x, y, 1e4);
+          }
         } else if (y < 10) {
           if (x >= -50 && x <= 50) {
             lvl(Images.lvl1, SceneManager, x, y, 5);
@@ -1504,7 +1511,7 @@
       )
     );
   }
-  function lvl1_grass(SceneManager2, x, y) {
+  function lvl1_grass(SceneManager2, x, y, Hp) {
     SceneManager2.Instance.mine.TC.GetLayer(y).push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * y),
@@ -1512,7 +1519,8 @@
         Images.lvl1_grass,
         2,
         EntityTypes.SolidTile,
-        SceneManager2.Instance.mine
+        SceneManager2.Instance.mine,
+        Hp
       )
     );
   }
@@ -1540,6 +1548,18 @@
       )
     );
   }
+  function tree(Entities, x, y) {
+    Entities.push(
+      new Tile(
+        new Vector2(0 + 100 * x, 100 * (y - 1)),
+        new Vector2(400, 400),
+        Images.tree,
+        2,
+        EntityTypes.Building,
+        SceneManager.Instance.town
+      )
+    );
+  }
   function Random2(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -1559,9 +1579,9 @@
 
   // Source/Map/village.js
   function village() {
-    for (let y = 5; y < 1e3; y++) {
+    for (let y = 3; y < 1e3; y++) {
       for (let x = -62; x < 62; x++) {
-        if (y == 5 && x % 2 == 0 && x < 6) {
+        if (y == 3 && x % 4 == 0 && x < 5) {
           let r = Random3(1, 3);
           switch (r) {
             case 1:
@@ -1574,7 +1594,7 @@
               home3(SceneManager.Instance.town.Entities, x, y);
               break;
           }
-        } else if (y == 5 && x % 2 == 0 && x > 14) {
+        } else if (y == 3 && x % 4 == 0 && x > 16) {
           let r = Random3(1, 3);
           switch (r) {
             case 1:
@@ -1587,9 +1607,11 @@
               home3(SceneManager.Instance.town.Entities, x, y);
               break;
           }
-        } else if (y == 5 && x % 5 == 0) {
-          tree(SceneManager.Instance.town.Entities, x, y);
-        } else if (y == 5 && x == 6) {
+        } else if (y == 3 && x % 5 == 0 && (x < 4 || x > 16)) {
+          tree2(SceneManager.Instance.town.Entities, x, y);
+        } else if (y == 3 && (x == 6 || x == 9 || x == 14)) {
+          tree2(SceneManager.Instance.town.Entities, x, y);
+        } else if (y == 5 && x == 8) {
           SceneManager.Instance.town.Entities.push(
             new Cave(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
@@ -1600,22 +1622,22 @@
               SceneManager.Instance.town
             )
           );
-        } else if (y == 5 && x == 12) {
+        } else if (y == 3 && x == 12) {
           SceneManager.Instance.town.Entities.push(
             new Tile(
-              new Vector2(0 + 100 * x, 100 * (y - 1)),
-              new Vector2(200, 200),
+              new Vector2(0 + 100 * (x - 0.5), 100 * (y - 1)),
+              new Vector2(400, 400),
               Images.market,
               2,
               EntityTypes.Market,
               SceneManager.Instance.town
             )
           );
-        } else if (y == 5 && x == 14) {
+        } else if (y == 3 && x == 16) {
           SceneManager.Instance.town.Entities.push(
             new Tile(
               new Vector2(0 + 100 * x, 100 * (y - 1)),
-              new Vector2(200, 200),
+              new Vector2(400, 400),
               Images.forge,
               2,
               EntityTypes.Forge,
@@ -1652,7 +1674,7 @@
     Entities.push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * (y - 1)),
-        new Vector2(200, 200),
+        new Vector2(400, 400),
         Images.home1,
         1,
         EntityTypes.Building,
@@ -1664,7 +1686,7 @@
     Entities.push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * (y - 1)),
-        new Vector2(200, 200),
+        new Vector2(400, 400),
         Images.home2,
         1,
         EntityTypes.Building,
@@ -1676,7 +1698,7 @@
     Entities.push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * (y - 1)),
-        new Vector2(200, 200),
+        new Vector2(400, 400),
         Images.home3,
         1,
         EntityTypes.Building,
@@ -1684,11 +1706,11 @@
       )
     );
   }
-  function tree(Entities, x, y) {
+  function tree2(Entities, x, y) {
     Entities.push(
       new Tile(
         new Vector2(0 + 100 * x, 100 * (y - 1)),
-        new Vector2(200, 200),
+        new Vector2(400, 400),
         Images.tree,
         2,
         EntityTypes.Building,
