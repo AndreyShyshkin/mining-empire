@@ -1140,11 +1140,11 @@
       Entities.forEach((entity) => {
         if (!(entity === this)) {
           if (entity.Type === EntityTypes.SolidTile) {
-            if (Collisions.AABBtoAABB(entity.GetCollider(), Left)) {
+            if (Collisions.AABBtoAABB(entity.GetCollider(), Left) || this.transform.Position.X <= -5e3) {
               this.leftCollision = true;
               leftFlag = true;
             }
-            if (Collisions.AABBtoAABB(entity.GetCollider(), Right)) {
+            if (Collisions.AABBtoAABB(entity.GetCollider(), Right) || this.transform.Position.X >= 4900) {
               this.rightCollision = true;
               rightFlag = true;
             }
@@ -1155,11 +1155,14 @@
                 this.velocityY = 0;
               }
             }
-            if (Collisions.AABBtoAABB(entity.GetCollider(), Bottom)) {
+            if (Collisions.AABBtoAABB(entity.GetCollider(), Bottom) || this.transform.Position.Y >= 99e3) {
               bottomFlag = true;
               this.bottomCollision = true;
               this.velocityY = 0;
-              this.transform.Position.Y = entity.transform.Position.Y - this.transform.Size.Y;
+              if (this.transform.Position.Y <= 99e3)
+                this.transform.Position.Y = entity.transform.Position.Y - this.transform.Size.Y;
+              else
+                this.transform.Position.Y = 99e3;
               let d = this.transform.Position.Y - (entity.transform.Position.Y - this.transform.Size.Y);
               if (d > 0) {
                 d = Math.floor(d);

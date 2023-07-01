@@ -279,11 +279,11 @@ export class Player extends Entity {
       if (!(entity === this)) {
         if(entity.Type === EntityTypes.SolidTile){
           
-          if (Collisions.AABBtoAABB(entity.GetCollider(), Left)) {
+          if (Collisions.AABBtoAABB(entity.GetCollider(), Left) || this.transform.Position.X <= -5000) {
             this.leftCollision = true;
             leftFlag = true;
           }
-          if (Collisions.AABBtoAABB(entity.GetCollider(), Right)) {
+          if (Collisions.AABBtoAABB(entity.GetCollider(), Right)|| this.transform.Position.X >= 4900) {
             this.rightCollision = true;
             rightFlag = true;
           }
@@ -294,11 +294,14 @@ export class Player extends Entity {
               this.velocityY = 0;
             }
           }
-          if (Collisions.AABBtoAABB(entity.GetCollider(), Bottom)) {
+          if (Collisions.AABBtoAABB(entity.GetCollider(), Bottom) || this.transform.Position.Y >= 99000) {
             bottomFlag = true;
             this.bottomCollision = true;
             this.velocityY = 0;
+            if( this.transform.Position.Y <= 99000)
             this.transform.Position.Y = entity.transform.Position.Y - this.transform.Size.Y;
+            else
+            this.transform.Position.Y = 99000;
             let d =  this.transform.Position.Y - (entity.transform.Position.Y - this.transform.Size.Y);
             if (d > 0) {
               d = Math.floor(d)
