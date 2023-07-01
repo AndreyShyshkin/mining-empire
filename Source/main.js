@@ -7,6 +7,7 @@ import cave from "./Map/cave";
 import village from "./Map/village";
 import { SceneManager } from "./Logic/SceneManager"
 import resurse from "./Logic/inventory"
+import { Images } from "./Graphics/Images"
 
 let money = document.querySelector(".money");
 let res1 = document.querySelector(".res1");
@@ -46,6 +47,7 @@ window.onbeforeunload = function() {
 window.onload = () => game.Start()
 function Start() {
   Canvas.Instance.updateSize()
+  Canvas.Instance.GetLayerContext(0).drawImage(Images.back, 0, 0);
 }
 function Update() {
   let entities = [];
@@ -63,7 +65,6 @@ function Update() {
   const layer2Context = Canvas.Instance.GetLayerContext(2);
   layer1Context.clearRect(0, 0, 1920, 1080);
   layer2Context.clearRect(0, 0, 1920, 1080);
-  //canvas.GetLayerContext(0)!.drawImage(img, 0, 0);
   SM.currentScene.Draw();
   player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
 

@@ -58,8 +58,10 @@ export class Images{
     static home3 = CreateImageByPath("Res/img/home3.png");
     static market = CreateImageByPath("Res/img/market.png");
 
-    static damage1 = CreateImageByPath("Res/img/BlockDamage/Block damage1.png")
-    static damage2 = CreateImageByPath("Res/img/BlockDamage/Block damage2.png")
-    static damage3 = CreateImageByPath("Res/img/BlockDamage/Block damage3.png")
-    static damage4 = CreateImageByPath("Res/img/BlockDamage/Block damage4.png")
+    static damage1 = CreateImageByPath("Res/img/BlockDamage/Block damage1.png");
+    static damage2 = CreateImageByPath("Res/img/BlockDamage/Block damage2.png");
+    static damage3 = CreateImageByPath("Res/img/BlockDamage/Block damage3.png");
+    static damage4 = CreateImageByPath("Res/img/BlockDamage/Block damage4.png");
+
+    static back = CreateImageByPath("Res/img/bg.png");
 }

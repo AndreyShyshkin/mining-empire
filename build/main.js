@@ -468,6 +468,7 @@
     static damage2 = CreateImageByPath("Res/img/BlockDamage/Block damage2.png");
     static damage3 = CreateImageByPath("Res/img/BlockDamage/Block damage3.png");
     static damage4 = CreateImageByPath("Res/img/BlockDamage/Block damage4.png");
+    static back = CreateImageByPath("Res/img/bg.png");
   };
 
   // Source/Physics/EntityTypes.js
@@ -1707,6 +1708,7 @@
   window.onload = () => game.Start();
   function Start() {
     Canvas.Instance.updateSize();
+    Canvas.Instance.GetLayerContext(0).drawImage(Images.back, 0, 0);
   }
   function Update() {
     let entities = [];
