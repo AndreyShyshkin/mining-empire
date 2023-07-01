@@ -1673,6 +1673,8 @@
   var village_default = village;
 
   // Source/main.js
+  var startGame = document.querySelector("#startGame");
+  var startScreen = document.querySelector(".startScreen");
   var money = document.querySelector(".money");
   var res1 = document.querySelector(".res1");
   var res2 = document.querySelector(".res2");
@@ -1705,6 +1707,19 @@
   window.onbeforeunload = function() {
     return "Are you sure?";
   };
+  startGame.addEventListener("click", (event) => {
+    startScreen.style.display = "none";
+    let element = document.documentElement;
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+  });
   window.onload = () => game.Start();
   function Start() {
     Canvas.Instance.updateSize();

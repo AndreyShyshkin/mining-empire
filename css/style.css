@@ -58,6 +58,91 @@ canvas{
     top: 20px;
     color: white;
 }
+
+.startScreen{
+    width: 100%;
+    height: 100%;
+    background-image: url("../Res/img/bg.png");
+    position: absolute;
+    z-index: 999;
+}
+
+.startScreen h1{
+    display: flex;
+    justify-content: center;
+    font-size: 100px;
+}
+
+.startScreen h2{
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+}
+
+.control{
+    display: flex;
+    justify-content: space-between;
+    margin: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.control p{
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.button{
+    width: 65px;
+}
+
+.wasd img{
+    width: 200px;
+    display: flex;
+    margin: 0 auto;
+}
+
+.e img{
+    display: flex;
+    margin: 0 auto;
+}
+
+.x img{
+    display: flex;
+    margin: 0 auto;
+}
+
+.k img{
+    display: flex;
+    margin: 0 auto;
+}
+
+.warning{
+    color: yellow;
+}
+
+.warningText{
+    font-size: 30px;
+    padding-left: 300px;
+    padding-right: 300px;
+    text-align: center;
+}
+
+#startGame{
+    display: flex;
+    margin: 0 auto;
+    font-size: 30px;
+    background-color: goldenrod;
+    border: 5px solid sienna;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+#startGame:hover{
+    cursor: pointer;
+}
+
 .frame {
     margin: 0;
     position: absolute;

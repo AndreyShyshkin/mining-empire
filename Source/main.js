@@ -9,6 +9,8 @@ import { SceneManager } from "./Logic/SceneManager"
 import resurse from "./Logic/inventory"
 import { Images } from "./Graphics/Images"
 
+let startGame = document.querySelector("#startGame");
+let startScreen = document.querySelector(".startScreen");
 let money = document.querySelector(".money");
 let res1 = document.querySelector(".res1");
 let res2 = document.querySelector(".res2");
@@ -43,6 +45,25 @@ cave();
 window.onbeforeunload = function() {
   return "Are you sure?";
 };
+
+startGame.addEventListener("click", (event) => {
+  startScreen.style.display = "none";
+
+  let element = document.documentElement;
+
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    }
+    else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    }
+    else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    }
+    else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+});
 
 window.onload = () => game.Start()
 function Start() {
