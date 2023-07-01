@@ -6,24 +6,24 @@ import { EntityTypes } from "../Physics/EntityTypes";
 import { Cave } from "../Entities/Cave";
 
 function cave(){
+  for (let x = -62; x < 62; x++)
+  if(x % 4 == 0 && x != 8){
+    tree(SceneManager.Instance.mine.Entities, x);
+  }
+  SceneManager.Instance.mine.Entities.push(
+    new Cave(
+      new Vector2(800, 400),
+      new Vector2(300, 200),
+        Images.cave,
+        2,
+        EntityTypes.Cave,
+        SceneManager.Instance.mine
+      )
+  )
   for (let y = 6; y < 1000; y++) {
     for (let x = -62; x < 62; x++) {
-      if( y == 6 && x == 8){
-        SceneManager.Instance.mine.Entities.push(
-          new Cave(
-            new Vector2(0 + 100 * x, 100 * (y-2)),
-            new Vector2(300, 200),
-            Images.cave,
-            2,
-            EntityTypes.Cave,
-            SceneManager.Instance.mine
-          )
-      )
-    } 
       if (y == 6) {
-        if(x % 4 == 0 && x != 8){
-          tree(SceneManager.Instance.mine.Entities, x, y-3);
-        }
+
         if(x >= -50 && x <= 50){
           lvl1_grass(SceneManager, x, y, 5)
         }else{
@@ -238,10 +238,10 @@ function cross(SceneManager, x, y){
   )  
 }
 
-function tree(Entities, x, y){
+function tree(Entities, x){
   Entities.push(
     new Tile(
-      new Vector2(0 + 100 * x, 100 * y),
+      new Vector2(100 * x + 50, 300),
       new Vector2(200, 300),
       Images.tree,
       2,
