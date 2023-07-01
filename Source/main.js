@@ -1,17 +1,21 @@
 import { Canvas } from "./Graphics/Canvas/Canvas"
 import { Vector2 } from "./Math/Vector2"
-import { Input } from "./Logic/Input"
 import { Game } from "./Logic/Game"
-import { Time } from "./Logic/Time"
 import { Player } from "./Entities/Player"
-import { TileController } from "./Entities/TileController"
 import { CreateImageByPath } from "./Logic/RenderImage"
 import cave from "./Map/cave";
 import village from "./Map/village";
 import { SceneManager } from "./Logic/SceneManager"
-import { Images } from "./Graphics/Images"
-import { Collisions } from "./Physics/Collisions"
 import resurse from "./Logic/inventory"
+
+let money = document.querySelector(".money");
+let res1 = document.querySelector(".res1");
+let res2 = document.querySelector(".res2");
+let res3 = document.querySelector(".res3");
+let res4 = document.querySelector(".res4");
+let res5 = document.querySelector(".res5");
+let res6 = document.querySelector(".res6");
+
 let game = new Game(
   Start,
   Update,
@@ -62,14 +66,6 @@ function Update() {
   //canvas.GetLayerContext(0)!.drawImage(img, 0, 0);
   SM.currentScene.Draw();
   player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
-
-  let money = document.querySelector(".money");
-  let res1 = document.querySelector(".res1");
-  let res2 = document.querySelector(".res2");
-  let res3 = document.querySelector(".res3");
-  let res4 = document.querySelector(".res4");
-  let res5 = document.querySelector(".res5");
-  let res6 = document.querySelector(".res6");
 
   money.innerHTML = resurse.money;
   res1.innerHTML = resurse.res1;

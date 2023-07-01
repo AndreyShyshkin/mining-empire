@@ -126,6 +126,10 @@ canvas{
     text-align: middle;
 }
 
+.piece{
+    padding: 15px;
+}
+
 .cost{
     display: flex;
 }
@@ -143,6 +147,9 @@ canvas{
     width: 50px;
     display: flex;
     justify-content: center;
+    color: black;
+    margin: 25px;
+    padding: 10px;
 }
 
 .sellBtn:hover{
@@ -156,6 +163,9 @@ canvas{
     width: 50px;
     display: flex;
     justify-content: center;
+    color: black;
+    margin: 25px;
+    padding: 10px;
 }
 
 .buyBtn:hover{

@@ -1,4 +1,3 @@
-import { CreateImageByPath } from "../Logic/RenderImage"
 import { Tile } from "../Entities/Tile"
 import { Vector2 } from "../Math/Vector2"
 import { Images } from "../Graphics/Images";

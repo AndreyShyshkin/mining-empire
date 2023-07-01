@@ -358,16 +358,12 @@ MarketCheck(entity){
       if (Input.GetKeyState(69) && (Date.now() - lastPressTime) >= 500){// E
         if(market.style.display == "none" || market.style.display == ""){
           market.style.display = "block";
-          sell.style.display = "block";
-          buy.style.display = "block";
           sellBlock.style.display = "none";
           buyBlock.style.display = "none";
           forge.style.display = "none";
           selector.style.display = "flex";
         }else{
           market.style.display = "none";
-          sell.style.display = "none";
-          buy.style.display = "none";
           sellBlock.style.display = "block";
           buyBlock.style.display = "block";
           forge.style.display = "none";

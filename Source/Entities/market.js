@@ -1,5 +1,4 @@
 import resurse from "../Logic/inventory"
-let market = document.querySelector(".market")
 let sell = document.querySelector(".sell")
 let buy = document.querySelector(".buy")
 let selector = document.querySelector(".selector")
@@ -39,15 +38,11 @@ const coefficientsBuy = {
 
 function marketLogic(){
     sell.addEventListener("click", (event) => {
-        sell.style.display = "none";
-        buy.style.display = "none";
         sellBlock.style.display = "block";
         selector.style.display = "none";
     });
     
     buy.addEventListener("click", (event) => {
-        sell.style.display = "none";
-        buy.style.display = "none";
         buyBlock.style.display = "block";
         selector.style.display = "none";
     }); 

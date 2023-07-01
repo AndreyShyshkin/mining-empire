@@ -164,6 +164,29 @@
     }
   };
 
+  // Source/Logic/Time.js
+  var Time = class _Time {
+    static deltaTime = (_Time.curTime - _Time.prevTime) / 1e3;
+    static Init() {
+      _Time.prevTime = performance.now();
+      _Time.curTime = performance.now();
+      window.addEventListener("focus", () => _Time.OnFocus());
+    }
+    static Update() {
+      _Time.curTime = performance.now();
+      _Time.deltaTime = (_Time.curTime - _Time.prevTime) / 1e3;
+      _Time.prevTime = _Time.curTime;
+    }
+    static OnFocus() {
+      _Time.prevTime = performance.now();
+      _Time.curTime = performance.now();
+      _Time.Update();
+    }
+    static get DeltaTime() {
+      return _Time.deltaTime;
+    }
+  };
+
   // Source/Logic/Input.js
   var Input = class _Input {
     static activeKeys = [];
@@ -199,29 +222,6 @@
     }
     static GetKeyState(keyCode) {
       return this.activeKeys.includes(keyCode);
-    }
-  };
-
-  // Source/Logic/Time.js
-  var Time = class _Time {
-    static deltaTime = (_Time.curTime - _Time.prevTime) / 1e3;
-    static Init() {
-      _Time.prevTime = performance.now();
-      _Time.curTime = performance.now();
-      window.addEventListener("focus", () => _Time.OnFocus());
-    }
-    static Update() {
-      _Time.curTime = performance.now();
-      _Time.deltaTime = (_Time.curTime - _Time.prevTime) / 1e3;
-      _Time.prevTime = _Time.curTime;
-    }
-    static OnFocus() {
-      _Time.prevTime = performance.now();
-      _Time.curTime = performance.now();
-      _Time.Update();
-    }
-    static get DeltaTime() {
-      return _Time.deltaTime;
     }
   };
 
@@ -754,7 +754,6 @@
   };
 
   // Source/Entities/market.js
-  var market = document.querySelector(".market");
   var sell = document.querySelector(".sell");
   var buy = document.querySelector(".buy");
   var selector = document.querySelector(".selector");
@@ -790,14 +789,10 @@
   };
   function marketLogic() {
     sell.addEventListener("click", (event) => {
-      sell.style.display = "none";
-      buy.style.display = "none";
       sellBlock.style.display = "block";
       selector.style.display = "none";
     });
     buy.addEventListener("click", (event) => {
-      sell.style.display = "none";
-      buy.style.display = "none";
       buyBlock.style.display = "block";
       selector.style.display = "none";
     });
@@ -901,7 +896,7 @@
 
   // Source/Entities/Player.js
   var lastPressTime = 0;
-  var market2 = document.querySelector(".market");
+  var market = document.querySelector(".market");
   var sell2 = document.querySelector(".sell");
   var buy2 = document.querySelector(".buy");
   var sellBlock2 = document.querySelector(".sellBlock");
@@ -1230,18 +1225,14 @@
       if (entity.Type === EntityTypes.Market) {
         if (Collisions.AABBtoAABB(this.GetCollider(), entity.GetCollider())) {
           if (Input.GetKeyState(69) && Date.now() - lastPressTime >= 500) {
-            if (market2.style.display == "none" || market2.style.display == "") {
-              market2.style.display = "block";
-              sell2.style.display = "block";
-              buy2.style.display = "block";
+            if (market.style.display == "none" || market.style.display == "") {
+              market.style.display = "block";
               sellBlock2.style.display = "none";
               buyBlock2.style.display = "none";
               forge.style.display = "none";
               selector2.style.display = "flex";
             } else {
-              market2.style.display = "none";
-              sell2.style.display = "none";
-              buy2.style.display = "none";
+              market.style.display = "none";
               sellBlock2.style.display = "block";
               buyBlock2.style.display = "block";
               forge.style.display = "none";
@@ -1249,7 +1240,7 @@
             lastPressTime = Date.now();
           }
         } else {
-          market2.style.display = "none";
+          market.style.display = "none";
         }
       }
     }
@@ -1259,10 +1250,10 @@
           if (Input.GetKeyState(69) && Date.now() - lastPressTime >= 500) {
             if (forge.style.display == "none" || forge.style.display == "") {
               forge.style.display = "block";
-              market2.style.display = "none";
+              market.style.display = "none";
             } else {
               forge.style.display = "none";
-              market2.style.display = "none";
+              market.style.display = "none";
             }
             lastPressTime = Date.now();
           }
@@ -1681,6 +1672,13 @@
   var village_default = village;
 
   // Source/main.js
+  var money = document.querySelector(".money");
+  var res1 = document.querySelector(".res1");
+  var res2 = document.querySelector(".res2");
+  var res3 = document.querySelector(".res3");
+  var res4 = document.querySelector(".res4");
+  var res5 = document.querySelector(".res5");
+  var res6 = document.querySelector(".res6");
   var game = new Game(
     Start,
     Update,
@@ -1728,13 +1726,6 @@
     layer2Context.clearRect(0, 0, 1920, 1080);
     SM.currentScene.Draw();
     player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
-    let money = document.querySelector(".money");
-    let res1 = document.querySelector(".res1");
-    let res2 = document.querySelector(".res2");
-    let res3 = document.querySelector(".res3");
-    let res4 = document.querySelector(".res4");
-    let res5 = document.querySelector(".res5");
-    let res6 = document.querySelector(".res6");
     money.innerHTML = inventory_default.money;
     res1.innerHTML = inventory_default.res1;
     res2.innerHTML = inventory_default.res2;
