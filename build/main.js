@@ -602,6 +602,24 @@
       this.curHp -= damage;
     }
     OnDestroy() {
+      if (this.Image == Images.lvl1_res1 || this.Image == Images.lvl2_res1 || this.Image == Images.lvl3_res1 || this.Image == Images.lvl4_res1 || this.Image == Images.lvl5_res1) {
+        inventory_default.res1 += 1;
+      }
+      if (this.Image == Images.lvl1_res2 || this.Image == Images.lvl2_res2 || this.Image == Images.lvl3_res2 || this.Image == Images.lvl4_res2 || this.Image == Images.lvl5_res2) {
+        inventory_default.res2 += 1;
+      }
+      if (this.Image == Images.lvl1_res3 || this.Image == Images.lvl2_res3 || this.Image == Images.lvl3_res3 || this.Image == Images.lvl4_res3 || this.Image == Images.lvl5_res3) {
+        inventory_default.res3 += 1;
+      }
+      if (this.Image == Images.lvl1_res4 || this.Image == Images.lvl2_res4 || this.Image == Images.lvl3_res4 || this.Image == Images.lvl4_res4 || this.Image == Images.lvl5_res4) {
+        inventory_default.res4 += 1;
+      }
+      if (this.Image == Images.lvl1_res5 || this.Image == Images.lvl2_res5 || this.Image == Images.lvl3_res5 || this.Image == Images.lvl4_res5 || this.Image == Images.lvl5_res5) {
+        inventory_default.res5 += 1;
+      }
+      if (this.Image == Images.lvl1_res6 || this.Image == Images.lvl2_res6 || this.Image == Images.lvl3_res6 || this.Image == Images.lvl4_res6 || this.Image == Images.lvl5_res6) {
+        inventory_default.res6 += 1;
+      }
       this.Type = EntityTypes.BackGroundTile;
       this.maxHp = 0;
       this.curHp = 0;
@@ -620,24 +638,6 @@
       }
       if (y >= 350) {
         this.Image = Images.lvl5bg;
-      }
-      if (this.Image == Images.lvl1_res1 || this.Image == Images.lvl2_res1 || this.Image == Images.lvl3_res1 || this.Image == Images.lvl4_res1 || this.Image == Images.lvl5_res1) {
-        inventory_default.res1 += 1;
-      }
-      if (this.Image == Images.lvl1_res2 || this.Image == Images.lvl2_res2 || this.Image == Images.lvl3_res2 || this.Image == Images.lvl4_res2 || this.Image == Images.lvl5_res2) {
-        inventory_default.res2 += 1;
-      }
-      if (this.Image == Images.lvl1_res3 || this.Image == Images.lvl2_res3 || this.Image == Images.lvl3_res3 || this.Image == Images.lvl4_res3 || this.Image == Images.lvl5_res3) {
-        inventory_default.res3 += 1;
-      }
-      if (this.Image == Images.lvl1_res4 || this.Image == Images.lvl2_res4 || this.Image == Images.lvl3_res4 || this.Image == Images.lvl4_res4 || this.Image == Images.lvl5_res4) {
-        inventory_default.res4 += 1;
-      }
-      if (this.Image == Images.lvl1_res5 || this.Image == Images.lvl2_res5 || this.Image == Images.lvl3_res5 || this.Image == Images.lvl4_res5 || this.Image == Images.lvl5_res5) {
-        inventory_default.res5 += 1;
-      }
-      if (this.Image == Images.lvl1_res6 || this.Image == Images.lvl2_res6 || this.Image == Images.lvl3_res6 || this.Image == Images.lvl4_res6 || this.Image == Images.lvl5_res6) {
-        inventory_default.res6 += 1;
       }
     }
   };

@@ -117,7 +117,19 @@ export class Tile extends Entity {
     this.curHp -= damage;
   }
   OnDestroy(){
-    // Создание нового блока
+    if(this.Image == Images.lvl1_res1 || this.Image == Images.lvl2_res1 || this.Image == Images.lvl3_res1 || this.Image == Images.lvl4_res1 || this.Image == Images.lvl5_res1){
+      resurse.res1 += 1
+    }if(this.Image == Images.lvl1_res2 || this.Image == Images.lvl2_res2 || this.Image == Images.lvl3_res2 || this.Image == Images.lvl4_res2 || this.Image == Images.lvl5_res2){
+      resurse.res2 += 1
+    }if(this.Image == Images.lvl1_res3 || this.Image == Images.lvl2_res3 || this.Image == Images.lvl3_res3 || this.Image == Images.lvl4_res3 || this.Image == Images.lvl5_res3){
+      resurse.res3 += 1
+    }if(this.Image == Images.lvl1_res4 || this.Image == Images.lvl2_res4 || this.Image == Images.lvl3_res4 || this.Image == Images.lvl4_res4 || this.Image == Images.lvl5_res4){
+      resurse.res4 += 1
+    }if(this.Image == Images.lvl1_res5 || this.Image == Images.lvl2_res5 || this.Image == Images.lvl3_res5 || this.Image == Images.lvl4_res5 || this.Image == Images.lvl5_res5){
+      resurse.res5 += 1
+    }if(this.Image == Images.lvl1_res6 || this.Image == Images.lvl2_res6 || this.Image == Images.lvl3_res6 || this.Image == Images.lvl4_res6 || this.Image == Images.lvl5_res6){
+      resurse.res6 += 1
+    }
     this.Type = EntityTypes.BackGroundTile;
     this.maxHp = 0;
     this.curHp = 0;
@@ -132,20 +144,6 @@ export class Tile extends Entity {
       this.Image = Images.lvl4bg;
     }if(y >= 350){
       this.Image = Images.lvl5bg;
-    }
-
-    if(this.Image == Images.lvl1_res1 || this.Image == Images.lvl2_res1 || this.Image == Images.lvl3_res1 || this.Image == Images.lvl4_res1 || this.Image == Images.lvl5_res1){
-      resurse.res1 += 1
-    }if(this.Image == Images.lvl1_res2 || this.Image == Images.lvl2_res2 || this.Image == Images.lvl3_res2 || this.Image == Images.lvl4_res2 || this.Image == Images.lvl5_res2){
-      resurse.res2 += 1
-    }if(this.Image == Images.lvl1_res3 || this.Image == Images.lvl2_res3 || this.Image == Images.lvl3_res3 || this.Image == Images.lvl4_res3 || this.Image == Images.lvl5_res3){
-      resurse.res3 += 1
-    }if(this.Image == Images.lvl1_res4 || this.Image == Images.lvl2_res4 || this.Image == Images.lvl3_res4 || this.Image == Images.lvl4_res4 || this.Image == Images.lvl5_res4){
-      resurse.res4 += 1
-    }if(this.Image == Images.lvl1_res5 || this.Image == Images.lvl2_res5 || this.Image == Images.lvl3_res5 || this.Image == Images.lvl4_res5 || this.Image == Images.lvl5_res5){
-      resurse.res5 += 1
-    }if(this.Image == Images.lvl1_res6 || this.Image == Images.lvl2_res6 || this.Image == Images.lvl3_res6 || this.Image == Images.lvl4_res6 || this.Image == Images.lvl5_res6){
-      resurse.res6 += 1
     }
   }
 }
