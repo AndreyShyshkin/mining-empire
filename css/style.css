@@ -76,8 +76,6 @@ canvas{
     top: 10px;
 }
 
-
-
 .market{
     position: absolute;
     width: 500px;
@@ -148,7 +146,7 @@ canvas{
     display: flex;
     justify-content: center;
     color: black;
-    margin: 25px;
+    margin: 20px;
     padding: 10px;
 }
 
@@ -164,7 +162,7 @@ canvas{
     display: flex;
     justify-content: center;
     color: black;
-    margin: 25px;
+    margin: 20px;
     padding: 10px;
 }
 
