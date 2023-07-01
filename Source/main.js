@@ -36,7 +36,7 @@ village(SM.town.TC);
 cave();
 
 window.onbeforeunload = function() {
-  return "Вы уверены, что хотите перезагрузить страницу?";
+  return "Are you sure?";
 };
 
 window.onload = () => game.Start()

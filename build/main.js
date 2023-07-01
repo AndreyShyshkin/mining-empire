@@ -815,9 +815,9 @@
     });
   }
   function sellRes(resKey) {
-    let res = prompt("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E:");
+    let res = prompt("Enter the quantity you want to sell:");
     if (inventory_default[resKey] < res) {
-      alert("\u0423 \u0432\u0430\u0441 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442 \u0440\u0435\u0441\u0443\u0440\u0441\u043E\u0432!");
+      alert("You don't have enough resources!");
     } else {
       inventory_default[resKey] -= res;
       res = res * coefficientsSell[resKey];
@@ -825,9 +825,9 @@
     }
   }
   function buyRes(resKey) {
-    let res = prompt("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E:");
+    let res = prompt("Enter the quantity you want to buy:");
     if (inventory_default.money < res * coefficientsBuy[resKey] * 10) {
-      alert("\u0423 \u0432\u0430\u0441 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442 \u0434\u0435\u043D\u0435\u0433!");
+      alert("You don't have enough money!");
     } else {
       inventory_default[resKey] += res;
       res = res * coefficientsBuy[resKey] * 10;
@@ -844,44 +844,44 @@
   function forgeLogic() {
     console.log(Player.Instance.damage);
     if (inventory_default.lvlPick == 1) {
-      resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
-      resurse2.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 10";
+      resurse1.innerHTML = "Coal 10";
+      resurse2.innerHTML = "Iron 10";
     }
     createPick.addEventListener("click", (event) => {
       if (inventory_default.lvlPick == 1 && inventory_default.res1 >= 10 && inventory_default.res2 >= 10) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
         inventory_default.res2 -= 10;
-        resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
-        resurse2.innerHTML = "\u0416\u0435\u043B\u0435\u0437\u043E 30";
-        resurse3.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 20";
+        resurse1.innerHTML = "Coal 10";
+        resurse2.innerHTML = "Iron 30";
+        resurse3.innerHTML = "Gold 20";
         Player.Instance.damage += 1;
       } else if (inventory_default.lvlPick == 2 && inventory_default.res1 >= 10 && inventory_default.res2 >= 30 && inventory_default.res3 >= 20) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
         inventory_default.res2 -= 30;
         inventory_default.res3 -= 20;
-        resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
-        resurse2.innerHTML = "\u0417\u043E\u043B\u043E\u0442\u043E 30";
-        resurse3.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 20";
+        resurse1.innerHTML = "Coal 10";
+        resurse2.innerHTML = "Gold 30";
+        resurse3.innerHTML = "Tungsten 20";
         Player.Instance.damage += 1;
       } else if (inventory_default.lvlPick == 3 && inventory_default.res1 >= 10 && inventory_default.res3 >= 30 && inventory_default.res4 >= 20) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
         inventory_default.res3 -= 30;
         inventory_default.res4 -= 20;
-        resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
-        resurse2.innerHTML = "\u0412\u043E\u043B\u044C\u0444\u0440\u0430\u043C 30";
-        resurse3.innerHTML = "\u0422\u0438\u0442\u0430\u043D 20";
+        resurse1.innerHTML = "Coal 10";
+        resurse2.innerHTML = "Tungsten 30";
+        resurse3.innerHTML = "Titanium 20";
         Player.Instance.damage += 1;
       } else if (inventory_default.lvlPick == 4 && inventory_default.res1 >= 10 && inventory_default.res4 >= 30 && inventory_default.res5 >= 20) {
         inventory_default.lvlPick += 1;
         inventory_default.res1 -= 10;
         inventory_default.res4 -= 30;
         inventory_default.res5 -= 20;
-        resurse1.innerHTML = "\u0423\u0433\u043E\u043B\u044C 10";
-        resurse2.innerHTML = "\u0422\u0438\u0442\u0430\u043D 30";
-        resurse3.innerHTML = "\u0414\u0440\u0430\u0433\u043E\u0446\u0456\u0439\u043D\u0438\u0439 \u043A\u0430\u043C\u0456\u043D\u044C 20";
+        resurse1.innerHTML = "Coal 10";
+        resurse2.innerHTML = "Titanium 30";
+        resurse3.innerHTML = "Jewel 20";
         Player.Instance.damage += 1;
       } else if (inventory_default.lvlPick == 5 && inventory_default.res1 >= 10 && inventory_default.res5 >= 30 && inventory_default.res6 >= 20) {
         inventory_default.lvlPick += 1;
@@ -893,7 +893,7 @@
         resurse3.innerHTML = "";
         Player.Instance.damage += 1;
       } else {
-        alert("\u0423 \u0432\u0430\u0441 \u043D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442 \u0440\u0435\u0441\u0443\u0440\u0441\u043E\u0432!");
+        alert("You don't have enough resources!");
       }
     });
   }
@@ -1704,7 +1704,7 @@
   village_default(SM.town.TC);
   cave_default();
   window.onbeforeunload = function() {
-    return "\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u043F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443?";
+    return "Are you sure?";
   };
   window.onload = () => game.Start();
   function Start() {

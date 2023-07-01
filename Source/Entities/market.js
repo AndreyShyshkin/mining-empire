@@ -70,9 +70,9 @@ function marketLogic(){
 }
 
 function sellRes(resKey) {
-    let res = prompt("Введите количество:");
+    let res = prompt("Enter the quantity you want to sell:");
     if (resurse[resKey] < res) {
-        alert("У вас не хватает ресурсов!");
+        alert("You don't have enough resources!");
     } else {
         resurse[resKey] -= res;
         res = res * coefficientsSell[resKey];
@@ -81,9 +81,9 @@ function sellRes(resKey) {
 }
 
 function buyRes(resKey) {
-    let res = prompt("Введите количество:");
+    let res = prompt("Enter the quantity you want to buy:");
     if (resurse.money < res * coefficientsBuy[resKey] * 10) {
-        alert("У вас не хватает денег!");
+        alert("You don't have enough money!");
     } else {
         resurse[resKey] += res
         res = res * coefficientsBuy[resKey] * 10;
