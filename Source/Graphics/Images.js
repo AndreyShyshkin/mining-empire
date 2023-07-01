@@ -52,11 +52,11 @@ export class Images{
     static ladder = CreateImageByPath("Res/img/Structures/Ladder.png");
 
     static cave = CreateImageByPath("Res/img/Building/Cave.png");
-    static forge = CreateImageByPath("Res/img/forge.png");
-    static home1 = CreateImageByPath("Res/img/home1.png");
-    static home2 = CreateImageByPath("Res/img/home2.png");
-    static home3 = CreateImageByPath("Res/img/home3.png");
-    static market = CreateImageByPath("Res/img/market.png");
+    static forge = CreateImageByPath("Res/img/Building/forge.png");
+    static home1 = CreateImageByPath("Res/img/Building/House1.png");
+    static home2 = CreateImageByPath("Res/img/Building/House2.png");
+    static home3 = CreateImageByPath("Res/img/Building/House3.png");
+    static market = CreateImageByPath("Res/img/Building/market.png");
     static tree = CreateImageByPath("Res/img/tree.png");
 
     static damage1 = CreateImageByPath("Res/img/BlockDamage/Block damage1.png");

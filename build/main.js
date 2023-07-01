@@ -459,11 +459,11 @@
     static cross = CreateImageByPath("Res/img/Structures/Cross.png");
     static ladder = CreateImageByPath("Res/img/Structures/Ladder.png");
     static cave = CreateImageByPath("Res/img/Building/Cave.png");
-    static forge = CreateImageByPath("Res/img/forge.png");
-    static home1 = CreateImageByPath("Res/img/home1.png");
-    static home2 = CreateImageByPath("Res/img/home2.png");
-    static home3 = CreateImageByPath("Res/img/home3.png");
-    static market = CreateImageByPath("Res/img/market.png");
+    static forge = CreateImageByPath("Res/img/Building/forge.png");
+    static home1 = CreateImageByPath("Res/img/Building/House1.png");
+    static home2 = CreateImageByPath("Res/img/Building/House2.png");
+    static home3 = CreateImageByPath("Res/img/Building/House3.png");
+    static market = CreateImageByPath("Res/img/Building/market.png");
     static tree = CreateImageByPath("Res/img/tree.png");
     static damage1 = CreateImageByPath("Res/img/BlockDamage/Block damage1.png");
     static damage2 = CreateImageByPath("Res/img/BlockDamage/Block damage2.png");
@@ -1623,26 +1623,26 @@
           let r = Random3(1, 3);
           switch (r) {
             case 1:
-              home1(SceneManager.Instance.town.Entities, x - 0.6, y);
+              home1(SceneManager.Instance.town.Entities, x - 0.65, y);
               break;
             case 2:
-              home2(SceneManager.Instance.town.Entities, x - 0.6, y);
+              home2(SceneManager.Instance.town.Entities, x - 0.65, y);
               break;
             case 3:
-              home3(SceneManager.Instance.town.Entities, x - 0.6, y);
+              home3(SceneManager.Instance.town.Entities, x - 0.65, y);
               break;
           }
         } else if (y == 3 && x % 4 == 0 && x > 12 && x < 25) {
           let r = Random3(1, 3);
           switch (r) {
             case 1:
-              home1(SceneManager.Instance.town.Entities, x, y);
+              home1(SceneManager.Instance.town.Entities, x - 1, y);
               break;
             case 2:
-              home2(SceneManager.Instance.town.Entities, x, y);
+              home2(SceneManager.Instance.town.Entities, x - 1, y);
               break;
             case 3:
-              home3(SceneManager.Instance.town.Entities, x, y);
+              home3(SceneManager.Instance.town.Entities, x - 1, y);
               break;
           }
         } else if (y == 6) {
@@ -1674,7 +1674,7 @@
   function home1(Entities, x, y) {
     Entities.push(
       new Tile(
-        new Vector2(100 * x, 100 * (y - 1)),
+        new Vector2(110 * x, 100 * (y - 1)),
         new Vector2(400, 400),
         Images.home1,
         2,
@@ -1686,7 +1686,7 @@
   function home2(Entities, x, y) {
     Entities.push(
       new Tile(
-        new Vector2(100 * x, 100 * (y - 1)),
+        new Vector2(110 * x, 100 * (y - 1)),
         new Vector2(400, 400),
         Images.home2,
         2,
@@ -1698,7 +1698,7 @@
   function home3(Entities, x, y) {
     Entities.push(
       new Tile(
-        new Vector2(100 * x, 100 * (y - 1)),
+        new Vector2(110 * x, 100 * (y - 1)),
         new Vector2(400, 400),
         Images.home3,
         2,
