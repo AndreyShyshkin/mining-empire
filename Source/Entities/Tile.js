@@ -136,14 +136,19 @@ export class Tile extends Entity {
     let y = this.transform.Position.Y/100;
     if(y < 50){
       this.Image = Images.lvl1bg;
+      this.Layer = 1;
     }if(y >= 50 && y < 150){
       this.Image = Images.lvl2bg;
+      this.Layer = 1;
     }if(y >= 150 && y < 250){
       this.Image = Images.lvl3bg;
+      this.Layer = 1;
     }if(y >= 250 && y < 350){
       this.Image = Images.lvl4bg;
+      this.Layer = 1;
     }if(y >= 350){
       this.Image = Images.lvl5bg;
+      this.Layer = 1;
     }
   }
 }

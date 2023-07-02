@@ -7,7 +7,7 @@ import { EntityTypes } from "../Physics/EntityTypes";
 import { Cave } from "../Entities/Cave";
 function village(){
   for (let x = -62; x < 62; x++) {
-    if(x % 5 == 0 && (x < 4 || x > 16)){ 
+    if(x % 4 == 0 && (x < 4 || x > 16)){ 
       tree(SceneManager.Instance.town.Entities, x, 3);
     }
     else if((x == 7 || x == 10)){

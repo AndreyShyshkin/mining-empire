@@ -626,18 +626,23 @@
       let y = this.transform.Position.Y / 100;
       if (y < 50) {
         this.Image = Images.lvl1bg;
+        this.Layer = 1;
       }
       if (y >= 50 && y < 150) {
         this.Image = Images.lvl2bg;
+        this.Layer = 1;
       }
       if (y >= 150 && y < 250) {
         this.Image = Images.lvl3bg;
+        this.Layer = 1;
       }
       if (y >= 250 && y < 350) {
         this.Image = Images.lvl4bg;
+        this.Layer = 1;
       }
       if (y >= 350) {
         this.Image = Images.lvl5bg;
+        this.Layer = 1;
       }
     }
   };
@@ -1579,7 +1584,7 @@
   // Source/Map/village.js
   function village() {
     for (let x = -62; x < 62; x++) {
-      if (x % 5 == 0 && (x < 4 || x > 16)) {
+      if (x % 4 == 0 && (x < 4 || x > 16)) {
         tree2(SceneManager.Instance.town.Entities, x, 3);
       } else if (x == 7 || x == 10) {
         tree2(SceneManager.Instance.town.Entities, x, 3);
