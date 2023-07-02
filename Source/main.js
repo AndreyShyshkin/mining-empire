@@ -34,7 +34,7 @@ let player = new Player(
   new Vector2(920, 500),
   new Vector2(80, 80),
   playerImg,
-  2,
+  3,
   Vector2.Zero,
   SM
 )
@@ -82,10 +82,9 @@ function Update() {
   })
   SM.currentScene.TC.UpdateLoadted(Player.Camera.Y);
   player.Update(entities);
-  const layer1Context = Canvas.Instance.GetLayerContext(1);
-  const layer2Context = Canvas.Instance.GetLayerContext(2);
-  layer1Context.clearRect(0, 0, 1920, 1080);
-  layer2Context.clearRect(0, 0, 1920, 1080);
+  Canvas.Instance.GetLayerContext(1).clearRect(0, 0, 1920, 1080);
+  Canvas.Instance.GetLayerContext(2).clearRect(0, 0, 1920, 1080);
+  Canvas.Instance.GetLayerContext(3).clearRect(0, 0, 1920, 1080);
   SM.currentScene.Draw();
   player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
 

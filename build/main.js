@@ -16,7 +16,7 @@
 
   // Source/Graphics/Canvas/Canvas.js
   var Canvas = class _Canvas {
-    static Instance = new _Canvas(3);
+    static Instance = new _Canvas(4);
     Layers = [];
     UI;
     constructor(LayersCount) {
@@ -348,7 +348,7 @@
     }
     UpdateLoadted(cameraPosH) {
       this.LoadedLayers = [];
-      for (let y = cameraPosH; y < cameraPosH + this.cameraHeight; y += this.tileSize) {
+      for (let y = cameraPosH - 100; y < cameraPosH + this.cameraHeight + 100; y += this.tileSize) {
         if (y > 0 && Math.floor(y / this.tileSize) < this.Layers.length) {
           this.LoadedLayers.push(this.Layers[Math.floor(y / this.tileSize)]);
         }
@@ -626,23 +626,18 @@
       let y = this.transform.Position.Y / 100;
       if (y < 50) {
         this.Image = Images.lvl1bg;
-        this.Layer = 1;
       }
       if (y >= 50 && y < 150) {
         this.Image = Images.lvl2bg;
-        this.Layer = 1;
       }
       if (y >= 150 && y < 250) {
         this.Image = Images.lvl3bg;
-        this.Layer = 1;
       }
       if (y >= 250 && y < 350) {
         this.Image = Images.lvl4bg;
-        this.Layer = 1;
       }
       if (y >= 350) {
         this.Image = Images.lvl5bg;
-        this.Layer = 1;
       }
     }
   };
@@ -1287,7 +1282,7 @@
               new Vector2(x, y),
               new Vector2(100, 100),
               Images.ladder,
-              2,
+              3,
               EntityTypes.Ladder,
               SceneManager.Instance.mine
             )
@@ -1757,7 +1752,7 @@
     new Vector2(920, 500),
     new Vector2(80, 80),
     playerImg,
-    2,
+    3,
     Vector2.Zero,
     SM
   );
@@ -1796,10 +1791,9 @@
     });
     SM.currentScene.TC.UpdateLoadted(Player.Camera.Y);
     player.Update(entities);
-    const layer1Context = Canvas.Instance.GetLayerContext(1);
-    const layer2Context = Canvas.Instance.GetLayerContext(2);
-    layer1Context.clearRect(0, 0, 1920, 1080);
-    layer2Context.clearRect(0, 0, 1920, 1080);
+    Canvas.Instance.GetLayerContext(1).clearRect(0, 0, 1920, 1080);
+    Canvas.Instance.GetLayerContext(2).clearRect(0, 0, 1920, 1080);
+    Canvas.Instance.GetLayerContext(3).clearRect(0, 0, 1920, 1080);
     SM.currentScene.Draw();
     player.Draw(Canvas.Instance.GetLayerContext(player.Layer), Player.Camera);
     money.innerHTML = inventory_default.money;

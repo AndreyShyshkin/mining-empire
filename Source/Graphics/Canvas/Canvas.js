@@ -1,6 +1,6 @@
 import { Layer } from "./Layer"
 export class Canvas {
-  static Instance = new Canvas(3);
+  static Instance = new Canvas(4);
   Layers = []
   UI
   constructor(LayersCount) {

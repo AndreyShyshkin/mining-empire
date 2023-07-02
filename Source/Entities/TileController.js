@@ -19,8 +19,8 @@ export class TileController {
   UpdateLoadted(cameraPosH) {
     this.LoadedLayers = []
     for (
-      let y = cameraPosH;
-      y < cameraPosH + this.cameraHeight;
+      let y = cameraPosH - 100;
+      y < cameraPosH + this.cameraHeight + 100;
       y += this.tileSize
     ) {
       if (y > 0 && Math.floor(y / this.tileSize) < this.Layers.length) {

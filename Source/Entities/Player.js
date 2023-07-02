@@ -422,7 +422,7 @@ ForgeCheck(entity){
             new Vector2(x, y),
             new Vector2(100, 100),
             Images.ladder,
-            2,
+            3,
             EntityTypes.Ladder,
             SceneManager.Instance.mine
           )
